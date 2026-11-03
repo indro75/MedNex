@@ -19,10 +19,11 @@ import { KHULNA_AMBULANCES, KHULNA_HOSPITALS, KHULNA_AREAS } from '../../data/kh
 import { AmbulanceProvider, Hospital } from '../../types';
 import { useAuth } from '../../context/AuthContext';
 import { useHealth } from '../../context/HealthContext';
+import { translateArea } from '../../utils/translations';
 
 export const EmergencyAmbulancePage: React.FC = () => {
   const { user } = useAuth();
-  const { bilingualMode } = useHealth();
+  const { bilingualMode, language, t } = useHealth();
 
   const [filterType, setFilterType] = useState<'All' | 'ICU / AC' | 'Standard Non-AC'>('All');
   const [userArea, setUserArea] = useState<string>('Sonadanga');
@@ -75,14 +76,15 @@ Condition Note: ${patientNote}`;
           <div className="space-y-3 max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xs text-xs font-bold text-red-100">
               <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping" />
-              <span>National Emergency Hotline (Bangladesh)</span>
-              {bilingualMode && <span>| বাংলাদেশ জাতীয় জরুরি সেবা ৯৯৯</span>}
+              <span>{bilingualMode ? 'বাংলাদেশ জাতীয় জরুরি সেবা ৯৯৯' : 'National Emergency Hotline (Bangladesh)'}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
-              Emergency Assistance & 24/7 Ambulance
+              {bilingualMode ? 'জরুরি সহায়তা ও ২৪/৭ অ্যাম্বুলেন্স' : 'Emergency Assistance & 24/7 Ambulance'}
             </h2>
             <p className="text-red-100 text-xs sm:text-sm leading-relaxed">
-              In severe medical trauma, cardiac arrest, or obstetric emergencies, dial <strong>999</strong> immediately for government dispatch, or contact verified Khulna ambulance providers below.
+              {bilingualMode
+                ? 'মারাত্মক ট্রমা, হার্ট অ্যাটাক বা সংকটাপন্ন প্রসূতি রোগীদের জন্য সরকারি সেবা পেতে অবিলম্বে ৯৯৯ এ কল করুন, অথবা নিচের খুলনা যাচাইকৃত অ্যাম্বুলেন্সে যোগাযোগ করুন।'
+                : 'In severe medical trauma, cardiac arrest, or obstetric emergencies, dial 999 immediately for government dispatch, or contact verified Khulna ambulance providers below.'}
             </p>
           </div>
 
@@ -92,7 +94,7 @@ Condition Note: ${patientNote}`;
               className="w-full sm:w-auto px-8 py-4 bg-white text-red-600 hover:bg-red-50 rounded-2xl text-base font-black shadow-xl transition flex items-center justify-center gap-3 emergency-pulse"
             >
               <PhoneCall className="w-6 h-6 stroke-[3]" />
-              DIAL 999 NOW
+              {bilingualMode ? 'এখনই ৯৯৯ ডায়াল করুন' : 'DIAL 999 NOW'}
             </a>
           </div>
         </div>
@@ -104,9 +106,11 @@ Condition Note: ${patientNote}`;
       <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-xs text-amber-950 flex items-start gap-3 shadow-xs">
         <AlertTriangle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
         <div>
-          <p className="font-bold text-amber-900 mb-0.5">Important Dispatch Notice:</p>
+          <p className="font-bold text-amber-900 mb-0.5">{bilingualMode ? 'জরুরি ডিসপ্যাচ বিজ্ঞপ্তি:' : 'Important Dispatch Notice:'}</p>
           <p className="leading-relaxed text-amber-800">
-            MedNex connects you with verified ambulance contact numbers and hospital ERs. We do not automatically dispatch an ambulance vehicle electronically; you must speak directly with the dispatcher via phone call. Real-time GPS availability is subject to live operator confirmation.
+            {bilingualMode
+              ? 'মেডনেক্স আপনাকে সরাসরি যাচাইকৃত অ্যাম্বুলেন্স প্রোভাইডার ও হাসপাতালের জরুরি ইআর এর সাথে ফোন কলে সংযুক্ত করে। স্বয়ংক্রিয়ভাবে গাড়ি না পাঠিয়ে আপনাকে সরাসরি কল করে চালকের সাথে নিশ্চিত হতে হবে।'
+              : 'MedNex connects you with verified ambulance contact numbers and hospital ERs. We do not automatically dispatch an ambulance vehicle electronically; you must speak directly with the dispatcher via phone call. Real-time GPS availability is subject to live operator confirmation.'}
           </p>
         </div>
       </div>
@@ -116,7 +120,7 @@ Condition Note: ${patientNote}`;
         {/* User Current Neighborhood in Khulna */}
         <div className="flex items-center gap-2">
           <Compass className="w-4 h-4 text-teal-600" />
-          <span className="text-xs font-bold text-slate-700">Pickup Area in Khulna:</span>
+          <span className="text-xs font-bold text-slate-700">{bilingualMode ? 'রোগীর অবস্থান (খুলনা):' : 'Pickup Area in Khulna:'}</span>
           <select
             value={userArea}
             onChange={(e) => setUserArea(e.target.value)}
@@ -124,7 +128,7 @@ Condition Note: ${patientNote}`;
           >
             {KHULNA_AREAS.filter((a) => a !== 'All Areas').map((area) => (
               <option key={area} value={area}>
-                {area}
+                {translateArea(area, language)}
               </option>
             ))}
           </select>
@@ -132,7 +136,7 @@ Condition Note: ${patientNote}`;
 
         {/* Filter Ambulances */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-700">Vehicle Type:</span>
+          <span className="text-xs font-bold text-slate-700">{bilingualMode ? 'অ্যাম্বুলেন্সের ধরন:' : 'Vehicle Type:'}</span>
           <div className="inline-flex bg-slate-100 p-1 rounded-xl">
             {(['All', 'ICU / AC', 'Standard Non-AC'] as const).map((type) => (
               <button
@@ -144,7 +148,7 @@ Condition Note: ${patientNote}`;
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                {type}
+                {bilingualMode ? (type === 'All' ? 'সকল' : type === 'ICU / AC' ? 'আইসিইউ / এসি' : 'স্ট্যান্ডার্ড নন-এসি') : type}
               </button>
             ))}
           </div>

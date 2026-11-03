@@ -20,7 +20,7 @@ import { MedicineInfo, DrugInteraction } from '../../types';
 import { useHealth } from '../../context/HealthContext';
 
 export const MedicineCheckerPage: React.FC = () => {
-  const { bilingualMode } = useHealth();
+  const { bilingualMode, t } = useHealth();
   const [activeTab, setActiveTab] = useState<'info' | 'interactions'>('info');
 
   // Search & Selected Medicine
@@ -73,9 +73,13 @@ export const MedicineCheckerPage: React.FC = () => {
       setInteractionResult({
         drug1: drugA,
         drug2: drugB,
-        severity: 'Minor / Monitor',
-        effect: 'No severe acute clinical contraindication recorded in standard clinical pharmacology indexes between these two compounds.',
-        recommendation: 'Safe to administer as prescribed. However, always consult your physician or pharmacist regarding exact timing and personal organ tolerance.'
+        severity: bilingualMode ? 'মাইনর / স্বাভাবিক পর্যবেক্ষণ' : 'Minor / Monitor',
+        effect: bilingualMode
+          ? 'স্ট্যান্ডার্ড ক্লিনিক্যাল ফার্মাকোলজি তথ্যসূত্রে এই দুটি ওষুধের মধ্যে কোনো মারাত্মক প্রতিকূল ক্রিয়া বা নিষেধ পাওয়া যায়নি।'
+          : 'No severe acute clinical contraindication recorded in standard clinical pharmacology indexes between these two compounds.',
+        recommendation: bilingualMode
+          ? 'ডাক্তারের প্রেসক্রিপশন অনুযায়ী সেবন করা নিরাপদ। তবে সেবনের সময়সূচির জন্য ফার্মাসিস্ট বা ডাক্তারের পরামর্শ নিন।'
+          : 'Safe to administer as prescribed. However, always consult your physician or pharmacist regarding exact timing and personal organ tolerance.'
       });
     }
   };
@@ -87,21 +91,22 @@ export const MedicineCheckerPage: React.FC = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-xs font-bold mb-2">
             <Pill className="w-3.5 h-3.5 text-amber-600" />
-            <span>Verified Bangladesh Pharmaceutical Database</span>
-            {bilingualMode && <span>| ওষুধ নির্দেশিকা ও ইন্টারঅ্যাকশন চেকার</span>}
+            <span>{bilingualMode ? 'বাংলাদেশের অনুমোদিত ওষুধ ডাটাবেজ' : 'Verified Bangladesh Pharmaceutical Database'}</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            AI Medicine Information & Interaction Checker
+            {bilingualMode ? 'এআই ওষুধ তথ্য নির্দেশিকা ও ড্রাগ ইন্টারঅ্যাকশন' : 'AI Medicine Information & Interaction Checker'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-            Upload medicine packaging images, search by brand name or generic formula, and check for potential adverse drug-drug interactions.
+            {bilingualMode
+              ? 'ওষুধের প্যাকেজ ছবি আপলোড করুন, ব্র্যান্ড বা জেনেরিক সূত্রে সন্ধান করুন এবং ওষুধের ক্ষতিকর ড্রাগ-ড্রাগ ইন্টারঅ্যাকশন যাচাই করুন।'
+              : 'Upload medicine packaging images, search by brand name or generic formula, and check for potential adverse drug-drug interactions.'}
           </p>
         </div>
 
         {/* Upload Button */}
         <label className="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-xs font-bold shadow-md shadow-blue-500/20 transition cursor-pointer shrink-0">
           <Camera className="w-4 h-4" />
-          <span>Upload Medicine Box/Strip</span>
+          <span>{bilingualMode ? 'ওষুধের প্যাকেজের ছবি আপলোড' : 'Upload Medicine Box/Strip'}</span>
           <input
             type="file"
             accept="image/*"
@@ -115,11 +120,14 @@ export const MedicineCheckerPage: React.FC = () => {
       <div className="p-4 bg-amber-50/90 border border-amber-200 rounded-2xl text-xs text-amber-950 flex items-start gap-3 shadow-xs">
         <ShieldAlert className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
         <p className="leading-relaxed">
-          <strong>Prescription Safety Principle:</strong> MedNex provides educational drug information only. We never suggest changing dosages, altering physician prescriptions, or stopping medications. If a package is unclear or torn, always confirm with your registered pharmacist or prescribing doctor.
+          <strong>{bilingualMode ? 'প্রেসক্রিপশন নিরাপত্তা নীতি:' : 'Prescription Safety Principle:'}</strong>{' '}
+          {bilingualMode
+            ? 'মেডনেক্স শুধুমাত্র শিক্ষামূলক ওষুধ তথ্য সরবরাহ করে। আমরা কখনোই নিজ থেকে ওষুধের ডোজ পরিবর্তন, চিকিৎসকের প্রেসক্রিপশন পরিবর্তন বা ওষুধ বন্ধ করার পরামর্শ দিই না। প্যাকেজটি অপরিষ্কার বা ছেঁড়া হলে সর্বদা আপনার নিবন্ধিত ফার্মাসিস্ট বা চিকিৎসকের সাথে যাচাই করুন।'
+            : 'MedNex provides educational drug information only. We never suggest changing dosages, altering physician prescriptions, or stopping medications. If a package is unclear or torn, always confirm with your registered pharmacist or prescribing doctor.'}
         </p>
       </div>
 
-      {/* Mode Tabs: Medicine Information vs Drug-Drug Interaction */}
+      {/* Mode Tabs */}
       <div className="inline-flex bg-white p-1.5 rounded-2xl border border-slate-200 shadow-xs">
         <button
           onClick={() => setActiveTab('info')}
@@ -130,7 +138,7 @@ export const MedicineCheckerPage: React.FC = () => {
           }`}
         >
           <Pill className="w-4 h-4" />
-          Medicine Information Guide
+          {bilingualMode ? 'ওষুধ তথ্য নির্দেশিকা' : 'Medicine Information Guide'}
         </button>
         <button
           onClick={() => setActiveTab('interactions')}
@@ -141,7 +149,7 @@ export const MedicineCheckerPage: React.FC = () => {
           }`}
         >
           <GitCompare className="w-4 h-4" />
-          Drug-Drug Interaction Checker
+          {bilingualMode ? 'ওষুধের পারস্পরিক ক্রিয়া (ড্রাগ ইন্টারঅ্যাকশন)' : 'Drug-Drug Interaction Checker'}
         </button>
       </div>
 

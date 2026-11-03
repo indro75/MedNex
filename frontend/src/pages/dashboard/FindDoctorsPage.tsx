@@ -27,10 +27,11 @@ import {
 import { Doctor, Appointment } from '../../types';
 import { useHealth } from '../../context/HealthContext';
 import { useAuth } from '../../context/AuthContext';
+import { translateArea, translateSpecialty } from '../../utils/translations';
 
 export const FindDoctorsPage: React.FC = () => {
   const { user } = useAuth();
-  const { appointments, bookAppointment, cancelAppointment } = useHealth();
+  const { appointments, bookAppointment, cancelAppointment, bilingualMode, language, t } = useHealth();
 
   const [selectedArea, setSelectedArea] = useState('All Areas');
   const [selectedSpecialty, setSelectedSpecialty] = useState('All Specialties');
@@ -104,13 +105,15 @@ export const FindDoctorsPage: React.FC = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 text-xs font-bold mb-2">
             <Compass className="w-3.5 h-3.5 text-teal-600" />
-            <span>Khulna Regional Healthcare Directory</span>
+            <span>{bilingualMode ? 'খুলনা বিভাগীয় স্বাস্থ্য ডিরেক্টরি' : 'Khulna Regional Healthcare Directory'}</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Find Nearby Specialists & Hospitals
+            {bilingualMode ? 'খুলনার যাচাইকৃত বিশেষজ্ঞ ডাক্তার ও হাসপাতাল' : 'Find Nearby Specialists & Hospitals'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-            Verified BMDC doctors, hospital facilities, chamber serial booking, and direct navigation in Khulna, Bangladesh. Zero synthetic records.
+            {bilingualMode
+              ? 'বিএমডিসি নিবন্ধিত ডাক্তার, হাসপাতালের বিস্তারিত তথ্য, চেম্বার সিরিয়াল বুকিং এবং গুগল ম্যাপে সরাসরি লোকেশন। কোনো ভুয়া বা আনুমানিক ডাটা নেই।'
+              : 'Verified BMDC doctors, hospital facilities, chamber serial booking, and direct navigation in Khulna, Bangladesh. Zero synthetic records.'}
           </p>
         </div>
 
@@ -123,7 +126,9 @@ export const FindDoctorsPage: React.FC = () => {
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               <p className="text-xs font-bold text-slate-800">
-                {locationPermissionGranted ? 'GPS: Khulna Sadar, BD' : 'Manual Location Selected'}
+                {bilingualMode
+                  ? (locationPermissionGranted ? 'জিপিএস: খুলনা সদর, বাংলাদেশ' : 'ম্যানুয়াল লোকেশন নির্বাচন')
+                  : (locationPermissionGranted ? 'GPS: Khulna Sadar, BD' : 'Manual Location Selected')}
               </p>
             </div>
             <button
@@ -131,7 +136,9 @@ export const FindDoctorsPage: React.FC = () => {
               onClick={() => setLocationPermissionGranted(!locationPermissionGranted)}
               className="text-[11px] text-teal-700 hover:underline font-medium"
             >
-              {locationPermissionGranted ? 'Switch to manual' : 'Auto-detect GPS location'}
+              {bilingualMode
+                ? (locationPermissionGranted ? 'ম্যানুয়াল লোকেশনে পরিবর্তন' : 'অটো জিপিএস লোকেশন চালু করুন')
+                : (locationPermissionGranted ? 'Switch to manual' : 'Auto-detect GPS location')}
             </button>
           </div>
         </div>
@@ -141,7 +148,7 @@ export const FindDoctorsPage: React.FC = () => {
       <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs space-y-4">
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-          {/* Main Tab Toggle: Doctors vs Hospitals vs My Appointments */}
+          {/* Main Tab Toggle */}
           <div className="inline-flex bg-slate-100 p-1 rounded-2xl flex-wrap">
             <button
               onClick={() => setActiveTab('doctors')}
@@ -152,7 +159,7 @@ export const FindDoctorsPage: React.FC = () => {
               }`}
             >
               <Stethoscope className="w-4 h-4" />
-              Specialist Doctors ({filteredDoctors.length})
+              {bilingualMode ? `বিশেষজ্ঞ ডাক্তার (${filteredDoctors.length})` : `Specialist Doctors (${filteredDoctors.length})`}
             </button>
             <button
               onClick={() => setActiveTab('hospitals')}
@@ -163,7 +170,7 @@ export const FindDoctorsPage: React.FC = () => {
               }`}
             >
               <Building2 className="w-4 h-4" />
-              Hospitals & Clinics ({filteredHospitals.length})
+              {bilingualMode ? `হাসপাতাল ও ক্লিনিক (${filteredHospitals.length})` : `Hospitals & Clinics (${filteredHospitals.length})`}
             </button>
             <button
               onClick={() => setActiveTab('my_appointments')}
@@ -174,7 +181,7 @@ export const FindDoctorsPage: React.FC = () => {
               }`}
             >
               <Ticket className="w-4 h-4" />
-              My Booked Serials ({appointments.length})
+              {bilingualMode ? `বুক করা সিরিয়াল (${appointments.length})` : `My Booked Serials (${appointments.length})`}
             </button>
           </div>
 
@@ -189,7 +196,7 @@ export const FindDoctorsPage: React.FC = () => {
                     : 'text-slate-600'
                 }`}
               >
-                List View
+                {bilingualMode ? 'তালিকা ভিউ' : 'List View'}
               </button>
               <button
                 onClick={() => setViewMode('map')}
@@ -199,7 +206,7 @@ export const FindDoctorsPage: React.FC = () => {
                     : 'text-slate-600'
                 }`}
               >
-                Interactive Map
+                {bilingualMode ? 'ম্যাপ ভিউ' : 'Interactive Map'}
               </button>
             </div>
           )}
@@ -214,7 +221,7 @@ export const FindDoctorsPage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by doctor name, chamber or keyword..."
+                placeholder={bilingualMode ? 'ডাক্তারের নাম, চেম্বার বা কিওয়ার্ড দিয়ে খুঁজুন...' : 'Search by doctor name, chamber or keyword...'}
                 className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -227,7 +234,7 @@ export const FindDoctorsPage: React.FC = () => {
               >
                 {KHULNA_AREAS.map((area) => (
                   <option key={area} value={area}>
-                    {area}
+                    {translateArea(area, language)}
                   </option>
                 ))}
               </select>
@@ -242,7 +249,7 @@ export const FindDoctorsPage: React.FC = () => {
                 >
                   {MEDICAL_SPECIALTIES.map((spec) => (
                     <option key={spec} value={spec}>
-                      {spec}
+                      {translateSpecialty(spec, language)}
                     </option>
                   ))}
                 </select>
@@ -350,8 +357,8 @@ export const FindDoctorsPage: React.FC = () => {
       {activeTab === 'doctors' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between text-xs font-semibold text-slate-500 px-1">
-            <span>Showing {filteredDoctors.length} verified doctors in Khulna</span>
-            <span>All BMDC registrations active</span>
+            <span>{bilingualMode ? `খুলনায় মোট ${filteredDoctors.length} জন যাচাইকৃত বিশেষজ্ঞ ডাক্তার` : `Showing ${filteredDoctors.length} verified doctors in Khulna`}</span>
+            <span>{bilingualMode ? 'সকল বিএমডিসি সনদ যাচাইকৃত' : 'All BMDC registrations active'}</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -365,13 +372,13 @@ export const FindDoctorsPage: React.FC = () => {
                     <div>
                       <div className="flex items-center gap-2 flex-wrap mb-1">
                         <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                          {doc.specialty}
+                          {translateSpecialty(doc.specialty, language)}
                         </span>
                         <span className="text-[11px] font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full">
-                          {doc.area}
+                          {translateArea(doc.area, language)}
                         </span>
                         <span className="text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
-                          BMDC: {doc.bmdcRegNo}
+                          {bilingualMode ? 'বিএমডিসি' : 'BMDC'}: {doc.bmdcRegNo}
                         </span>
                       </div>
                       <h3 className="text-base font-extrabold text-slate-900">{doc.name}</h3>
@@ -385,7 +392,7 @@ export const FindDoctorsPage: React.FC = () => {
                         <span className="text-slate-400 font-normal">({doc.totalReviews})</span>
                       </div>
                       <p className="text-xs font-extrabold text-slate-900 mt-1">৳{doc.consultationFeeBDT}</p>
-                      <p className="text-[10px] text-slate-400">Consultation</p>
+                      <p className="text-[10px] text-slate-400">{bilingualMode ? 'পরামর্শ ফি' : 'Consultation'}</p>
                     </div>
                   </div>
 
@@ -400,7 +407,7 @@ export const FindDoctorsPage: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <Building2 className="w-4 h-4 text-slate-400 shrink-0" />
-                      <span>Attached: {doc.hospital} ({doc.experienceYears}+ yrs exp)</span>
+                      <span>{bilingualMode ? `হাসপাতাল: ${doc.hospital} (${doc.experienceYears}+ বছর অভিজ্ঞতা)` : `Attached: ${doc.hospital} (${doc.experienceYears}+ yrs exp)`}</span>
                     </div>
                   </div>
                 </div>
@@ -413,7 +420,7 @@ export const FindDoctorsPage: React.FC = () => {
                     className="flex-1 py-2.5 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold text-center flex items-center justify-center gap-1.5 shadow-xs transition"
                   >
                     <Calendar className="w-3.5 h-3.5" />
-                    Book Chamber Serial
+                    {bilingualMode ? 'চেম্বার সিরিয়াল বুক করুন' : 'Book Chamber Serial'}
                   </button>
                   <a
                     href={`tel:${doc.contactNumber}`}
@@ -421,7 +428,7 @@ export const FindDoctorsPage: React.FC = () => {
                     title="Direct Phone Call"
                   >
                     <PhoneCall className="w-3.5 h-3.5 text-blue-600" />
-                    Call
+                    {bilingualMode ? 'কল' : 'Call'}
                   </a>
                   <a
                     href={getGoogleMapsDirectionsUrl(doc.chamberAddress, doc.name)}

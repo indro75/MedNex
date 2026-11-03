@@ -16,28 +16,30 @@ import {
   User
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-
-const NAV_ITEMS = [
-  { name: 'Overview', path: '/dashboard', icon: LayoutDashboard },
-  { name: 'Symptom Checker', path: '/dashboard/symptom-checker', icon: Stethoscope, badge: 'AI' },
-  { name: 'Find Doctors', path: '/dashboard/find-doctors', icon: MapPin },
-  { name: 'First Aid Assistant', path: '/dashboard/first-aid', icon: LifeBuoy },
-  { name: 'Report Analysis', path: '/dashboard/report-analyzer', icon: FileText, badge: 'OCR' },
-  { name: 'Emergency 999', path: '/dashboard/emergency', icon: AlertCircle, isEmergency: true },
-  { name: 'Fitness & BMI', path: '/dashboard/fitness-tracker', icon: Activity },
-  { name: 'Medicine Checker', path: '/dashboard/medicine-checker', icon: Pill },
-  { name: 'Health History', path: '/dashboard/health-history', icon: History },
-  { name: 'Settings', path: '/dashboard/settings', icon: Settings },
-];
+import { useHealth } from '../../context/HealthContext';
 
 export const Sidebar: React.FC = () => {
   const { user, logout } = useAuth();
+  const { t, bilingualMode } = useHealth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
+
+  const navItems = [
+    { name: t('sideOverview'), path: '/dashboard', icon: LayoutDashboard },
+    { name: t('sideSymptomChecker'), path: '/dashboard/symptom-checker', icon: Stethoscope, badge: 'AI' },
+    { name: t('sideFindDoctors'), path: '/dashboard/find-doctors', icon: MapPin },
+    { name: t('sideFirstAid'), path: '/dashboard/first-aid', icon: LifeBuoy },
+    { name: t('sideReportAnalyzer'), path: '/dashboard/report-analyzer', icon: FileText, badge: 'OCR' },
+    { name: t('sideEmergencyAssistance'), path: '/dashboard/emergency', icon: AlertCircle, isEmergency: true },
+    { name: t('sideFitnessTracker'), path: '/dashboard/fitness-tracker', icon: Activity },
+    { name: t('sideMedicineChecker'), path: '/dashboard/medicine-checker', icon: Pill },
+    { name: t('sideHealthHistory'), path: '/dashboard/health-history', icon: History },
+    { name: t('sideSettings'), path: '/dashboard/settings', icon: Settings },
+  ];
 
   return (
     <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0">
@@ -49,10 +51,10 @@ export const Sidebar: React.FC = () => {
           </div>
           <div>
             <span className="text-xl font-bold tracking-tight text-slate-900">
-              Med<span className="text-blue-600">Nex</span>
+              {bilingualMode ? 'মেড' : 'Med'}<span className="text-blue-600">{bilingualMode ? 'নেক্স' : 'Nex'}</span>
             </span>
             <span className="block text-[10px] font-semibold uppercase tracking-wider text-teal-600 -mt-1">
-              Khulna Portal
+              {bilingualMode ? 'খুলনা পোর্টাল' : 'Khulna Portal'}
             </span>
           </div>
         </NavLink>
@@ -62,7 +64,7 @@ export const Sidebar: React.FC = () => {
       <div className="p-3 mx-3 my-2 rounded-xl bg-red-50 border border-red-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />
-          <span className="text-xs font-bold text-red-700">Khulna 999 Dispatch</span>
+          <span className="text-xs font-bold text-red-700">{bilingualMode ? 'খুলনা ৯৯৯ ডিসপ্যাচ' : 'Khulna 999 Dispatch'}</span>
         </div>
         <a
           href="tel:999"
@@ -75,7 +77,7 @@ export const Sidebar: React.FC = () => {
 
       {/* Navigation List */}
       <div className="flex-1 overflow-y-auto py-2 px-3 space-y-1">
-        {NAV_ITEMS.map((item) => {
+        {navItems.map((item) => {
           const Icon = item.icon;
           return (
             <NavLink
@@ -87,9 +89,9 @@ export const Sidebar: React.FC = () => {
                   item.isEmergency
                     ? isActive
                       ? 'bg-red-600 text-white shadow-sm'
-                      : 'text-red-600 hover:bg-red-50'
+                      : 'text-red-600 hover:bg-red-50 font-semibold'
                     : isActive
-                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20'
+                    ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/20 font-semibold'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`
               }
@@ -120,14 +122,14 @@ export const Sidebar: React.FC = () => {
                 {user?.name || 'Rahim Ahmed'}
               </p>
               <p className="text-[11px] text-slate-500 truncate">
-                {user?.bloodGroup ? `${user.bloodGroup} | Khulna` : 'Khulna'}
+                {user?.bloodGroup ? `${user.bloodGroup} | ${bilingualMode ? 'খুলনা' : 'Khulna'}` : bilingualMode ? 'খুলনা' : 'Khulna'}
               </p>
             </div>
           </div>
           <button
             onClick={handleLogout}
             className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
-            title="Log out"
+            title={t('sideLogout')}
           >
             <LogOut className="w-4 h-4" />
           </button>

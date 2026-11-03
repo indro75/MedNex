@@ -6,8 +6,12 @@ import {
   MedicalReportData,
   Appointment
 } from '../types';
+import { Language, getTranslation, TRANSLATIONS } from '../utils/translations';
 
 interface HealthContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: keyof typeof TRANSLATIONS.en) => string;
   bmiLogs: BMILogEntry[];
   activities: HealthActivityLog[];
   appointments: Appointment[];
@@ -147,29 +151,32 @@ export const HealthProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     return INITIAL_ACTIVITIES;
   });
 
-  const [bilingualMode, setBilingualMode] = useState<boolean>(() => {
-    return localStorage.getItem('mednex_bilingual') === 'true';
+  const [language, setLanguageState] = useState<Language>(() => {
+    const saved = localStorage.getItem('mednex_language');
+    if (saved === 'bn' || saved === 'en') return saved as Language;
+    return localStorage.getItem('mednex_bilingual') === 'true' ? 'bn' : 'en';
   });
 
-  useEffect(() => {
-    localStorage.setItem('mednex_bmi_logs', JSON.stringify(bmiLogs));
-  }, [bmiLogs]);
+  const bilingualMode = language === 'bn';
 
-  useEffect(() => {
-    localStorage.setItem('mednex_appointments', JSON.stringify(appointments));
-  }, [appointments]);
-
-  useEffect(() => {
-    localStorage.setItem('mednex_activities', JSON.stringify(activities));
-  }, [activities]);
-
-  useEffect(() => {
-    localStorage.setItem('mednex_bilingual', bilingualMode ? 'true' : 'false');
-  }, [bilingualMode]);
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem('mednex_language', lang);
+    localStorage.setItem('mednex_bilingual', lang === 'bn' ? 'true' : 'false');
+  };
 
   const toggleBilingualMode = () => {
-    setBilingualMode((prev) => !prev);
+    setLanguage(language === 'en' ? 'bn' : 'en');
   };
+
+  const t = (key: keyof typeof TRANSLATIONS.en): string => {
+    return getTranslation(key, language);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('mednex_language', language);
+    localStorage.setItem('mednex_bilingual', language === 'bn' ? 'true' : 'false');
+  }, [language]);
 
   const addBmiLog = (weightKg: number, heightCm: number, notes?: string) => {
     const heightM = heightCm / 100;
@@ -290,6 +297,9 @@ export const HealthProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   return (
     <HealthContext.Provider
       value={{
+        language,
+        setLanguage,
+        t,
         bmiLogs,
         activities,
         appointments,

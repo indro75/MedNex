@@ -26,7 +26,7 @@ import { useAuth } from '../../context/AuthContext';
 
 export const FitnessTrackerPage: React.FC = () => {
   const { user } = useAuth();
-  const { bmiLogs, addBmiLog, bilingualMode } = useHealth();
+  const { bmiLogs, addBmiLog, bilingualMode, language, t } = useHealth();
 
   // Unit System: 'metric' (cm, kg) vs 'regional' (feet/inches, kg)
   const [unitMode, setUnitMode] = useState<'metric' | 'regional'>('metric');
@@ -63,8 +63,6 @@ export const FitnessTrackerPage: React.FC = () => {
   const maxHealthyWeight = parseFloat((24.9 * heightM * heightM).toFixed(1));
 
   // BMR Calculation (Mifflin-St Jeor)
-  // Men: 10 * weight(kg) + 6.25 * height(cm) - 5 * age + 5
-  // Women: 10 * weight(kg) + 6.25 * height(cm) - 5 * age - 161
   const bmr = Math.round(
     gender === 'male'
       ? 10 * weightKg + 6.25 * heightCm - 5 * age + 5
@@ -81,15 +79,35 @@ export const FitnessTrackerPage: React.FC = () => {
   const tdee = Math.round(bmr * (activityMultipliers[activityLevel] || 1.55));
 
   const getBmiCategory = (bmi: number) => {
-    if (bmi < 18.5) return { category: 'Underweight', color: 'text-blue-600', bg: 'bg-blue-100', barPos: 12 };
-    if (bmi < 25) return { category: 'Normal weight', color: 'text-green-700', bg: 'bg-green-100', barPos: 45 };
-    if (bmi < 30) return { category: 'Overweight', color: 'text-amber-700', bg: 'bg-amber-100', barPos: 72 };
-    return { category: 'Obesity', color: 'text-red-700', bg: 'bg-red-100', barPos: 92 };
+    if (bmi < 18.5) return {
+      category: bilingualMode ? 'স্বাভাবিকের চেয়ে কম ওজন' : 'Underweight',
+      color: 'text-blue-600',
+      bg: 'bg-blue-100',
+      barPos: 12
+    };
+    if (bmi < 25) return {
+      category: bilingualMode ? 'আদর্শ ও স্বাস্থ্যকর ওজন' : 'Normal weight',
+      color: 'text-green-700',
+      bg: 'bg-green-100',
+      barPos: 45
+    };
+    if (bmi < 30) return {
+      category: bilingualMode ? 'অতিরিক্ত ওজন' : 'Overweight',
+      color: 'text-amber-700',
+      bg: 'bg-amber-100',
+      barPos: 72
+    };
+    return {
+      category: bilingualMode ? 'স্থূলতা (উচ্চ ঝুঁকি)' : 'Obesity',
+      color: 'text-red-700',
+      bg: 'bg-red-100',
+      barPos: 92
+    };
   };
 
   const handleSaveLog = (e: React.FormEvent) => {
     e.preventDefault();
-    addBmiLog(weightKg, heightCm, notes || 'Regular weigh-in');
+    addBmiLog(weightKg, heightCm, notes || (bilingualMode ? 'নিয়মিত পরিমাপ' : 'Regular weigh-in'));
     setLogModalOpen(false);
     setNotes('');
   };
@@ -108,14 +126,15 @@ export const FitnessTrackerPage: React.FC = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-2">
             <Activity className="w-3.5 h-3.5" />
-            <span>WHO Adult Anthropometric Assessment</span>
-            {bilingualMode && <span>| ফিটনেস ও বিএমআই ট্র্যাকার</span>}
+            <span>{bilingualMode ? 'হু (WHO) প্রাপ্তবয়স্ক স্বাস্থ্য ও বিএমআই স্কেল' : 'WHO Adult Anthropometric Assessment'}</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Daily Fitness, BMI & Caloric Metabolic Tracker
+            {bilingualMode ? 'দৈনিক ফিটনেস, বিএমআই ও ক্যালোরি ট্র্যাকার' : 'Daily Fitness, BMI & Caloric Metabolic Tracker'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-            Monitor your Body Mass Index (BMI), track longitudinal weight progression, calculate resting metabolic rate (BMR/TDEE), and receive tailored lifestyle advice.
+            {bilingualMode
+              ? 'আপনার বডি মাস ইনডেক্স (বিএমআই) পর্যবেক্ষণ করুন, সময়ের সাথে ওজন পরিবর্তন ট্র্যাক করুন এবং সুষম জীবনযাত্রার ক্যালোরি চাহিদা জানুন।'
+              : 'Monitor your Body Mass Index (BMI), track longitudinal weight progression, calculate resting metabolic rate (BMR/TDEE), and receive tailored lifestyle advice.'}
           </p>
         </div>
 
@@ -124,7 +143,7 @@ export const FitnessTrackerPage: React.FC = () => {
           className="inline-flex items-center gap-2 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl text-xs font-bold shadow-md shadow-blue-500/20 transition shrink-0"
         >
           <Plus className="w-4 h-4" />
-          Log Today's Weight
+          {bilingualMode ? 'আজকের ওজন সংরক্ষণ' : "Log Today's Weight"}
         </button>
       </div>
 

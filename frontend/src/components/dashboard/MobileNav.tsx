@@ -15,18 +15,20 @@ import {
   Settings,
   PhoneCall
 } from 'lucide-react';
-
-const DRAWER_ITEMS = [
-  { name: 'First Aid Assistant', path: '/dashboard/first-aid', icon: LifeBuoy },
-  { name: 'Report Analysis', path: '/dashboard/report-analyzer', icon: FileText },
-  { name: 'Daily Fitness & BMI', path: '/dashboard/fitness-tracker', icon: Activity },
-  { name: 'Medicine Checker', path: '/dashboard/medicine-checker', icon: Pill },
-  { name: 'Health History', path: '/dashboard/health-history', icon: History },
-  { name: 'Settings & Profile', path: '/dashboard/settings', icon: Settings },
-];
+import { useHealth } from '../../context/HealthContext';
 
 export const MobileNav: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { t, bilingualMode } = useHealth();
+
+  const drawerItems = [
+    { name: t('sideFirstAid'), path: '/dashboard/first-aid', icon: LifeBuoy },
+    { name: t('sideReportAnalyzer'), path: '/dashboard/report-analyzer', icon: FileText },
+    { name: t('sideFitnessTracker'), path: '/dashboard/fitness-tracker', icon: Activity },
+    { name: t('sideMedicineChecker'), path: '/dashboard/medicine-checker', icon: Pill },
+    { name: t('sideHealthHistory'), path: '/dashboard/health-history', icon: History },
+    { name: t('sideSettings'), path: '/dashboard/settings', icon: Settings },
+  ];
 
   return (
     <>
@@ -42,7 +44,7 @@ export const MobileNav: React.FC = () => {
           }
         >
           <LayoutDashboard className="w-5 h-5" />
-          <span>Home</span>
+          <span>{bilingualMode ? 'হোম' : 'Home'}</span>
         </NavLink>
 
         <NavLink
@@ -54,7 +56,7 @@ export const MobileNav: React.FC = () => {
           }
         >
           <Stethoscope className="w-5 h-5" />
-          <span>Symptom</span>
+          <span>{bilingualMode ? 'লক্ষণ' : 'Symptom'}</span>
         </NavLink>
 
         <NavLink
@@ -68,7 +70,7 @@ export const MobileNav: React.FC = () => {
           <div className="w-9 h-9 -mt-4 bg-red-600 text-white rounded-full flex items-center justify-center shadow-md border-2 border-white">
             <AlertCircle className="w-5 h-5" />
           </div>
-          <span className="text-[10px]">999 SOS</span>
+          <span className="text-[10px]">{bilingualMode ? '৯৯৯ জরুরি' : '999 SOS'}</span>
         </NavLink>
 
         <NavLink
@@ -80,7 +82,7 @@ export const MobileNav: React.FC = () => {
           }
         >
           <MapPin className="w-5 h-5" />
-          <span>Doctors</span>
+          <span>{bilingualMode ? 'ডাক্তার' : 'Doctors'}</span>
         </NavLink>
 
         <button
@@ -88,7 +90,7 @@ export const MobileNav: React.FC = () => {
           className="flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-[10px] font-medium text-slate-500 hover:text-slate-900 focus:outline-hidden"
         >
           <Menu className="w-5 h-5" />
-          <span>More</span>
+          <span>{bilingualMode ? 'মেনু' : 'More'}</span>
         </button>
       </nav>
 
@@ -98,7 +100,7 @@ export const MobileNav: React.FC = () => {
           <div className="w-72 bg-white h-full p-5 flex flex-col justify-between shadow-2xl">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <span className="font-bold text-slate-900 text-base">MedNex Services</span>
+                <span className="font-bold text-slate-900 text-base">{bilingualMode ? 'মেডনেক্স সেবা সমূহ' : 'MedNex Services'}</span>
                 <button
                   onClick={() => setDrawerOpen(false)}
                   className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg"
@@ -110,8 +112,8 @@ export const MobileNav: React.FC = () => {
               {/* 999 Call Card */}
               <div className="my-4 p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-red-700">Khulna Emergency</p>
-                  <p className="text-[11px] text-red-600">Ambulance & Fire: 999</p>
+                  <p className="text-xs font-bold text-red-700">{bilingualMode ? 'খুলনা জরুরি ডিসপ্যাচ' : 'Khulna Emergency'}</p>
+                  <p className="text-[11px] text-red-600">{bilingualMode ? 'অ্যাম্বুলেন্স ও পুলিশ: ৯৯৯' : 'Ambulance & Fire: 999'}</p>
                 </div>
                 <a
                   href="tel:999"
@@ -123,7 +125,7 @@ export const MobileNav: React.FC = () => {
               </div>
 
               <div className="space-y-1.5 mt-2">
-                {DRAWER_ITEMS.map((item) => {
+                {drawerItems.map((item) => {
                   const Icon = item.icon;
                   return (
                     <NavLink
@@ -147,7 +149,7 @@ export const MobileNav: React.FC = () => {
             </div>
 
             <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
-              MedNex Health v1.0 • Khulna, BD
+              {bilingualMode ? 'মেডনেক্স হেলথ • খুলনা, বাংলাদেশ' : 'MedNex Health v1.0 • Khulna, BD'}
             </div>
           </div>
         </div>

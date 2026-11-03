@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Activity, Menu, X, ShieldAlert, ArrowRight, User } from 'lucide-react';
+import { Activity, Menu, X, ShieldAlert, ArrowRight, User, Languages } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useHealth } from '../../context/HealthContext';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated, user } = useAuth();
+  const { t, bilingualMode, toggleBilingualMode } = useHealth();
   const location = useLocation();
 
   const isCurrent = (path: string) => location.pathname === path;
@@ -21,53 +23,67 @@ export const Navbar: React.FC = () => {
             </div>
             <div>
               <span className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 flex items-center">
-                Med<span className="text-blue-600">Nex</span>
+                {bilingualMode ? 'মেড' : 'Med'}<span className="text-blue-600">{bilingualMode ? 'নেক্স' : 'Nex'}</span>
               </span>
               <span className="hidden sm:block text-[10px] font-semibold uppercase tracking-wider text-teal-600 -mt-1">
-                AI Healthcare Companion
+                {t('brandTagline')}
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             <Link
               to="/"
               className={`text-sm font-medium transition ${
-                isCurrent('/') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'
+                isCurrent('/') ? 'text-blue-600 font-bold' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Home
+              {t('navHome')}
             </Link>
             <a
               href="/#features"
               className="text-sm font-medium text-slate-600 hover:text-slate-900 transition"
             >
-              Features
+              {t('navFeatures')}
             </a>
             <a
               href="/#how-it-works"
               className="text-sm font-medium text-slate-600 hover:text-slate-900 transition"
             >
-              How It Works
+              {t('navHowItWorks')}
             </a>
             <a
               href="/#about-us"
               className="text-sm font-medium text-slate-600 hover:text-slate-900 transition"
             >
-              About Us
+              {t('navAbout')}
             </a>
             <Link
               to="/dashboard/emergency"
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-600 bg-red-50 px-2.5 py-1 rounded-full border border-red-200 hover:bg-red-100 transition"
             >
               <ShieldAlert className="w-3.5 h-3.5" />
-              999 Emergency
+              {bilingualMode ? 'জরুরি ৯৯৯' : '999 Emergency'}
             </Link>
           </nav>
 
-          {/* Desktop CTA & Auth */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop CTA & Auth & Language */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Language Toggle */}
+            <button
+              type="button"
+              onClick={toggleBilingualMode}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition shadow-xs ${
+                bilingualMode
+                  ? 'bg-teal-600 border-teal-700 text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+              }`}
+            >
+              <Languages className="w-3.5 h-3.5" />
+              <span>{bilingualMode ? 'বাংলা (Active)' : 'বাংলা'}</span>
+            </button>
+
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <Link
@@ -83,7 +99,7 @@ export const Navbar: React.FC = () => {
                   to="/dashboard"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 shadow-sm transition"
                 >
-                  Go to Dashboard
+                  {bilingualMode ? 'ড্যাশবোর্ডে যান' : 'Go to Dashboard'}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -93,13 +109,13 @@ export const Navbar: React.FC = () => {
                   to="/login"
                   className="text-sm font-medium text-slate-700 hover:text-blue-600 px-3 py-2"
                 >
-                  Log In
+                  {t('navLogin')}
                 </Link>
                 <Link
                   to="/signup"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 shadow-sm transition"
                 >
-                  Get Started
+                  {t('navGetStarted')}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

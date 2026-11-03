@@ -18,74 +18,91 @@ import {
   Building2,
   Heart
 } from 'lucide-react';
-
-const FEATURES = [
-  {
-    id: 'symptom-checker',
-    title: 'AI Symptom Checker',
-    desc: 'Describe what you feel in natural language. Our NLP classification suggests relevant specialties and alerts for emergency red flags.',
-    icon: Stethoscope,
-    link: '/dashboard/symptom-checker',
-    badge: 'NLP Triage',
-    color: 'blue'
-  },
-  {
-    id: 'find-doctors',
-    title: 'Find Nearby Specialists',
-    desc: 'Discover verified doctors, BMDC registrations, consultation fees, and hospital emergency wings across Khulna with directions.',
-    icon: MapPin,
-    link: '/dashboard/find-doctors',
-    badge: 'Khulna Verified',
-    color: 'teal'
-  },
-  {
-    id: 'first-aid',
-    title: 'AI First Aid Assistant',
-    desc: 'Get immediate step-by-step guidance for burns, cuts, nosebleeds, choking, and sprains following recognized medical guidelines.',
-    icon: LifeBuoy,
-    link: '/dashboard/first-aid',
-    badge: 'Life Saving',
-    color: 'emerald'
-  },
-  {
-    id: 'report-analyzer',
-    title: 'Medical Report Analyzer',
-    desc: 'Upload laboratory test reports (CBC, Lipid, LFT). Extracts values via OCR, detects out-of-range biomarkers, and explains them simply.',
-    icon: FileText,
-    link: '/dashboard/report-analyzer',
-    badge: 'Smart OCR',
-    color: 'indigo'
-  },
-  {
-    id: 'emergency',
-    title: 'Emergency Ambulance Finder',
-    desc: 'Instant direct dial to 999 Bangladesh emergency dispatch, alongside verified 24/7 ICU ambulance pools and hospital emergency rooms.',
-    icon: AlertCircle,
-    link: '/dashboard/emergency',
-    badge: '24/7 Hotline',
-    color: 'red'
-  },
-  {
-    id: 'fitness-tracker',
-    title: 'Daily Fitness & BMI Tracker',
-    desc: 'Track body mass index, weight progress over time with interactive charts, and receive tailored adult wellness recommendations.',
-    icon: Activity,
-    link: '/dashboard/fitness-tracker',
-    badge: 'Analytics',
-    color: 'sky'
-  },
-  {
-    id: 'medicine-checker',
-    title: 'Medicine Information Checker',
-    desc: 'Search or snap medicine packages. Understand generics, therapeutic classes, safe uses, side effects, and crucial food interactions.',
-    icon: Pill,
-    link: '/dashboard/medicine-checker',
-    badge: 'Safety First',
-    color: 'amber'
-  }
-];
+import { useHealth } from '../context/HealthContext';
 
 export const LandingPage: React.FC = () => {
+  const { bilingualMode, t } = useHealth();
+
+  const features = [
+    {
+      id: 'symptom-checker',
+      title: bilingualMode ? 'এআই লক্ষণ নিরীক্ষক' : 'AI Symptom Checker',
+      desc: bilingualMode
+        ? 'আপনার স্বাস্থ্য সমস্যা নিজের ভাষায় লিখুন। আমাদের এনএলপি ইঞ্জিন উপযুক্ত বিশেষজ্ঞ বিভাগ সুপারিশ করবে এবং জরুরি লাল সংকেত সতর্ক করবে।'
+        : 'Describe what you feel in natural language. Our NLP classification suggests relevant specialties and alerts for emergency red flags.',
+      icon: Stethoscope,
+      link: '/dashboard/symptom-checker',
+      badge: bilingualMode ? 'এনএলপি ট্রায়াজ' : 'NLP Triage',
+      color: 'blue'
+    },
+    {
+      id: 'find-doctors',
+      title: bilingualMode ? 'খুলনার ডাক্তার খুঁজুন' : 'Find Nearby Specialists',
+      desc: bilingualMode
+        ? 'খুলনা শহরের বিএমডিসি নিবন্ধিত ডাক্তার, ভিজিটিং আওয়ার, পরামর্শ ফি এবং হাসপাতালের অবস্থান সরাসরি ম্যাপে দেখুন।'
+        : 'Discover verified doctors, BMDC registrations, consultation fees, and hospital emergency wings across Khulna with directions.',
+      icon: MapPin,
+      link: '/dashboard/find-doctors',
+      badge: bilingualMode ? 'খুলনা যাচাইকৃত' : 'Khulna Verified',
+      color: 'teal'
+    },
+    {
+      id: 'first-aid',
+      title: bilingualMode ? 'প্রাথমিক চিকিৎসা সহায়ক' : 'AI First Aid Assistant',
+      desc: bilingualMode
+        ? 'পোড়া, কাটাছেঁড়া, নাক দিয়ে রক্ত পড়া বা গলায় কিছু আটকে গেলে তাৎক্ষণিক প্রমাণ-ভিত্তিক চিকিৎসা নির্দেশিকা এবং সিপিআর অডিও মেট্রোনোম।'
+        : 'Get immediate step-by-step guidance for burns, cuts, nosebleeds, choking, and sprains following recognized medical guidelines.',
+      icon: LifeBuoy,
+      link: '/dashboard/first-aid',
+      badge: bilingualMode ? 'জীবন রক্ষাকারী' : 'Life Saving',
+      color: 'emerald'
+    },
+    {
+      id: 'report-analyzer',
+      title: bilingualMode ? 'মেডিকেল রিপোর্ট ওসিআর' : 'Medical Report Analyzer',
+      desc: bilingualMode
+        ? 'সিবিসি, লিপিড প্রোফাইল বা লিভার ফাংশন ল্যাব রিপোর্ট আপলোড করুন। এআই বায়োমার্কার স্ক্যান করে অস্বাভাবিক রিডিং সহজ ভাষায় ব্যাখ্যা করবে।'
+        : 'Upload laboratory test reports (CBC, Lipid, LFT). Extracts values via OCR, detects out-of-range biomarkers, and explains them simply.',
+      icon: FileText,
+      link: '/dashboard/report-analyzer',
+      badge: bilingualMode ? 'স্মার্ট ওসিআর' : 'Smart OCR',
+      color: 'indigo'
+    },
+    {
+      id: 'emergency',
+      title: bilingualMode ? 'জরুরি অ্যাম্বুলেন্স সেবা' : 'Emergency Ambulance Finder',
+      desc: bilingualMode
+        ? 'জাতীয় হেল্পলাইন ৯৯৯ এ তাৎক্ষণিক সরাসরি কল এবং খুলনার যাচাইকৃত সার্বক্ষণিক আইসিইউ ও নরমাল অ্যাম্বুলেন্স সার্ভিস ডিরেক্টরি।'
+        : 'Instant direct dial to 999 Bangladesh emergency dispatch, alongside verified 24/7 ICU ambulance pools and hospital emergency rooms.',
+      icon: AlertCircle,
+      link: '/dashboard/emergency',
+      badge: bilingualMode ? '২৪/৭ হটলাইন' : '24/7 Hotline',
+      color: 'red'
+    },
+    {
+      id: 'fitness-tracker',
+      title: bilingualMode ? 'দৈনিক ফিটনেস ও বিএমআই' : 'Daily Fitness & BMI Tracker',
+      desc: bilingualMode
+        ? 'বডি মাস ইনডেক্স (বিএমআই) এবং সময়ের সাথে সাথে ওজন পরিবর্তনের চার্ট দেখুন। সুস্থ জীবনযাত্রার উপযোগী ক্যালোরি চাহিদা জানুন।'
+        : 'Track body mass index, weight progress over time with interactive charts, and receive tailored adult wellness recommendations.',
+      icon: Activity,
+      link: '/dashboard/fitness-tracker',
+      badge: bilingualMode ? 'অ্যানালিটিক্স' : 'Analytics',
+      color: 'sky'
+    },
+    {
+      id: 'medicine-checker',
+      title: bilingualMode ? 'ওষুধ তথ্য নির্দেশিকা' : 'Medicine Information Checker',
+      desc: bilingualMode
+        ? 'ওষুধের নাম লিখুন বা প্যাকেজের ছবি তুলুন। জেনেরিক নাম, ব্যবহারবিধি, পার্শ্বপ্রতিক্রিয়া এবং একাধিক ওষুধের মধ্যকার প্রতিক্রিয়া জানুন।'
+        : 'Search or snap medicine packages. Understand generics, therapeutic classes, safe uses, side effects, and crucial food interactions.',
+      icon: Pill,
+      link: '/dashboard/medicine-checker',
+      badge: bilingualMode ? 'নিরাপত্তা প্রথম' : 'Safety First',
+      color: 'amber'
+    }
+  ];
+
   return (
     <div className="space-y-24 py-8">
       {/* Hero Section */}
@@ -95,18 +112,31 @@ export const LandingPage: React.FC = () => {
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs sm:text-sm font-semibold">
               <Sparkles className="w-4 h-4 text-blue-600" />
-              <span>Smarter Healthcare. Better Decisions.</span>
+              <span>{bilingualMode ? 'স্মার্ট স্বাস্থ্যসেবা • সঠিক সিদ্ধান্ত' : 'Smarter Healthcare. Better Decisions.'}</span>
               <span className="hidden sm:inline text-slate-400">|</span>
-              <span className="hidden sm:inline text-teal-700 font-medium">Khulna Division Ready</span>
+              <span className="hidden sm:inline text-teal-700 font-medium">
+                {bilingualMode ? 'খুলনা বিভাগীয় স্বাস্থ্য পোর্টাল' : 'Khulna Division Ready'}
+              </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-              Your Health, <span className="text-blue-600">Smarter.</span><br />
-              Your Care, <span className="text-teal-600">Closer.</span>
+              {bilingualMode ? (
+                <>
+                  আপনার স্বাস্থ্য, <span className="text-blue-600">স্মার্ট।</span><br />
+                  আপনার যত্ন, <span className="text-teal-600">কাছে।</span>
+                </>
+              ) : (
+                <>
+                  Your Health, <span className="text-blue-600">Smarter.</span><br />
+                  Your Care, <span className="text-teal-600">Closer.</span>
+                </>
+              )}
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
-              An AI-powered healthcare companion that helps you understand symptoms, find verified specialists in Khulna, analyze medical reports, and access 24/7 emergency services.
+              {bilingualMode
+                ? 'একটি এআই চালিত নির্ভরযোগ্য স্বাস্থ্য প্ল্যাটফর্ম যা আপনাকে শারীরিক লক্ষণ বুঝতে, খুলনার যাচাইকৃত বিশেষজ্ঞ ডাক্তার খুঁজে পেতে, ল্যাব রিপোর্ট বুঝতে এবং ২৪/৭ জরুরি সেবা পেতে সহায়তা করে।'
+                : 'An AI-powered healthcare companion that helps you understand symptoms, find verified specialists in Khulna, analyze medical reports, and access 24/7 emergency services.'}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-2">
@@ -114,37 +144,43 @@ export const LandingPage: React.FC = () => {
                 to="/signup"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 text-white font-semibold shadow-md shadow-blue-500/25 hover:bg-blue-700 transition"
               >
-                Get Started Free
+                {bilingualMode ? 'বিনামূল্যে শুরু করুন' : 'Get Started Free'}
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
                 href="#features"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 transition shadow-xs"
               >
-                Explore Features
+                {bilingualMode ? 'সেবা সমূহ দেখুন' : 'Explore Features'}
               </a>
               <Link
                 to="/dashboard/emergency"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 font-semibold hover:bg-red-100 transition"
               >
                 <PhoneCall className="w-4 h-4 text-red-600" />
-                999 Emergency
+                {bilingualMode ? 'জরুরি ৯৯৯' : '999 Emergency'}
               </Link>
             </div>
 
             {/* Trust Indicators */}
             <div className="pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-4 text-left">
               <div>
-                <p className="text-2xl font-bold text-slate-900">100%</p>
-                <p className="text-xs text-slate-500 font-medium">BMDC Verified Doctors</p>
+                <p className="text-2xl font-bold text-slate-900">১০০%</p>
+                <p className="text-xs text-slate-500 font-medium">
+                  {bilingualMode ? 'বিএমডিসি নিবন্ধিত ডাক্তার' : 'BMDC Verified Doctors'}
+                </p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-teal-600">24/7</p>
-                <p className="text-xs text-slate-500 font-medium">999 Khulna Dispatch</p>
+                <p className="text-2xl font-bold text-teal-600">২৪/৭</p>
+                <p className="text-xs text-slate-500 font-medium">
+                  {bilingualMode ? 'খুলনা ৯৯৯ ডিসপ্যাচ' : '999 Khulna Dispatch'}
+                </p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-blue-600">Zero</p>
-                <p className="text-xs text-slate-500 font-medium">Fake Information Guarantee</p>
+                <p className="text-2xl font-bold text-blue-600">শূন্য</p>
+                <p className="text-xs text-slate-500 font-medium">
+                  {bilingualMode ? 'ভুয়া তথ্য নিশ্চয়তা' : 'Fake Info Guarantee'}
+                </p>
               </div>
             </div>
           </div>
@@ -233,18 +269,20 @@ export const LandingPage: React.FC = () => {
       <section id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-            Intelligent Medical Suite
+            {bilingualMode ? 'ইন্টেলিজেন্ট মেডিকেল স্যুট' : 'Intelligent Medical Suite'}
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Seven Core Healthcare Services, Reimagined
+            {bilingualMode ? '৭টি মূল স্বাস্থ্যসেবা, এক প্ল্যাটফর্মে' : 'Seven Core Healthcare Services, Reimagined'}
           </h2>
           <p className="text-slate-600 text-base sm:text-lg">
-            Built with clinical safety safeguards, accurate local medical directories, and intelligent NLP assistance.
+            {bilingualMode
+              ? 'ক্লিনিক্যাল নিরাপত্তা বিধিমালা, সঠিক স্থানীয় হাসপাতাল ডিরেক্টরি এবং বুদ্ধিমত্তা সম্পন্ন এআই সহায়তায় তৈরি।'
+              : 'Built with clinical safety safeguards, accurate local medical directories, and intelligent NLP assistance.'}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {FEATURES.map((feature, idx) => {
+          {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
               <div
@@ -275,7 +313,7 @@ export const LandingPage: React.FC = () => {
                     to={feature.link}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700"
                   >
-                    Open Service
+                    {bilingualMode ? 'সেবা ব্যবহার করুন' : 'Open Service'}
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
                   </Link>
                 </div>
@@ -290,13 +328,15 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
             <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
-              Simple 3-Step Process
+              {bilingualMode ? 'সহজ ৩-ধাপের প্রক্রিয়া' : 'Simple 3-Step Process'}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              How MedNex Supports Your Health
+              {bilingualMode ? 'মেডনেক্স যেভাবে আপনার স্বাস্থ্য সুরক্ষা নিশ্চিত করে' : 'How MedNex Supports Your Health'}
             </h2>
             <p className="text-slate-600 text-base">
-              Fast, transparent, and designed to connect you to the right care without delay.
+              {bilingualMode
+                ? 'দ্রুত, স্বচ্ছ এবং সরাসরি নির্ভরযোগ্য স্বাস্থ্যসেবার সাথে যুক্ত করার জন্য তৈরি।'
+                : 'Fast, transparent, and designed to connect you to the right care without delay.'}
             </p>
           </div>
 
@@ -304,33 +344,45 @@ export const LandingPage: React.FC = () => {
             {/* Step 1 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm relative">
               <div className="w-10 h-10 rounded-full bg-blue-600 text-white font-extrabold flex items-center justify-center mb-5 text-sm shadow-sm">
-                1
+                ১
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Tell MedNex what you need</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">
+                {bilingualMode ? 'আপনার স্বাস্থ্য সমস্যা জানান' : 'Tell MedNex what you need'}
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Describe your symptoms in plain language, upload an image of a lab test report, or search for an acute first-aid emergency situation.
+                {bilingualMode
+                  ? 'নিজের ভাষায় লক্ষণ বর্ণনা করুন, ল্যাব টেস্ট রিপোর্টের ছবি আপলোড করুন অথবা জরুরি প্রাথমিক চিকিৎসা অনুসন্ধান করুন।'
+                  : 'Describe your symptoms in plain language, upload an image of a lab test report, or search for an acute first-aid emergency situation.'}
               </p>
             </div>
 
             {/* Step 2 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm relative">
               <div className="w-10 h-10 rounded-full bg-teal-600 text-white font-extrabold flex items-center justify-center mb-5 text-sm shadow-sm">
-                2
+                ২
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">AI analyzes the information</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">
+                {bilingualMode ? 'এআই তথ্য বিশ্লেষণ করে' : 'AI analyzes the information'}
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Our clinical algorithms parse text and lab values, triage urgency, screen for emergency red flags, and extract vital parameters.
+                {bilingualMode
+                  ? 'আমাদের ক্লিনিক্যাল অ্যালগরিদম লক্ষণ ও বায়োমার্কার স্ক্যান করে, জরুরি লাল সংকেত যাচাই করে এবং ট্রায়াজ লেভেল নির্ধারণ করে।'
+                  : 'Our clinical algorithms parse text and lab values, triage urgency, screen for emergency red flags, and extract vital parameters.'}
               </p>
             </div>
 
             {/* Step 3 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm relative">
               <div className="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center mb-5 text-sm shadow-sm">
-                3
+                ৩
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">Get healthcare guidance & care</h3>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">
+                {bilingualMode ? 'সঠিক চিকিৎসা সেবা ও পরামর্শ পান' : 'Get healthcare guidance & care'}
+              </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Receive plain explanations, recommended specialist categories, verified Khulna doctor contacts, or 1-click 999 ambulance dispatch.
+                {bilingualMode
+                  ? 'সহজ ভাষায় ব্যাখ্যা, প্রস্তাবিত বিশেষজ্ঞ ডাক্তারের বিবরণ, খুলনা চেম্বার বুকিং অথবা এক স্পর্শে ৯৯৯ অ্যাম্বুলেন্স কল করুন।'
+                  : 'Receive plain explanations, recommended specialist categories, verified Khulna doctor contacts, or 1-click 999 ambulance dispatch.'}
               </p>
             </div>
           </div>

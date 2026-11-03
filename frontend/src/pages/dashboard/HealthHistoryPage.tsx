@@ -18,7 +18,7 @@ import { useHealth } from '../../context/HealthContext';
 import { useAuth } from '../../context/AuthContext';
 
 export const HealthHistoryPage: React.FC = () => {
-  const { activities, deleteActivity, clearAllHistory, bmiLogs } = useHealth();
+  const { activities, deleteActivity, clearAllHistory, bmiLogs, bilingualMode, t } = useHealth();
   const { user } = useAuth();
   const [filterType, setFilterType] = useState<string>('all');
 
@@ -65,13 +65,15 @@ export const HealthHistoryPage: React.FC = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold mb-2">
             <History className="w-3.5 h-3.5" />
-            <span>Encrypted Longitudinal Health Records</span>
+            <span>{bilingualMode ? 'সুরক্ষিত ব্যক্তিগত স্বাস্থ্য টাইমলাইন' : 'Encrypted Longitudinal Health Records'}</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Patient Health Timeline & Records
+            {bilingualMode ? 'রোগীর স্বাস্থ্য ইতিহাস ও রেকর্ডস' : 'Patient Health Timeline & Records'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-            A chronological timeline of your symptom checks, analyzed diagnostic reports, and tracked vitals. You have full ownership and control to export or erase your records.
+            {bilingualMode
+              ? 'আপনার লক্ষণ নিরীক্ষণ, ল্যাব রিপোর্ট এবং ট্র্যাক করা ভাইটালসের ধারাবাহিক তথ্য ভাণ্ডার। আপনি যে কোনো সময় আপনার ডাটা এক্সপোর্ট বা মুছে ফেলতে পারেন।'
+              : 'A chronological timeline of your symptom checks, analyzed diagnostic reports, and tracked vitals. You have full ownership and control to export or erase your records.'}
           </p>
         </div>
 
@@ -83,13 +85,13 @@ export const HealthHistoryPage: React.FC = () => {
             className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition flex items-center gap-1.5"
           >
             <Download className="w-3.5 h-3.5" />
-            Export JSON
+            {bilingualMode ? 'ডাটা এক্সপোর্ট (JSON)' : 'Export JSON'}
           </button>
           <button
             type="button"
             onClick={() => window.print()}
             className="p-2.5 border border-slate-200 text-slate-600 hover:bg-slate-100 rounded-xl"
-            title="Print Summary"
+            title={bilingualMode ? 'প্রিন্ট সামারি' : 'Print Summary'}
           >
             <Printer className="w-4 h-4" />
           </button>
@@ -100,13 +102,13 @@ export const HealthHistoryPage: React.FC = () => {
       <div className="bg-white p-4 rounded-2xl border border-slate-200 flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2">
           <Filter className="w-4 h-4 text-slate-400" />
-          <span className="text-xs font-bold text-slate-700">Filter Activities:</span>
+          <span className="text-xs font-bold text-slate-700">{bilingualMode ? 'ফিল্টার রেকর্ড:' : 'Filter Activities:'}</span>
           <div className="inline-flex bg-slate-100 p-1 rounded-xl">
             {[
-              { id: 'all', label: 'All Records' },
-              { id: 'symptom_check', label: 'Symptom Triage' },
-              { id: 'report_analyzed', label: 'Lab Reports' },
-              { id: 'bmi_logged', label: 'Vitals & BMI' },
+              { id: 'all', label: bilingualMode ? 'সকল রেকর্ড' : 'All Records' },
+              { id: 'symptom_check', label: bilingualMode ? 'লক্ষণ ট্রায়াজ' : 'Symptom Triage' },
+              { id: 'report_analyzed', label: bilingualMode ? 'ল্যাব রিপোর্ট' : 'Lab Reports' },
+              { id: 'bmi_logged', label: bilingualMode ? 'ভাইটালস ও বিএমআই' : 'Vitals & BMI' },
             ].map((item) => (
               <button
                 key={item.id}
@@ -127,14 +129,14 @@ export const HealthHistoryPage: React.FC = () => {
           <button
             type="button"
             onClick={() => {
-              if (confirm('Are you sure you want to erase your entire health history?')) {
+              if (confirm(bilingualMode ? 'আপনি কি নিশ্চিতভাবে সমস্ত স্বাস্থ্য ইতিহাস মুছে ফেলতে চান?' : 'Are you sure you want to erase your entire health history?')) {
                 clearAllHistory();
               }
             }}
             className="text-xs font-semibold text-red-600 hover:underline flex items-center gap-1"
           >
             <Trash2 className="w-3.5 h-3.5" />
-            Clear All History
+            {bilingualMode ? 'সকল ইতিহাস মুছুন' : 'Clear All History'}
           </button>
         )}
       </div>

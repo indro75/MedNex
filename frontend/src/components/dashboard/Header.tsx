@@ -6,33 +6,33 @@ import { useHealth } from '../../context/HealthContext';
 
 export const Header: React.FC = () => {
   const { user } = useAuth();
-  const { bilingualMode, toggleBilingualMode, appointments } = useHealth();
+  const { bilingualMode, toggleBilingualMode, appointments, t, language } = useHealth();
   const location = useLocation();
 
   const getPageTitle = (path: string) => {
     switch (path) {
       case '/dashboard':
-        return bilingualMode ? 'ওভারভিউ ও ভাইটালস (Overview & Vitals)' : 'Overview & Health Vitals';
+        return t('titleOverview');
       case '/dashboard/symptom-checker':
-        return bilingualMode ? 'AI লক্ষণ নিরীক্ষণ (AI Symptom Checker)' : 'AI Symptom Checker & Triage';
+        return t('titleSymptomChecker');
       case '/dashboard/find-doctors':
-        return bilingualMode ? 'খুলনার ডাক্তার খুঁজুন (Find Khulna Specialists)' : 'Find Verified Khulna Specialists';
+        return t('titleFindDoctors');
       case '/dashboard/first-aid':
-        return bilingualMode ? 'জরুরি প্রাথমিক চিকিৎসা (AI First Aid)' : 'AI First Aid Assistant';
+        return t('titleFirstAid');
       case '/dashboard/report-analyzer':
-        return bilingualMode ? 'মেডিকেল রিপোর্ট ওসিআর (Report Analyzer)' : 'Medical Report OCR Analyzer';
+        return t('titleReportAnalyzer');
       case '/dashboard/emergency':
-        return bilingualMode ? 'জরুরি অ্যাম্বুলেন্স ও ইআর (Emergency Ambulance)' : 'Emergency Ambulance & ER Directory';
+        return t('titleEmergency');
       case '/dashboard/fitness-tracker':
-        return bilingualMode ? 'দৈনিক ফিটনেস ও বিএমআই (Fitness & BMI)' : 'Daily Fitness & BMI Tracker';
+        return t('titleFitnessTracker');
       case '/dashboard/medicine-checker':
-        return bilingualMode ? 'ওষুধ নির্দেশিকা (Medicine Checker)' : 'AI Medicine Information Checker';
+        return t('titleMedicineChecker');
       case '/dashboard/health-history':
-        return bilingualMode ? 'স্বাস্থ্য ইতিহাস ও রেকর্ডস (Health History)' : 'Patient Health Timeline & Records';
+        return t('titleHealthHistory');
       case '/dashboard/settings':
-        return bilingualMode ? 'প্রোফাইল ও সেটিংস (Profile Settings)' : 'Account & Health Profile Settings';
+        return t('titleSettings');
       default:
-        return 'MedNex Dashboard';
+        return t('brandName');
     }
   };
 
@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
             {getPageTitle(location.pathname)}
           </h1>
           <p className="text-xs text-slate-500 hidden sm:block">
-            Connected Region: <span className="text-teal-600 font-medium">Khulna Division, Bangladesh</span>
+            {t('connectedRegion')}
           </p>
         </div>
       </div>
@@ -54,15 +54,15 @@ export const Header: React.FC = () => {
         <button
           type="button"
           onClick={toggleBilingualMode}
-          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-bold transition ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition shadow-xs ${
             bilingualMode
-              ? 'bg-teal-50 border-teal-300 text-teal-800'
+              ? 'bg-teal-600 border-teal-700 text-white'
               : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
-          title="Toggle English / বাংলা Medical Terms"
+          title="Toggle English / বাংলা"
         >
-          <Languages className="w-3.5 h-3.5 text-teal-600" />
-          <span>{bilingualMode ? 'বাংলা / EN' : 'EN / বাংলা'}</span>
+          <Languages className="w-3.5 h-3.5" />
+          <span>{bilingualMode ? 'বাংলা (Active)' : 'বাংলায় দেখুন'}</span>
         </button>
 
         {/* Active Appointments Ticket Pill */}
@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
             className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold hover:bg-indigo-100 transition"
           >
             <Ticket className="w-3.5 h-3.5" />
-            <span>Serial #{appointments[0].serialNumber}</span>
+            <span>{bilingualMode ? `সিরিয়াল #${appointments[0].serialNumber}` : `Serial #${appointments[0].serialNumber}`}</span>
           </Link>
         )}
 
@@ -82,7 +82,7 @@ export const Header: React.FC = () => {
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-xs transition"
         >
           <PhoneCall className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Emergency</span> 999
+          <span className="hidden sm:inline">{bilingualMode ? 'জরুরি ৯৯৯' : 'Emergency 999'}</span>
         </a>
 
         {/* Vital status pill */}
@@ -91,7 +91,7 @@ export const Header: React.FC = () => {
           className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-teal-50 border border-teal-200 text-teal-800 text-xs font-medium hover:bg-teal-100 transition"
         >
           <HeartPulse className="w-4 h-4 text-teal-600" />
-          <span>Vitals: Stable</span>
+          <span>{bilingualMode ? 'ভাইটালস: স্থিতিশীল' : 'Vitals: Stable'}</span>
         </Link>
 
         {/* User Mini Chip */}
