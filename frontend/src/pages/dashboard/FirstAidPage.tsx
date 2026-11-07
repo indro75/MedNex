@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   LifeBuoy,
   Search,
@@ -88,7 +88,7 @@ export const FirstAidPage: React.FC = () => {
   // Speech Synthesis
   const handleToggleSpeech = () => {
     if (!('speechSynthesis' in window)) {
-      alert('Text-to-speech is not supported in this browser.');
+      alert(bilingualMode ? 'এই ব্রাউজারে টেক্সট-টু-স্পিচ সমর্থিত নয়।' : 'Text-to-speech is not supported in this browser.');
       return;
     }
 
@@ -96,7 +96,10 @@ export const FirstAidPage: React.FC = () => {
       window.speechSynthesis.cancel();
       setIsSpeaking(false);
     } else {
-      const textToSpeak = `${selectedGuide.title}. Scene safety: ${selectedGuide.immediateSafety.join('. ')}. Step one: ${selectedGuide.steps[0].instruction}. Step two: ${selectedGuide.steps[1]?.instruction || ''}`;
+      const title = bilingualMode && selectedGuide.titleBn ? selectedGuide.titleBn : selectedGuide.title;
+      const safety = bilingualMode && selectedGuide.immediateSafetyBn ? selectedGuide.immediateSafetyBn.join('. ') : selectedGuide.immediateSafety.join('. ');
+      const step1 = bilingualMode && selectedGuide.steps[0].instructionBn ? selectedGuide.steps[0].instructionBn : selectedGuide.steps[0].instruction;
+      const textToSpeak = `${title}. ${safety}. ${step1}`;
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.rate = 0.95; // Clear emergency pace
       utterance.onend = () => setIsSpeaking(false);
@@ -112,12 +115,13 @@ export const FirstAidPage: React.FC = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const filteredGuides = FIRST_AID_GUIDES.filter(
-    (g) =>
-      g.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      g.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      g.shortDesc.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredGuides = FIRST_AID_GUIDES.filter((g) => {
+    const query = searchQuery.toLowerCase();
+    const titleMatch = g.title.toLowerCase().includes(query) || (g.titleBn && g.titleBn.toLowerCase().includes(query));
+    const catMatch = g.category.toLowerCase().includes(query) || (g.categoryBn && g.categoryBn.toLowerCase().includes(query));
+    const descMatch = g.shortDesc.toLowerCase().includes(query) || (g.shortDescBn && g.shortDescBn.toLowerCase().includes(query));
+    return titleMatch || catMatch || descMatch;
+  });
 
   const getGuideIcon = (iconName: string) => {
     switch (iconName) {
@@ -138,6 +142,15 @@ export const FirstAidPage: React.FC = () => {
     }
   };
 
+  const currentImmediateSafety =
+    bilingualMode && selectedGuide.immediateSafetyBn ? selectedGuide.immediateSafetyBn : selectedGuide.immediateSafety;
+  const currentDos =
+    bilingualMode && selectedGuide.dosBn ? selectedGuide.dosBn : selectedGuide.dos;
+  const currentDonts =
+    bilingualMode && selectedGuide.dontsBn ? selectedGuide.dontsBn : selectedGuide.donts;
+  const currentWhenToSeek =
+    bilingualMode && selectedGuide.whenToSeekEmergencyBn ? selectedGuide.whenToSeekEmergencyBn : selectedGuide.whenToSeekEmergency;
+
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -145,14 +158,15 @@ export const FirstAidPage: React.FC = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold mb-2">
             <LifeBuoy className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Standard Clinical First Aid Protocols</span>
-            {bilingualMode && <span>| প্রাথমিক জরুরি চিকিৎসা নির্দেশিকা</span>}
+            <span>{bilingualMode ? 'আন্তর্জাতিক প্রাথমিক জরুরি চিকিৎসা নির্দেশিকা' : 'Standard Clinical First Aid Protocols'}</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            AI First Aid Assistant
+            {bilingualMode ? 'এআই ফার্স্ট এইড সহকারী' : 'AI First Aid Assistant'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-            Step-by-step emergency instructions compliant with recognized resuscitation & first-aid guidelines with voice guidance and emergency timers.
+            {bilingualMode
+              ? 'জরুরি পরিস্থিতিতে জীবন রক্ষাকারী প্রাথমিক চিকিৎসার নির্ভরযোগ্য নির্দেশিকা, ভয়েস গাইডেন্স ও টাইমার।'
+              : 'Step-by-step emergency instructions compliant with recognized resuscitation & first-aid guidelines with voice guidance and emergency timers.'}
           </p>
         </div>
 
@@ -162,7 +176,7 @@ export const FirstAidPage: React.FC = () => {
           className="flex items-center gap-2 px-5 py-3 bg-red-600 hover:bg-red-700 text-white rounded-2xl text-xs font-bold shadow-md shadow-red-500/20 transition shrink-0"
         >
           <PhoneCall className="w-4 h-4" />
-          <span>Life-Threatening? Dial 999</span>
+          <span>{bilingualMode ? 'জীবন সংকট? ৯৯৯ কল দিন' : 'Life-Threatening? Dial 999'}</span>
         </a>
       </div>
 
@@ -173,7 +187,11 @@ export const FirstAidPage: React.FC = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search first aid situations (e.g., burn, cut, nosebleed, choking, heat stroke, snake bite)..."
+          placeholder={
+            bilingualMode
+              ? 'প্রাথমিক চিকিৎসার পরিস্থিতি খুঁজুন (যেমন পোড়া, কাটা, নাক দিয়ে রক্ত, বিষাক্ত কামড়, শ্বাসকষ্ট)...'
+              : 'Search first aid situations (e.g., burn, cut, nosebleed, choking, heat stroke, snake bite)...'
+          }
           className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 shadow-xs"
         />
       </div>
@@ -182,6 +200,7 @@ export const FirstAidPage: React.FC = () => {
       <div className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-none">
         {filteredGuides.map((guide) => {
           const isSelected = selectedGuide.id === guide.id;
+          const guideLabel = bilingualMode && guide.titleBn ? guide.titleBn.split('(')[0] : guide.title.split('(')[0];
           return (
             <button
               key={guide.id}
@@ -195,7 +214,7 @@ export const FirstAidPage: React.FC = () => {
               <span className={isSelected ? 'text-white' : ''}>
                 {getGuideIcon(guide.iconName)}
               </span>
-              <span>{guide.title.split('(')[0]}</span>
+              <span>{guideLabel}</span>
             </button>
           );
         })}
@@ -211,10 +230,10 @@ export const FirstAidPage: React.FC = () => {
           <div>
             <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
               {selectedGuide.id === 'minor-burns'
-                ? 'Cooling Water Timer (15 Mins Minimum)'
+                ? (bilingualMode ? 'পানি ঢালার টাইমার (কমপক্ষে ১৫ মিনিট)' : 'Cooling Water Timer (15 Mins Minimum)')
                 : selectedGuide.id === 'nosebleeds'
-                ? 'Continuous Nasal Pinch Timer (10 Mins)'
-                : 'Emergency Procedure Stopwatch'}
+                ? (bilingualMode ? 'নাক চেপে রাখার টাইমার (১০ মিনিট)' : 'Continuous Nasal Pinch Timer (10 Mins)')
+                : (bilingualMode ? 'জরুরি চিকিৎসা প্রক্রিয়া স্টপওয়াচ' : 'Emergency Procedure Stopwatch')}
             </p>
             <div className="flex items-center gap-2">
               <span className="text-xl font-black text-slate-900 font-mono">
@@ -230,7 +249,9 @@ export const FirstAidPage: React.FC = () => {
                 }`}
               >
                 {timerRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
-                {timerRunning ? 'Pause' : 'Start Timer'}
+                {timerRunning
+                  ? (bilingualMode ? 'বিরতি' : 'Pause')
+                  : (bilingualMode ? 'টাইমার শুরু' : 'Start Timer')}
               </button>
               <button
                 type="button"
@@ -239,7 +260,7 @@ export const FirstAidPage: React.FC = () => {
                   setTimerSeconds(defaultTimerSeconds);
                 }}
                 className="p-1 text-slate-400 hover:text-slate-700"
-                title="Reset Timer"
+                title={bilingualMode ? 'টাইমার রিসেট' : 'Reset Timer'}
               >
                 <RotateCcw className="w-3.5 h-3.5" />
               </button>
@@ -264,7 +285,11 @@ export const FirstAidPage: React.FC = () => {
                 metronomePulse ? 'scale-125 stroke-[3]' : 'scale-100'
               } transition-transform duration-75`}
             />
-            <span>{metronomeActive ? 'CPR 105 BPM Beep' : 'CPR Metronome'}</span>
+            <span>
+              {metronomeActive
+                ? (bilingualMode ? 'সিপিআর ১০৫ বিপিএম বিট' : 'CPR 105 BPM Beep')
+                : (bilingualMode ? 'সিপিআর বিট সহকারী' : 'CPR Metronome')}
+            </span>
           </button>
 
           {/* Hands-Free Voice Assistant */}
@@ -278,7 +303,11 @@ export const FirstAidPage: React.FC = () => {
             }`}
           >
             {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-            <span>{isSpeaking ? 'Mute Voice' : '🔊 Read Aloud'}</span>
+            <span>
+              {isSpeaking
+                ? (bilingualMode ? 'ভয়েস বন্ধ' : 'Mute Voice')
+                : (bilingualMode ? '🔊 পড়ে শোনান' : '🔊 Read Aloud')}
+            </span>
           </button>
         </div>
       </div>
@@ -293,12 +322,14 @@ export const FirstAidPage: React.FC = () => {
             </div>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
-                {selectedGuide.category}
+                {bilingualMode && selectedGuide.categoryBn ? selectedGuide.categoryBn : selectedGuide.category}
               </span>
               <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
-                {selectedGuide.title}
+                {bilingualMode && selectedGuide.titleBn ? selectedGuide.titleBn : selectedGuide.title}
               </h3>
-              <p className="text-xs text-slate-500">{selectedGuide.shortDesc}</p>
+              <p className="text-xs text-slate-500">
+                {bilingualMode && selectedGuide.shortDescBn ? selectedGuide.shortDescBn : selectedGuide.shortDesc}
+              </p>
             </div>
           </div>
 
@@ -308,7 +339,7 @@ export const FirstAidPage: React.FC = () => {
               className="py-2 px-3.5 bg-red-600 text-white rounded-xl text-xs font-bold hover:bg-red-700 transition flex items-center gap-1.5 shadow-xs"
             >
               <PhoneCall className="w-3.5 h-3.5" />
-              Direct 999
+              {bilingualMode ? 'সরাসরি ৯৯৯ কল' : 'Direct 999'}
             </a>
           </div>
         </div>
@@ -318,8 +349,12 @@ export const FirstAidPage: React.FC = () => {
           <div className="m-6 mb-2 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-start gap-3 text-xs text-red-900">
             <AlertTriangle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-red-950 mb-0.5">Critical Emergency Triage Warning:</p>
-              <p className="leading-relaxed">{selectedGuide.severityWarning}</p>
+              <p className="font-bold text-red-950 mb-0.5">
+                {bilingualMode ? 'জরুরি সতর্কবার্তা:' : 'Critical Emergency Triage Warning:'}
+              </p>
+              <p className="leading-relaxed">
+                {bilingualMode && selectedGuide.severityWarningBn ? selectedGuide.severityWarningBn : selectedGuide.severityWarning}
+              </p>
             </div>
           </div>
         )}
@@ -329,10 +364,10 @@ export const FirstAidPage: React.FC = () => {
           <div className="p-4 bg-blue-50/70 border border-blue-200 rounded-2xl space-y-2">
             <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-blue-600" />
-              Immediate Scene Safety Instructions
+              {bilingualMode ? 'অবিলম্বে নিরাপত্তা নিশ্চিতকরণ নির্দেশাবলী' : 'Immediate Scene Safety Instructions'}
             </h4>
             <ul className="space-y-1.5 text-xs text-blue-950">
-              {selectedGuide.immediateSafety.map((instruction, idx) => (
+              {currentImmediateSafety.map((instruction, idx) => (
                 <li key={idx} className="flex items-start gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
                   <span>{instruction}</span>
@@ -352,7 +387,9 @@ export const FirstAidPage: React.FC = () => {
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
-                Step-by-Step Action ({selectedGuide.steps.length} Steps)
+                {bilingualMode
+                  ? `ধাপ অনুসারে করণীয় (${selectedGuide.steps.length}টি ধাপ)`
+                  : `Step-by-Step Action (${selectedGuide.steps.length} Steps)`}
               </button>
               <button
                 onClick={() => setActiveTab('dos_donts')}
@@ -362,7 +399,7 @@ export const FirstAidPage: React.FC = () => {
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
-                DOs & DON'Ts Protocol
+                {bilingualMode ? 'কী করবেন ও কী করবেন না' : "DOs & DON'Ts Protocol"}
               </button>
               <button
                 onClick={() => setActiveTab('emergency')}
@@ -372,7 +409,7 @@ export const FirstAidPage: React.FC = () => {
                     : 'border-transparent text-slate-500 hover:text-slate-800'
                 }`}
               >
-                When to Seek Emergency ER
+                {bilingualMode ? 'কখন জরুরি বিভাগে যাবেন' : 'When to Seek Emergency ER'}
               </button>
             </div>
           </div>
@@ -380,22 +417,26 @@ export const FirstAidPage: React.FC = () => {
           {/* Tab 1: Step-by-Step Action */}
           {activeTab === 'steps' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              {selectedGuide.steps.map((step) => (
-                <div
-                  key={step.stepNumber}
-                  className="p-5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2 relative hover:bg-slate-100/60 transition"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-xl bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
-                      {step.stepNumber}
+              {selectedGuide.steps.map((step) => {
+                const stepTitle = bilingualMode && step.titleBn ? step.titleBn : step.title;
+                const stepInstruction = bilingualMode && step.instructionBn ? step.instructionBn : step.instruction;
+                return (
+                  <div
+                    key={step.stepNumber}
+                    className="p-5 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-2 relative hover:bg-slate-100/60 transition"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-xl bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                        {step.stepNumber}
+                      </div>
+                      <h4 className="text-sm font-bold text-slate-900">{stepTitle}</h4>
                     </div>
-                    <h4 className="text-sm font-bold text-slate-900">{step.title}</h4>
+                    <p className="text-xs text-slate-600 leading-relaxed pl-9.5">
+                      {stepInstruction}
+                    </p>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed pl-9.5">
-                    {step.instruction}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 
@@ -406,10 +447,10 @@ export const FirstAidPage: React.FC = () => {
               <div className="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 space-y-3">
                 <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm">
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                  <span>DO Follow These Guidelines:</span>
+                  <span>{bilingualMode ? 'অবশ্যই যা করবেন (উপকারী):' : 'DO Follow These Guidelines:'}</span>
                 </div>
                 <ul className="space-y-2 text-xs text-emerald-950">
-                  {selectedGuide.dos.map((item, idx) => (
+                  {currentDos.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
                       <span className="font-bold text-emerald-600 shrink-0">✓</span>
                       <span>{item}</span>
@@ -422,10 +463,10 @@ export const FirstAidPage: React.FC = () => {
               <div className="p-5 rounded-2xl bg-rose-50/80 border border-rose-200 space-y-3">
                 <div className="flex items-center gap-2 text-rose-900 font-bold text-sm">
                   <XCircle className="w-5 h-5 text-rose-600" />
-                  <span>DO NOT Do These Harmful Practices:</span>
+                  <span>{bilingualMode ? 'কখনোই যা করবেন না (ক্ষতিকর):' : 'DO NOT Do These Harmful Practices:'}</span>
                 </div>
                 <ul className="space-y-2 text-xs text-rose-950">
-                  {selectedGuide.donts.map((item, idx) => (
+                  {currentDonts.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
                       <span className="font-bold text-rose-600 shrink-0">✕</span>
                       <span>{item}</span>
@@ -441,10 +482,14 @@ export const FirstAidPage: React.FC = () => {
             <div className="p-5 rounded-2xl bg-red-50 border border-red-200 space-y-3 pt-4">
               <div className="flex items-center gap-2 text-red-900 font-bold text-sm">
                 <AlertTriangle className="w-5 h-5 text-red-600" />
-                <span>Seek Immediate Emergency Care / Call 999 If:</span>
+                <span>
+                  {bilingualMode
+                    ? 'অবিলম্বে জরুরি হাসপাতালে যাবেন বা ৯৯৯ কল করবেন যদি:'
+                    : 'Seek Immediate Emergency Care / Call 999 If:'}
+                </span>
               </div>
               <ul className="space-y-2 text-xs text-red-950">
-                {selectedGuide.whenToSeekEmergency.map((warning, idx) => (
+                {currentWhenToSeek.map((warning, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <span className="w-2 h-2 rounded-full bg-red-600 mt-1 shrink-0" />
                     <span>{warning}</span>
@@ -457,7 +502,7 @@ export const FirstAidPage: React.FC = () => {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-2.5 px-6 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition shadow-xs"
                 >
                   <PhoneCall className="w-4 h-4" />
-                  Dial Bangladesh National Emergency 999
+                  {bilingualMode ? 'জাতীয় জরুরি সেবা ৯৯৯ এ কল দিন' : 'Dial Bangladesh National Emergency 999'}
                 </a>
               </div>
             </div>

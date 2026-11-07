@@ -119,16 +119,35 @@ export const api = {
     patientAge?: number;
     patientGender?: string;
     reportCategory?: string;
-  }) {
-    return safeFetch('/reports/analyze', {
-      method: 'POST',
-      body: JSON.stringify({
-        report_text: payload.reportText,
-        patient_age: payload.patientAge || 35,
-        patient_gender: payload.patientGender || 'Male',
-        report_category: payload.reportCategory || 'General Lab',
-      }),
-    });
+  }): Promise<{
+    report_type?: string;
+    biomarkers?: Array<{
+      name: string;
+      value: number;
+      unit: string;
+      reference_range: string;
+      status: string;
+      explanation: string;
+    }>;
+    normal_count?: number;
+    abnormal_count?: number;
+    clinical_summary?: string;
+    questions_for_doctor?: string[];
+    safety_disclaimer?: string;
+  } | null> {
+    try {
+      return await safeFetch('/reports/analyze', {
+        method: 'POST',
+        body: JSON.stringify({
+          report_text: payload.reportText,
+          patient_age: payload.patientAge || 35,
+          patient_gender: payload.patientGender || 'Male',
+          report_category: payload.reportCategory || 'General Lab',
+        }),
+      });
+    } catch {
+      return null;
+    }
   },
 
   // 6. Medicines & Drug Interactions

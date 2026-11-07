@@ -202,7 +202,7 @@ export const LandingPage: React.FC = () => {
                     <span className="text-xs font-semibold text-slate-400 ml-2">MedNex Assistant Engine</span>
                   </div>
                   <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">
-                    Live Demo
+                    {bilingualMode ? 'ইন্টারেক্টিভ প্রিভিউ' : 'Interactive Preview'}
                   </span>
                 </div>
 

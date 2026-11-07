@@ -7,7 +7,7 @@ export const SAMPLE_REPORTS: MedicalReportData[] = [
     date: '2026-10-18',
     labName: 'Popular Diagnostic Centre, KDA Avenue, Khulna',
     category: 'Complete Blood Count',
-    patientName: 'Rahim Ahmed',
+    patientName: 'Verified Patient',
     patientAge: 38,
     parameters: [
       {
@@ -94,7 +94,7 @@ export const SAMPLE_REPORTS: MedicalReportData[] = [
     date: '2026-09-24',
     labName: 'Khulna City Medical College Pathology Lab, Sonadanga',
     category: 'Lipid Profile',
-    patientName: 'Rahim Ahmed',
+    patientName: 'Verified Patient',
     patientAge: 38,
     parameters: [
       {
@@ -161,7 +161,7 @@ export const SAMPLE_REPORTS: MedicalReportData[] = [
     date: '2026-10-05',
     labName: 'Labaid Diagnostic, Shantidham More, Khulna',
     category: 'Diabetic Panel',
-    patientName: 'Rahim Ahmed',
+    patientName: 'Verified Patient',
     patientAge: 38,
     parameters: [
       {
@@ -208,7 +208,7 @@ export const SAMPLE_REPORTS: MedicalReportData[] = [
     date: '2026-08-14',
     labName: 'Sandhani Clinic & Diagnostic, Boyra, Khulna',
     category: 'Liver Function',
-    patientName: 'Rahim Ahmed',
+    patientName: 'Verified Patient',
     patientAge: 38,
     parameters: [
       {
@@ -285,7 +285,7 @@ export const SAMPLE_REPORTS: MedicalReportData[] = [
     date: '2026-10-22',
     labName: 'Islami Bank Hospital Clinical Laboratory, Khulna',
     category: 'Kidney Function',
-    patientName: 'Rahim Ahmed',
+    patientName: 'Verified Patient',
     patientAge: 38,
     parameters: [
       {

@@ -22,15 +22,20 @@ export type UrgencyLevel = 'emergency' | 'high' | 'moderate' | 'low';
 
 export interface SymptomAnalysisResult {
   specialty: string;
+  specialtyBn?: string;
   urgency: UrgencyLevel;
   confidence: number;
   matchedSymptoms: string[];
   possibleCauses: string[];
+  possibleCausesBn?: string[];
   triageAdvice: string;
+  triageAdviceBn?: string;
   isEmergencyAlert: boolean;
   emergencyWarningSigns?: string[];
+  emergencyWarningSignsBn?: string[];
   recommendedDoctorCategory: string;
   questionsForDoctor: string[];
+  questionsForDoctorBn?: string[];
 }
 
 export interface Doctor {
@@ -125,7 +130,22 @@ export interface MedicalReportData {
   patientAge: number;
   parameters: ReportParameter[];
   overallSummary: string;
+  overallSummaryBn?: string;
+  clinicalImpression?: string;
+  clinicalImpressionBn?: string;
+  riskLevel?: 'normal' | 'mild' | 'moderate' | 'high' | 'critical';
+  affectedOrgans?: string[];
+  affectedOrgansBn?: string[];
+  bodyImpact?: string;
+  bodyImpactBn?: string;
+  dietaryAdvice?: string[];
+  dietaryAdviceBn?: string[];
+  lifestyleAdvice?: string[];
+  lifestyleAdviceBn?: string[];
+  recommendedSpecialty?: string;
+  recommendedSpecialtyBn?: string;
   questionsForPhysician: string[];
+  questionsForPhysicianBn?: string[];
   urgencyNote?: string;
 }
 
@@ -153,21 +173,36 @@ export interface DrugInteraction {
   recommendation: string;
 }
 
+export interface FirstAidStep {
+  stepNumber: number;
+  title: string;
+  titleBn?: string;
+  instruction: string;
+  instructionBn?: string;
+}
+
 export interface FirstAidGuide {
   id: string;
   title: string;
   titleBn?: string;
   category: string;
+  categoryBn?: string;
   iconName: string;
   shortDesc: string;
+  shortDescBn?: string;
   severityWarning?: string;
+  severityWarningBn?: string;
   recommendedTimerSeconds?: number;
   timerLabel?: string;
   immediateSafety: string[];
-  steps: { stepNumber: number; title: string; instruction: string }[];
+  immediateSafetyBn?: string[];
+  steps: FirstAidStep[];
   dos: string[];
+  dosBn?: string[];
   donts: string[];
+  dontsBn?: string[];
   whenToSeekEmergency: string[];
+  whenToSeekEmergencyBn?: string[];
 }
 
 export interface BMILogEntry {

@@ -47,8 +47,8 @@ export const FindDoctorsPage: React.FC = () => {
     new Date(Date.now() + 86400000).toISOString().split('T')[0] // Tomorrow
   );
   const [bookingTimeSlot, setBookingTimeSlot] = useState<string>('05:30 PM - 06:00 PM');
-  const [patientName, setPatientName] = useState<string>(user?.name || 'Rahim Ahmed');
-  const [patientPhone, setPatientPhone] = useState<string>(user?.phone || '+880 1712 345678');
+  const [patientName, setPatientName] = useState<string>(user?.name || '');
+  const [patientPhone, setPatientPhone] = useState<string>(user?.phone || '');
   const [bookedTicket, setBookedTicket] = useState<Appointment | null>(null);
 
   // Filter Doctors

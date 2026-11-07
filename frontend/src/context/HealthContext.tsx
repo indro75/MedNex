@@ -47,70 +47,9 @@ const INITIAL_BMI_LOGS: BMILogEntry[] = [
   { id: 'bmi-5', date: '2026-10-25', weightKg: 73.2, heightCm: 172, bmi: 24.7, category: 'Normal weight', notes: 'Crossed into healthy normal BMI range!' }
 ];
 
-const INITIAL_APPOINTMENTS: Appointment[] = [
-  {
-    id: 'apt-101',
-    doctorId: 'dr-kabir-cardio',
-    doctorName: 'Prof. Dr. Md. Humayun Kabir',
-    specialty: 'Cardiology',
-    hospitalOrChamber: 'Popular Diagnostic Centre, Khulna',
-    chamberAddress: '37 KDA Avenue, Sonadanga, Khulna',
-    date: '2026-11-06',
-    timeSlot: '05:30 PM - 06:00 PM',
-    serialNumber: 14,
-    patientName: 'Rahim Ahmed',
-    patientPhone: '+880 1712 345678',
-    feeBDT: 1000,
-    status: 'Confirmed',
-    bookedAt: '2026-11-01 10:15 AM'
-  }
-];
+const INITIAL_APPOINTMENTS: Appointment[] = [];
 
-const INITIAL_ACTIVITIES: HealthActivityLog[] = [
-  {
-    id: 'act-1',
-    type: 'doctor_booked',
-    title: 'Chamber Serial Confirmed: Prof. Dr. Humayun Kabir',
-    timestamp: '2026-11-01 10:15 AM',
-    summary: 'Serial #14 booked at Popular Diagnostic Centre Khulna. Visiting Time: 05:30 PM.',
-    tag: 'Chamber Serial',
-    severity: 'low'
-  },
-  {
-    id: 'act-2',
-    type: 'report_analyzed',
-    title: 'Complete Blood Count Analyzed',
-    timestamp: '2026-10-18 11:30 AM',
-    summary: 'Mild microcytic hypochromic anemia identified (Hb 10.2 g/dL). Physician consultation recommended.',
-    tag: 'Report Analysis',
-    severity: 'moderate'
-  },
-  {
-    id: 'act-3',
-    type: 'symptom_check',
-    title: 'Mild Joint Stiffness & Calf Cramps Check',
-    timestamp: '2026-10-14 07:15 PM',
-    summary: 'Evaluated lower limb discomfort. Recommended Orthopedics / Physical Medicine.',
-    tag: 'Symptom AI',
-    severity: 'low'
-  },
-  {
-    id: 'act-4',
-    type: 'bmi_logged',
-    title: 'Weight Logged: 73.2 kg',
-    timestamp: '2026-10-25 08:00 AM',
-    summary: 'BMI 24.7 kg/m² (Normal weight achieved). Down 5.3 kg over 4 months.',
-    tag: 'Fitness Tracker'
-  },
-  {
-    id: 'act-5',
-    type: 'medicine_checked',
-    title: 'Napa Extra Safety Verification',
-    timestamp: '2026-10-02 03:45 PM',
-    summary: 'Verified indications, maximum safe dosage (4000mg/day), and caffeine precautions.',
-    tag: 'Medicine Checker'
-  }
-];
+const INITIAL_ACTIVITIES: HealthActivityLog[] = [];
 
 const HealthContext = createContext<HealthContextType | undefined>(undefined);
 

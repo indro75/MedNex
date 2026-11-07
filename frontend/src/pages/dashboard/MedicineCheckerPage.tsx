@@ -6,21 +6,16 @@ import {
   AlertTriangle,
   CheckCircle2,
   ShieldAlert,
-  Sparkles,
   Info,
   RefreshCw,
-  GitCompare,
-  ArrowRight,
-  ShieldCheck,
-  Building2,
-  Check
+  GitCompare
 } from 'lucide-react';
 import { MEDICINE_DATABASE, KNOWN_DRUG_INTERACTIONS } from '../../data/medicineDatabase';
 import { MedicineInfo, DrugInteraction } from '../../types';
 import { useHealth } from '../../context/HealthContext';
 
 export const MedicineCheckerPage: React.FC = () => {
-  const { bilingualMode, t } = useHealth();
+  const { bilingualMode } = useHealth();
   const [activeTab, setActiveTab] = useState<'info' | 'interactions'>('info');
 
   // Search & Selected Medicine
@@ -73,7 +68,7 @@ export const MedicineCheckerPage: React.FC = () => {
       setInteractionResult({
         drug1: drugA,
         drug2: drugB,
-        severity: bilingualMode ? 'মাইনর / স্বাভাবিক পর্যবেক্ষণ' : 'Minor / Monitor',
+        severity: 'Minor / Monitor',
         effect: bilingualMode
           ? 'স্ট্যান্ডার্ড ক্লিনিক্যাল ফার্মাকোলজি তথ্যসূত্রে এই দুটি ওষুধের মধ্যে কোনো মারাত্মক প্রতিকূল ক্রিয়া বা নিষেধ পাওয়া যায়নি।'
           : 'No severe acute clinical contraindication recorded in standard clinical pharmacology indexes between these two compounds.',
@@ -164,7 +159,11 @@ export const MedicineCheckerPage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by brand name (e.g. Napa Extra, Seclo, Azith, Metfo, Ciprocin) or generic (Paracetamol, Metformin)..."
+                placeholder={
+                  bilingualMode
+                    ? 'ব্র্যান্ডের নাম (যেমন নাপা এক্সট্রা, সেকলো, এজিথ, মেটফো) বা জেনেরিক (প্যারাসিটামল, ওমিপ্রাজল)...'
+                    : 'Search by brand name (e.g. Napa Extra, Seclo, Azith, Metfo, Ciprocin) or generic (Paracetamol, Metformin)...'
+                }
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -173,11 +172,15 @@ export const MedicineCheckerPage: React.FC = () => {
             {searchQuery.trim() && (
               <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
                 <span className="text-xs font-bold text-slate-700">
-                  Matching Medicines ({filteredMedicines.length}):
+                  {bilingualMode
+                    ? `মিলে যাওয়া ওষুধসমূহ (${filteredMedicines.length}টি):`
+                    : `Matching Medicines (${filteredMedicines.length}):`}
                 </span>
                 {filteredMedicines.length === 0 ? (
                   <p className="text-xs text-slate-500 py-2">
-                    No verified medicine found matching "{searchQuery}". Please verify packaging with your pharmacist.
+                    {bilingualMode
+                      ? `"${searchQuery}" এর সাথে মিলে এমন কোনো ওষুধ পাওয়া যায়নি। অনুগ্রহ করে ফার্মাসিস্টের সাথে যাচাই করুন।`
+                      : `No verified medicine found matching "${searchQuery}". Please verify packaging with your pharmacist.`}
                   </p>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -196,7 +199,7 @@ export const MedicineCheckerPage: React.FC = () => {
                           <p className="text-[11px] text-slate-500">{m.genericName}</p>
                         </div>
                         <span className="text-[10px] text-blue-700 bg-blue-50 px-2 py-0.5 rounded font-semibold">
-                          Select
+                          {bilingualMode ? 'নির্বাচন' : 'Select'}
                         </span>
                       </button>
                     ))}
@@ -207,7 +210,9 @@ export const MedicineCheckerPage: React.FC = () => {
 
             {/* Quick medicine pills */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              <span className="text-xs font-bold text-slate-400">Popular Medicines:</span>
+              <span className="text-xs font-bold text-slate-400">
+                {bilingualMode ? 'জনপ্রিয় ওষুধসমূহ:' : 'Popular Medicines:'}
+              </span>
               {MEDICINE_DATABASE.map((med) => (
                 <button
                   key={med.id}
@@ -233,10 +238,14 @@ export const MedicineCheckerPage: React.FC = () => {
             <div className="bg-white p-12 rounded-3xl border border-slate-200 shadow-xs text-center space-y-3">
               <RefreshCw className="w-8 h-8 text-blue-600 animate-spin mx-auto" />
               <h4 className="text-sm font-bold text-slate-900">
-                Running OCR on Medicine Package Image...
+                {bilingualMode
+                  ? 'ওষুধের প্যাকেজ ছবি থেকে ওসিআর টেক্সট এক্সট্রাক্ট করা হচ্ছে...'
+                  : 'Running OCR on Medicine Package Image...'}
               </h4>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                Extracting text from strip, recognizing generic compounds, and validating with pharmaceutical index.
+                {bilingualMode
+                  ? 'স্ট্রিপ থেকে নাম শনাক্ত করে ফার্মাসিউটিক্যাল ইনডেক্স যাচাই করা হচ্ছে।'
+                  : 'Extracting text from strip, recognizing generic compounds, and validating with pharmaceutical index.'}
               </p>
             </div>
           ) : (
@@ -260,16 +269,19 @@ export const MedicineCheckerPage: React.FC = () => {
                       {selectedMedicine.brandName}
                     </h3>
                     <p className="text-xs font-semibold text-blue-600">
-                      Generic: {selectedMedicine.genericName}
+                      {bilingualMode ? 'জেনেরিক নাম: ' : 'Generic: '}
+                      {selectedMedicine.genericName}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-left sm:text-right text-xs">
-                  <p className="text-slate-400">Pharmaceutical Manufacturer:</p>
+                  <p className="text-slate-400">
+                    {bilingualMode ? 'প্রস্তুতকারক প্রতিষ্ঠান:' : 'Pharmaceutical Manufacturer:'}
+                  </p>
                   <p className="font-bold text-slate-800">{selectedMedicine.manufacturer}</p>
                   <p className="text-[11px] text-slate-500 mt-0.5">
-                    Strengths: {selectedMedicine.strengths.join(', ')}
+                    {bilingualMode ? 'উপলব্ধ মাত্রা:' : 'Strengths:'} {selectedMedicine.strengths.join(', ')}
                   </p>
                 </div>
               </div>
@@ -280,7 +292,7 @@ export const MedicineCheckerPage: React.FC = () => {
                 <div className="p-5 rounded-2xl bg-blue-50/60 border border-blue-100 space-y-3">
                   <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                    Primary Medical Indications (Uses)
+                    {bilingualMode ? 'প্রধান চিকিৎসাগত ব্যবহার (ইন্ডিকেশন)' : 'Primary Medical Indications (Uses)'}
                   </h4>
                   <ul className="space-y-2 text-xs text-slate-700">
                     {selectedMedicine.commonUses.map((use, idx) => (
@@ -296,7 +308,7 @@ export const MedicineCheckerPage: React.FC = () => {
                 <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                   <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                     <Info className="w-4 h-4 text-slate-600" />
-                    Reported Common Side Effects
+                    {bilingualMode ? 'সাধারণ পার্শ্বপ্রতিক্রিয়াসমূহ' : 'Reported Common Side Effects'}
                   </h4>
                   <ul className="space-y-2 text-xs text-slate-600">
                     {selectedMedicine.sideEffects.map((effect, idx) => (
@@ -312,7 +324,7 @@ export const MedicineCheckerPage: React.FC = () => {
                 <div className="p-5 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-3">
                   <h4 className="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
                     <AlertTriangle className="w-4 h-4 text-amber-700" />
-                    Crucial Precautions & Warnings
+                    {bilingualMode ? 'জরুরি সতর্কতা ও সাবধানতা' : 'Crucial Precautions & Warnings'}
                   </h4>
                   <ul className="space-y-2 text-xs text-amber-950">
                     {selectedMedicine.precautions.map((prec, idx) => (
@@ -328,15 +340,19 @@ export const MedicineCheckerPage: React.FC = () => {
                 <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
                   <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                     <ShieldAlert className="w-4 h-4 text-rose-600" />
-                    Food Interactions & Pregnancy Safety
+                    {bilingualMode ? 'খাবার গ্রহণ ও গর্ভাবস্থায় নিরাপত্তা' : 'Food Interactions & Pregnancy Safety'}
                   </h4>
                   <div className="space-y-2 text-xs text-slate-700">
                     <div>
-                      <p className="font-bold text-slate-800">Meal & Food Directions:</p>
+                      <p className="font-bold text-slate-800">
+                        {bilingualMode ? 'খাবারের সাথে সেবনবিধি:' : 'Meal & Food Directions:'}
+                      </p>
                       <p className="text-slate-600">{selectedMedicine.foodInteractions}</p>
                     </div>
                     <div className="pt-2 border-t border-slate-200/70">
-                      <p className="font-bold text-slate-800">Pregnancy & Lactation Status:</p>
+                      <p className="font-bold text-slate-800">
+                        {bilingualMode ? 'গর্ভাবস্থা ও স্তন্যদানকালীন অবস্থা:' : 'Pregnancy & Lactation Status:'}
+                      </p>
                       <p className="text-slate-600 font-medium">{selectedMedicine.isPregnancySafe}</p>
                     </div>
                   </div>
@@ -351,17 +367,19 @@ export const MedicineCheckerPage: React.FC = () => {
           <div className="space-y-1 pb-3 border-b border-slate-100">
             <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
               <GitCompare className="w-5 h-5 text-amber-600" />
-              Pharmacological Interaction Evaluator
+              {bilingualMode ? 'ফার্মাকোলজিক্যাল ড্রাগ ইন্টারঅ্যাকশন মূল্যায়ন' : 'Pharmacological Interaction Evaluator'}
             </h3>
             <p className="text-xs text-slate-500">
-              Select two medicines to evaluate documented clinical interactions, metabolic enzyme conflicts, and absorption risks.
+              {bilingualMode
+                ? 'দুটি ওষুধ নির্বাচন করে তাদের মধ্যকার সম্ভাব্য ক্লিনিক্যাল মিথস্ক্রিয়া ও পার্শ্বপ্রতিক্রিয়ার ঝুঁকি যাচাই করুন।'
+                : 'Select two medicines to evaluate documented clinical interactions, metabolic enzyme conflicts, and absorption risks.'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
-                First Medicine (Drug A)
+                {bilingualMode ? 'প্রথম ওষুধ (ওষুধ ক)' : 'First Medicine (Drug A)'}
               </label>
               <select
                 value={drugA}
@@ -381,7 +399,7 @@ export const MedicineCheckerPage: React.FC = () => {
 
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
-                Second Medicine (Drug B)
+                {bilingualMode ? 'দ্বিতীয় ওষুধ (ওষুধ খ)' : 'Second Medicine (Drug B)'}
               </label>
               <select
                 value={drugB}
@@ -406,7 +424,7 @@ export const MedicineCheckerPage: React.FC = () => {
             className="w-full sm:w-auto px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-xs"
           >
             <GitCompare className="w-4 h-4" />
-            Check Drug-Drug Interaction
+            {bilingualMode ? 'ড্রাগ ইন্টারঅ্যাকশন যাচাই করুন' : 'Check Drug-Drug Interaction'}
           </button>
 
           {/* Interaction Result Display */}
@@ -426,7 +444,8 @@ export const MedicineCheckerPage: React.FC = () => {
                     ? 'bg-amber-600 text-white'
                     : 'bg-green-700 text-white'
                 }`}>
-                  Interaction Severity: {interactionResult.severity}
+                  {bilingualMode ? 'পারস্পরিক ক্রিয়ার ঝুঁকি: ' : 'Interaction Severity: '}
+                  {interactionResult.severity}
                 </span>
                 <span className="text-xs font-bold">
                   {interactionResult.drug1} + {interactionResult.drug2}
@@ -435,7 +454,7 @@ export const MedicineCheckerPage: React.FC = () => {
 
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider mb-1">
-                  Pharmacological Interaction Effect:
+                  {bilingualMode ? 'পারস্পরিক প্রতিক্রিয়ার ক্লিনিক্যাল প্রভাব:' : 'Pharmacological Interaction Effect:'}
                 </h4>
                 <p className="text-xs leading-relaxed font-medium">
                   {interactionResult.effect}
@@ -444,7 +463,7 @@ export const MedicineCheckerPage: React.FC = () => {
 
               <div className="pt-2 border-t border-slate-200/60">
                 <h4 className="text-xs font-bold uppercase tracking-wider mb-1">
-                  Clinical Recommendation:
+                  {bilingualMode ? 'ক্লিনিক্যাল নির্দেশনা ও সুপারিশ:' : 'Clinical Recommendation:'}
                 </h4>
                 <p className="text-xs leading-relaxed">
                   {interactionResult.recommendation}

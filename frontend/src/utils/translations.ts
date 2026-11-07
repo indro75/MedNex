@@ -7,38 +7,6 @@ export type Language = 'en' | 'bn';
 
 export const TRANSLATIONS = {
   en: {
-    // Existing keys...
-    // ... (preserve existing) 
-    // New Footer keys
-    footerDescription: 'Your Health, Smarter. Your Care, Closer. An AI-powered healthcare companion making medical triage, verified doctor discovery, and emergency services accessible.',
-    footerPrimaryDeployment: 'Primary Sample Deployment: Khulna, Bangladesh',
-    footerEmergencyCall: 'National Emergency Call: 999 (24/7 Toll-free)',
-    coreServicesHeading: 'Core Services',
-    emergencySupportTitle: 'Emergency Support',
-    emergencySupportMessage: 'If you or someone around you suffers from severe chest pain, breathing difficulty, or deep trauma, do not delay.',
-    call999Button: 'Call 999 Hotline',
-    medicalDisclaimerHeading: 'Medical Safety & Regulatory Disclaimer:',
-    medicalDisclaimerText: 'MedNex is a healthcare assistance platform, not a replacement for professional medical diagnosis or treatment. AI-generated information may be inaccurate. Always consult a qualified healthcare professional for medical decisions. In an emergency, contact emergency services immediately. All doctor and facility information for Khulna is verified against official directories.',
-    copyrightNotice: 'All rights reserved.',
-    // Bengali translations (bn)
-    bn: {
-      brandName: 'মেডনেক্স',
-      brandTagline: 'এআই স্বাস্থ্য সহায়ক',
-      // Add Bengali equivalents for new keys
-      footerDescription: 'আপনার স্বাস্থ্য, আরও বুদ্ধিমত্তায়। আপনার যত্ন, আরও কাছাকাছি। একটি এআই-চালিত স্বাস্থ্য সহায়ক যা চিকিৎসা ট্রায়াজ, যাচাইকৃত ডাক্তার অনুসন্ধান এবং জরুরি সেবা সহজ করে।',
-      footerPrimaryDeployment: 'প্রাথমিক নমুনা মোতায়েন: খুলনা, বাংলাদেশ',
-      footerEmergencyCall: 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ টোল-ফ্রি)',
-      coreServicesHeading: 'প্রধান সেবা',
-      emergencySupportTitle: 'জরুরি সহায়তা',
-      emergencySupportMessage: 'যদি আপনি বা আপনার চারপাশের কেউ তীব্র বুকে ব্যথা, শ্বাসকষ্ট বা গুরুতর আঘাত পান, দেরি করবেন না।',
-      call999Button: '৯৯৯ হটলাইন কল করুন',
-      medicalDisclaimerHeading: 'মেডিকেল সেফটি ও নিয়ন্ত্রক ডিসক্লেইমার:',
-      medicalDisclaimerText: 'মেডনেক্স একটি স্বাস্থ্য সহায়ক প্ল্যাটফর্ম, পেশাদার মেডিকেল ডায়াগনোসিস বা চিকিৎসার বিকল্প নয়। এআই-উৎপন্ন তথ্য ভুল হতে পারে। চিকিৎসার সিদ্ধান্তের জন্য সর্বদা একজন যোগ্য স্বাস্থ্য পেশাদারের সঙ্গে পরামর্শ করুন। জরুরি অবস্থায়, সঙ্গে সঙ্গে জরুরি সেবা কল করুন। খুলনায় থাকা সকল ডাক্তার ও সুবিধার তথ্য অফিসিয়াল ডিরেক্টরি থেকে যাচাই করা আছে।',
-      copyrightNotice: 'সর্বস্বত্ব সংরক্ষিত।',
-    }
-  }
-}
-  en: {
     // Brand
     brandName: 'MedNex',
     brandTagline: 'AI Healthcare Companion',
@@ -219,7 +187,7 @@ export const TRANSLATIONS = {
     tabMedicineInfo: 'Medicine Directory & Safety',
     tabDrugInteractions: 'Drug-Drug Interaction Checker',
     searchMedicinePlaceholder: 'Search brand name (e.g. Napa Extra, Seclo, Monas) or generic molecule...',
-    brandName: 'Brand Name',
+    medicineBrandName: 'Brand Name',
     genericName: 'Generic Molecule',
     therapeuticClass: 'Therapeutic Class',
     manufacturer: 'Pharmaceutical Manufacturer',
@@ -446,7 +414,7 @@ export const TRANSLATIONS = {
     tabMedicineInfo: 'ওষুধ তথ্য ও নিরাপত্তা নির্দেশিকা',
     tabDrugInteractions: 'ওষুধের পারস্পরিক ক্রিয়া (Drug Interaction)',
     searchMedicinePlaceholder: 'ওষুধের ব্র্যান্ড নাম (যেমন: Napa Extra, Seclo, Monas) বা জেনেরিক নাম লিখুন...',
-    brandName: 'ব্র্যান্ডের নাম',
+    medicineBrandName: 'ব্র্যান্ডের নাম',
     genericName: 'জেনেরিক নাম',
     therapeuticClass: 'থেরাপিউটিক ক্লাস',
     manufacturer: 'প্রস্তুতকারক প্রতিষ্ঠান',
@@ -489,12 +457,9 @@ export const TRANSLATIONS = {
     close: 'বন্ধ করুন',
     verifiedBadge: 'বিএমডিসি যাচাইকৃত',
     details: 'বিস্তারিত দেখুন',
-    loading: 'লোড হচ্ছে...'
-  }
-,
-  bn: {
-    brandName: 'মেডনেক্স',
-    brandTagline: 'এআই স্বাস্থ্য সহায়ক',
+    loading: 'লোড হচ্ছে...',
+
+    // Footer & Alerts
     footerDescription: 'আপনার স্বাস্থ্য, আরও বুদ্ধিমত্তায়। আপনার যত্ন, আরও কাছাকাছি। একটি এআই-চালিত স্বাস্থ্য সহায়ক যা চিকিৎসা ট্রায়াজ, যাচাইকৃত ডাক্তার অনুসন্ধান এবং জরুরি সেবা সহজ করে।',
     footerPrimaryDeployment: 'প্রাথমিক নমুনা মোতায়েন: খুলনা, বাংলাদেশ',
     footerEmergencyCall: 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ টোল-ফ্রি)',
@@ -518,21 +483,6 @@ export const AREA_TRANSLATIONS: Record<string, string> = {
   'Khan Jahan Ali': 'খান জাহান আলী',
   'Rupsha': 'রূপসা',
   'Gollamari': 'গল্লামারি'
-,
-  bn: {
-    brandName: 'মেডনেক্স',
-    brandTagline: 'এআই স্বাস্থ্য সহায়ক',
-    footerDescription: 'আপনার স্বাস্থ্য, আরও বুদ্ধিমত্তায়। আপনার যত্ন, আরও কাছাকাছি। একটি এআই-চালিত স্বাস্থ্য সহায়ক যা চিকিৎসা ট্রায়াজ, যাচাইকৃত ডাক্তার অনুসন্ধান এবং জরুরি সেবা সহজ করে।',
-    footerPrimaryDeployment: 'প্রাথমিক নমুনা মোতায়েন: খুলনা, বাংলাদেশ',
-    footerEmergencyCall: 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ টোল-ফ্রি)',
-    coreServicesHeading: 'প্রধান সেবা',
-    emergencySupportTitle: 'জরুরি সহায়তা',
-    emergencySupportMessage: 'যদি আপনি বা আপনার চারপাশের কেউ তীব্র বুকে ব্যথা, শ্বাসকষ্ট বা গুরুতর আঘাত পান, দেরি করবেন না।',
-    call999Button: '৯৯৯ হটলাইন কল করুন',
-    medicalDisclaimerHeading: 'মেডিকেল সেফটি ও নিয়ন্ত্রক ডিসক্লেইমার:',
-    medicalDisclaimerText: 'মেডনেক্স একটি স্বাস্থ্য সহায়ক প্ল্যাটফর্ম, পেশাদার মেডিকেল ডায়াগনোসিস বা চিকিৎসার বিকল্প নয়। এআই-উৎপন্ন তথ্য ভুল হতে পারে। চিকিৎসার সিদ্ধান্তের জন্য সর্বদা একজন যোগ্য স্বাস্থ্য পেশাদারের সঙ্গে পরামর্শ করুন। জরুরি অবস্থায়, সঙ্গে সঙ্গে জরুরি সেবা কল করুন। খুলনায় থাকা সকল ডাক্তার ও সুবিধার তথ্য অফিসিয়াল ডিরেক্টরি থেকে যাচাই করা আছে।',
-    copyrightNotice: 'সর্বস্বত্ব সংরক্ষিত।'
-  }
 };
 
 export const SPECIALTY_TRANSLATIONS: Record<string, string> = {
@@ -548,21 +498,6 @@ export const SPECIALTY_TRANSLATIONS: Record<string, string> = {
   'Nephrology': 'নেফ্রোলজি (কিডনি রোগ)',
   'Dermatology': 'ডার্মাটোলজি (চর্ম ও যৌন)',
   'General Surgery': 'জেনারেল সার্জারি'
-,
-  bn: {
-    brandName: 'মেডনেক্স',
-    brandTagline: 'এআই স্বাস্থ্য সহায়ক',
-    footerDescription: 'আপনার স্বাস্থ্য, আরও বুদ্ধিমত্তায়। আপনার যত্ন, আরও কাছাকাছি। একটি এআই-চালিত স্বাস্থ্য সহায়ক যা চিকিৎসা ট্রায়াজ, যাচাইকৃত ডাক্তার অনুসন্ধান এবং জরুরি সেবা সহজ করে।',
-    footerPrimaryDeployment: 'প্রাথমিক নমুনা মোতায়েন: খুলনা, বাংলাদেশ',
-    footerEmergencyCall: 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ টোল-ফ্রি)',
-    coreServicesHeading: 'প্রধান সেবা',
-    emergencySupportTitle: 'জরুরি সহায়তা',
-    emergencySupportMessage: 'যদি আপনি বা আপনার চারপাশের কেউ তীব্র বুকে ব্যথা, শ্বাসকষ্ট বা গুরুতর আঘাত পান, দেরি করবেন না।',
-    call999Button: '৯৯৯ হটলাইন কল করুন',
-    medicalDisclaimerHeading: 'মেডিকেল সেফটি ও নিয়ন্ত্রক ডিসক্লেইমার:',
-    medicalDisclaimerText: 'মেডনেক্স একটি স্বাস্থ্য সহায়ক প্ল্যাটফর্ম, পেশাদার মেডিকেল ডায়াগনোসিস বা চিকিৎসার বিকল্প নয়। এআই-উৎপন্ন তথ্য ভুল হতে পারে। চিকিৎসার সিদ্ধান্তের জন্য সর্বদা একজন যোগ্য স্বাস্থ্য পেশাদারের সঙ্গে পরামর্শ করুন। জরুরি অবস্থায়, সঙ্গে সঙ্গে জরুরি সেবা কল করুন। খুলনায় থাকা সকল ডাক্তার ও সুবিধার তথ্য অফিসিয়াল ডিরেক্টরি থেকে যাচাই করা আছে।',
-    copyrightNotice: 'সর্বস্বত্ব সংরক্ষিত।'
-  }
 };
 
 export const BMI_CATEGORY_TRANSLATIONS: Record<string, string> = {
@@ -570,21 +505,6 @@ export const BMI_CATEGORY_TRANSLATIONS: Record<string, string> = {
   'Normal weight': 'স্বাভাবিক ও স্বাস্থ্যকর ওজন',
   'Overweight': 'অতিরিক্ত ওজন',
   'Obesity': 'স্থূলতা'
-,
-  bn: {
-    brandName: 'মেডনেক্স',
-    brandTagline: 'এআই স্বাস্থ্য সহায়ক',
-    footerDescription: 'আপনার স্বাস্থ্য, আরও বুদ্ধিমত্তায়। আপনার যত্ন, আরও কাছাকাছি। একটি এআই-চালিত স্বাস্থ্য সহায়ক যা চিকিৎসা ট্রায়াজ, যাচাইকৃত ডাক্তার অনুসন্ধান এবং জরুরি সেবা সহজ করে।',
-    footerPrimaryDeployment: 'প্রাথমিক নমুনা মোতায়েন: খুলনা, বাংলাদেশ',
-    footerEmergencyCall: 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ টোল-ফ্রি)',
-    coreServicesHeading: 'প্রধান সেবা',
-    emergencySupportTitle: 'জরুরি সহায়তা',
-    emergencySupportMessage: 'যদি আপনি বা আপনার চারপাশের কেউ তীব্র বুকে ব্যথা, শ্বাসকষ্ট বা গুরুতর আঘাত পান, দেরি করবেন না।',
-    call999Button: '৯৯৯ হটলাইন কল করুন',
-    medicalDisclaimerHeading: 'মেডিকেল সেফটি ও নিয়ন্ত্রক ডিসক্লেইমার:',
-    medicalDisclaimerText: 'মেডনেক্স একটি স্বাস্থ্য সহায়ক প্ল্যাটফর্ম, পেশাদার মেডিকেল ডায়াগনোসিস বা চিকিৎসার বিকল্প নয়। এআই-উৎপন্ন তথ্য ভুল হতে পারে। চিকিৎসার সিদ্ধান্তের জন্য সর্বদা একজন যোগ্য স্বাস্থ্য পেশাদারের সঙ্গে পরামর্শ করুন। জরুরি অবস্থায়, সঙ্গে সঙ্গে জরুরি সেবা কল করুন। খুলনায় থাকা সকল ডাক্তার ও সুবিধার তথ্য অফিসিয়াল ডিরেক্টরি থেকে যাচাই করা আছে।',
-    copyrightNotice: 'সর্বস্বত্ব সংরক্ষিত।'
-  }
 };
 
 export const FIRST_AID_CATEGORY_TRANSLATIONS: Record<string, string> = {
@@ -596,21 +516,6 @@ export const FIRST_AID_CATEGORY_TRANSLATIONS: Record<string, string> = {
   'Fainting & Syncope': 'অজ্ঞান হয়ে যাওয়া',
   'Heat Stroke & Exhaustion': 'হিট স্ট্রোক ও অতিরিক্ত গরম',
   'Snake & Animal Bites': 'সাপ ও প্রাণীর কামড়'
-,
-  bn: {
-    brandName: 'মেডনেক্স',
-    brandTagline: 'এআই স্বাস্থ্য সহায়ক',
-    footerDescription: 'আপনার স্বাস্থ্য, আরও বুদ্ধিমত্তায়। আপনার যত্ন, আরও কাছাকাছি। একটি এআই-চালিত স্বাস্থ্য সহায়ক যা চিকিৎসা ট্রায়াজ, যাচাইকৃত ডাক্তার অনুসন্ধান এবং জরুরি সেবা সহজ করে।',
-    footerPrimaryDeployment: 'প্রাথমিক নমুনা মোতায়েন: খুলনা, বাংলাদেশ',
-    footerEmergencyCall: 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ টোল-ফ্রি)',
-    coreServicesHeading: 'প্রধান সেবা',
-    emergencySupportTitle: 'জরুরি সহায়তা',
-    emergencySupportMessage: 'যদি আপনি বা আপনার চারপাশের কেউ তীব্র বুকে ব্যথা, শ্বাসকষ্ট বা গুরুতর আঘাত পান, দেরি করবেন না।',
-    call999Button: '৯৯৯ হটলাইন কল করুন',
-    medicalDisclaimerHeading: 'মেডিকেল সেফটি ও নিয়ন্ত্রক ডিসক্লেইমার:',
-    medicalDisclaimerText: 'মেডনেক্স একটি স্বাস্থ্য সহায়ক প্ল্যাটফর্ম, পেশাদার মেডিকেল ডায়াগনোসিস বা চিকিৎসার বিকল্প নয়। এআই-উৎপন্ন তথ্য ভুল হতে পারে। চিকিৎসার সিদ্ধান্তের জন্য সর্বদা একজন যোগ্য স্বাস্থ্য পেশাদারের সঙ্গে পরামর্শ করুন। জরুরি অবস্থায়, সঙ্গে সঙ্গে জরুরি সেবা কল করুন। খুলনায় থাকা সকল ডাক্তার ও সুবিধার তথ্য অফিসিয়াল ডিরেক্টরি থেকে যাচাই করা আছে।',
-    copyrightNotice: 'সর্বস্বত্ব সংরক্ষিত।'
-  }
 };
 
 export function getTranslation(key: keyof typeof TRANSLATIONS.en, lang: Language): string {

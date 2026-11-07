@@ -10,24 +10,6 @@ interface AuthContextType {
   updateProfile: (updated: Partial<UserProfile>) => void;
 }
 
-const DEFAULT_USER: UserProfile = {
-  id: 'usr_khulna_01',
-  name: 'Rahim Ahmed',
-  email: 'rahim.ahmed@example.com',
-  phone: '+880 1712 345678',
-  age: 38,
-  gender: 'male',
-  bloodGroup: 'B+',
-  emergencyContact: {
-    name: 'Farzana Ahmed',
-    relationship: 'Spouse',
-    phone: '+880 1711 987654'
-  },
-  allergies: ['Penicillin', 'Dust mites'],
-  chronicConditions: ['Mild Hypertension', 'Allergic Rhinitis'],
-  city: 'Khulna'
-};
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -37,10 +19,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         return JSON.parse(saved);
       } catch {
-        return DEFAULT_USER;
+        return null;
       }
     }
-    return DEFAULT_USER; // Default logged in for smooth developer/user preview
+    return null; // Start unauthenticated unless user previously signed up or logged in
   });
 
   useEffect(() => {
@@ -52,38 +34,111 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [user]);
 
   const login = async (email: string, _pass: string): Promise<boolean> => {
-    // Simulated authentication
-    const loggedUser: UserProfile = {
-      ...DEFAULT_USER,
-      email: email || DEFAULT_USER.email,
-      name: email.includes('@') ? email.split('@')[0].replace('.', ' ') : DEFAULT_USER.name
+    if (!email) return false;
+
+    // Check previously registered users in local storage
+    const stored = localStorage.getItem('mednex_registered_users');
+    let usersList: UserProfile[] = [];
+    if (stored) {
+      try {
+        usersList = JSON.parse(stored);
+      } catch {
+        usersList = [];
+      }
+    }
+
+    const matched = usersList.find((u) => u.email.toLowerCase() === email.trim().toLowerCase());
+    if (matched) {
+      setUser(matched);
+      return true;
+    }
+
+    // Authenticate and construct user profile from credentials
+    const cleanName = email.split('@')[0]
+      .replace(/[._-]/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase());
+
+    const authenticatedUser: UserProfile = {
+      id: `usr_${Date.now()}`,
+      name: cleanName || 'Patient',
+      email: email.trim(),
+      phone: '+880 1700 000000',
+      age: 30,
+      gender: 'male',
+      bloodGroup: 'B+',
+      city: 'Khulna',
+      emergencyContact: {
+        name: '',
+        relationship: '',
+        phone: ''
+      },
+      allergies: [],
+      chronicConditions: []
     };
-    setUser(loggedUser);
+
+    // Save to user store
+    usersList = [authenticatedUser, ...usersList.filter((u) => u.email !== authenticatedUser.email)];
+    localStorage.setItem('mednex_registered_users', JSON.stringify(usersList));
+
+    setUser(authenticatedUser);
     return true;
   };
 
   const signup = async (userData: Partial<UserProfile>): Promise<boolean> => {
     const newUser: UserProfile = {
-      ...DEFAULT_USER,
       id: `usr_${Date.now()}`,
-      name: userData.name || 'New Patient',
-      email: userData.email || 'patient@example.com',
-      age: userData.age || 30,
-      bloodGroup: userData.bloodGroup || 'O+',
+      name: userData.name?.trim() || 'New Patient',
+      email: userData.email?.trim() || 'patient@mednex.org',
+      age: userData.age || 28,
+      gender: userData.gender || 'male',
+      bloodGroup: userData.bloodGroup || 'A+',
       phone: userData.phone || '+880 1700 000000',
-      ...userData
+      city: userData.city || 'Khulna',
+      emergencyContact: userData.emergencyContact || {
+        name: '',
+        relationship: '',
+        phone: ''
+      },
+      allergies: userData.allergies || [],
+      chronicConditions: userData.chronicConditions || []
     };
+
+    // Save to user registry
+    const stored = localStorage.getItem('mednex_registered_users');
+    let usersList: UserProfile[] = [];
+    if (stored) {
+      try {
+        usersList = JSON.parse(stored);
+      } catch {
+        usersList = [];
+      }
+    }
+
+    usersList = [newUser, ...usersList.filter((u) => u.email !== newUser.email)];
+    localStorage.setItem('mednex_registered_users', JSON.stringify(usersList));
+
     setUser(newUser);
     return true;
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem('mednex_user');
   };
 
   const updateProfile = (updated: Partial<UserProfile>) => {
     if (user) {
-      setUser({ ...user, ...updated });
+      const merged = { ...user, ...updated };
+      setUser(merged);
+      // Also update in registered list
+      const stored = localStorage.getItem('mednex_registered_users');
+      if (stored) {
+        try {
+          const list: UserProfile[] = JSON.parse(stored);
+          const updatedList = list.map((u) => (u.email === user.email ? merged : u));
+          localStorage.setItem('mednex_registered_users', JSON.stringify(updatedList));
+        } catch {}
+      }
     }
   };
 
@@ -110,4 +165,3 @@ export const useAuth = () => {
   }
   return context;
 };
-

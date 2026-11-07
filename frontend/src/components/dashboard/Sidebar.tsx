@@ -119,7 +119,7 @@ export const Sidebar: React.FC = () => {
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-xs font-semibold text-slate-900 truncate">
-                {user?.name || 'Rahim Ahmed'}
+                {user?.name || (bilingualMode ? 'ব্যবহারকারী' : 'Patient')}
               </p>
               <p className="text-[11px] text-slate-500 truncate">
                 {user?.bloodGroup ? `${user.bloodGroup} | ${bilingualMode ? 'খুলনা' : 'Khulna'}` : bilingualMode ? 'খুলনা' : 'Khulna'}

@@ -164,7 +164,7 @@ export const DashboardOverview: React.FC = () => {
               <span>{bilingualMode ? 'ব্যক্তিগত স্বাস্থ্য পোর্টাল' : 'Personalized Healthcare Companion'}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              {bilingualMode ? `${t('welcomeGreeting')}, ${user?.name || 'রহিম আহমেদ'}!` : `Welcome back, ${user?.name || 'Rahim Ahmed'}!`}
+              {bilingualMode ? `${t('welcomeGreeting')}, ${user?.name || 'ব্যবহারকারী'}!` : `Welcome back, ${user?.name || 'Patient'}!`}
             </h2>
             <p className="text-blue-100 text-xs sm:text-sm leading-relaxed">
               {bilingualMode

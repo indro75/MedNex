@@ -145,40 +145,58 @@ export const Navbar: React.FC = () => {
       {/* Mobile dropdown menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-3 shadow-lg">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              {bilingualMode ? 'ভাষা পরিবর্তন' : 'Language'}
+            </span>
+            <button
+              type="button"
+              onClick={toggleBilingualMode}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition ${
+                bilingualMode
+                  ? 'bg-teal-600 border-teal-700 text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-700'
+              }`}
+            >
+              <Languages className="w-3.5 h-3.5" />
+              <span>{bilingualMode ? 'বাংলা (Active)' : 'বাংলা'}</span>
+            </button>
+          </div>
+
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-slate-50"
           >
-            Home
+            {t('navHome')}
           </Link>
           <a
             href="/#features"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-slate-50"
           >
-            Core Features
+            {t('navFeatures')}
           </a>
           <a
             href="/#how-it-works"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-slate-50"
           >
-            How It Works
+            {t('navHowItWorks')}
           </a>
           <a
             href="/#about-us"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-md text-base font-medium text-slate-800 hover:bg-slate-50"
           >
-            About MedNex
+            {t('navAbout')}
           </a>
           <Link
             to="/dashboard/emergency"
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-md text-base font-semibold text-red-600 bg-red-50 border border-red-200"
           >
-            Emergency 999 Ambulance
+            {bilingualMode ? 'জরুরি ৯৯৯ অ্যাম্বুলেন্স' : 'Emergency 999 Ambulance'}
           </Link>
 
           <div className="pt-4 border-t border-slate-100 flex flex-col gap-2">
@@ -188,7 +206,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full text-center py-2.5 px-4 rounded-lg bg-blue-600 text-white font-semibold"
               >
-                Go to Dashboard
+                {bilingualMode ? 'ড্যাশবোর্ডে যান' : 'Go to Dashboard'}
               </Link>
             ) : (
               <>
@@ -197,14 +215,14 @@ export const Navbar: React.FC = () => {
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full text-center py-2.5 px-4 rounded-lg border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50"
                 >
-                  Log In
+                  {t('navLogin')}
                 </Link>
                 <Link
                   to="/signup"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full text-center py-2.5 px-4 rounded-lg bg-blue-600 text-white font-semibold"
                 >
-                  Get Started Free
+                  {t('navGetStarted')}
                 </Link>
               </>
             )}

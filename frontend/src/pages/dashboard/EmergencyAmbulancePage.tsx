@@ -55,9 +55,9 @@ export const EmergencyAmbulancePage: React.FC = () => {
 
   const generateDispatchSMS = (amb: AmbulanceProvider) => {
     return `[EMERGENCY AMBULANCE DISPATCH REQUEST]
-Patient: ${user?.name || 'Rahim Ahmed'}
+Patient: ${user?.name || 'Patient'}
 Location: ${userArea}, Khulna
-Contact Phone: ${user?.phone || '+880 1712 345678'}
+Contact Phone: ${user?.phone || 'Emergency Contact'}
 Required Facilities: ${needOxygen ? 'Oxygen [YES], ' : ''}${needICU ? 'ICU Ventilator [YES], ' : ''}${needStretcher ? 'Stretcher [YES]' : ''}
 Condition Note: ${patientNote}`;
   };
