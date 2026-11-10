@@ -4,7 +4,7 @@ import { Activity, PhoneCall, ShieldAlert, Heart, MapPin, Mail } from 'lucide-re
 import { useHealth } from '../../context/HealthContext';
 
 export const Footer: React.FC = () => {
-  const { bilingualMode, t } = useHealth();
+  const { t } = useHealth();
 
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
@@ -17,18 +17,16 @@ export const Footer: React.FC = () => {
                 <Activity className="w-6 h-6 stroke-[2.5]" />
               </div>
               <span className="text-2xl font-bold tracking-tight text-white">
-                {bilingualMode ? 'মেড' : 'Med'}<span className="text-blue-400">{bilingualMode ? 'নেক্স' : 'Nex'}</span>
+                Med<span className="text-blue-400">Nex</span>
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              {bilingualMode
-                ? 'আপনার স্বাস্থ্য, আরও বুদ্ধিমান। আপনার যত্ন, আরও কাছে। একটি এআই চালিত স্বাস্থ্য সহকারী যা চিকিৎসাগত ট্রায়াজ, ডাক্তার অনুসন্ধান এবং জরুরি সেবা মানুষের দোরগোড়ায় পৌঁছে দেয়।'
-                : 'Your Health, Smarter. Your Care, Closer. An AI-powered healthcare companion making medical triage, verified doctor discovery, and emergency services accessible.'}
+              Your Health, Smarter. Your Care, Closer. An easy-to-use healthcare helper making doctor discovery, emergency ambulance services, and health guidance accessible to everyone in Khulna, Bangladesh.
             </p>
             <div className="pt-2 text-xs text-slate-400 space-y-1.5">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-teal-400 shrink-0" />
-                <span>{bilingualMode ? 'প্রাথমিক অঞ্চল: খুলনা, বাংলাদেশ' : 'Primary Sample Deployment: Khulna, Bangladesh'}</span>
+                <span>Primary Region: Khulna Division, Bangladesh</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-teal-400 shrink-0" />
@@ -36,7 +34,7 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <PhoneCall className="w-4 h-4 text-red-400 shrink-0" />
-                <span>{bilingualMode ? 'জাতীয় জরুরি কল: ৯৯৯ (২৪/৭ ফ্রি)' : 'National Emergency Call: 999 (24/7 Toll-free)'}</span>
+                <span>National Emergency Call: 999 (24/7 Toll-free)</span>
               </div>
             </div>
           </div>
@@ -44,7 +42,7 @@ export const Footer: React.FC = () => {
           {/* Core Services */}
           <div>
             <h4 className="text-white text-sm font-semibold tracking-wider uppercase mb-4">
-              {bilingualMode ? 'প্রধান সেবা সমূহ' : 'Core Services'}
+              Main Services
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -88,7 +86,7 @@ export const Footer: React.FC = () => {
           {/* Quick Links */}
           <div>
             <h4 className="text-white text-sm font-semibold tracking-wider uppercase mb-4">
-              {bilingualMode ? 'প্ল্যাটফর্ম ও নীতিমালা' : 'Platform & Legal'}
+              Helpful Links
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -103,22 +101,22 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/login" className="hover:text-blue-400 transition">
-                  {bilingualMode ? 'রোগীর পোর্টাল' : 'Patient Portal'}
+                  Patient Portal
                 </Link>
               </li>
               <li>
                 <span className="cursor-pointer hover:text-blue-400 transition">
-                  {bilingualMode ? 'গোপনীয়তা নীতি' : 'Privacy Policy'}
+                  Privacy Policy
                 </span>
               </li>
               <li>
                 <span className="cursor-pointer hover:text-blue-400 transition">
-                  {bilingualMode ? 'ব্যবহারের শর্তাবলী' : 'Terms of Service'}
+                  Terms of Service
                 </span>
               </li>
               <li>
                 <span className="cursor-pointer hover:text-blue-400 transition">
-                  {bilingualMode ? 'বিএমডিসি যাচাইকরণ মান' : 'BMDC Verification Standards'}
+                  BMDC Verification
                 </span>
               </li>
             </ul>
@@ -129,12 +127,10 @@ export const Footer: React.FC = () => {
             <div>
               <div className="flex items-center gap-2 text-red-400 font-semibold text-sm mb-2">
                 <ShieldAlert className="w-5 h-5" />
-                <span>{bilingualMode ? 'জরুরি সহায়তা' : 'Emergency Support'}</span>
+                <span>Emergency 999 Help</span>
               </div>
               <p className="text-xs text-slate-300 leading-relaxed">
-                {bilingualMode
-                  ? 'আপনি বা আপনার চারপাশের কেউ তীব্র বুকে ব্যথা, শ্বাসকষ্ট বা গুরুতর ট্রমার শিকার হলে দেরি না করে অবিলম্বে অ্যাম্বুলেন্স ডাকুন।'
-                  : 'If you or someone around you suffers from severe chest pain, breathing difficulty, or deep trauma, do not delay.'}
+                If you or a family member has severe chest pain, trouble breathing, or major injury, please call an ambulance right away.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-700">
@@ -143,7 +139,7 @@ export const Footer: React.FC = () => {
                 className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-3 rounded-lg text-xs transition"
               >
                 <PhoneCall className="w-4 h-4" />
-                {bilingualMode ? 'কল করুন ৯৯৯ হটলাইন' : 'Call 999 Hotline'}
+                Call 999 Right Now
               </a>
             </div>
           </div>
@@ -151,19 +147,17 @@ export const Footer: React.FC = () => {
 
         {/* Mandatory Medical Disclaimer Notice */}
         <div className="mt-8 p-4 rounded-xl bg-slate-800/40 border border-slate-800 text-xs text-slate-400 leading-relaxed">
-          <p className="font-semibold text-slate-300 mb-1">{bilingualMode ? 'ক্লিনিক্যাল নিরাপত্তা ও বিধিবদ্ধ সতর্কতা:' : 'Medical Safety & Regulatory Disclaimer:'}</p>
+          <p className="font-semibold text-slate-300 mb-1">Health & Medical Notice:</p>
           <p>
-            {bilingualMode
-              ? 'মেডনেক্স একটি এআই স্বাস্থ্য তথ্য ও ট্রায়াজ প্ল্যাটফর্ম, যা কোনো নিবন্ধিত বিশেষজ্ঞ চিকিৎসকের সরাসরি রোগ নির্ণয় বা ব্যবস্থাপত্রের বিকল্প নয়। জরুরি মুহূর্তে অবিলম্বে ৯৯৯ নম্বরে যোগাযোগ করুন। খুলনার সকল ডাক্তার ও হাসপাতালের তথ্য সরকারি অফিশিয়াল ডিরেক্টরি থেকে যাচাইকৃত।'
-              : 'MedNex is a healthcare assistance platform, not a replacement for professional medical diagnosis or treatment. AI-generated information may be inaccurate. Always consult a qualified healthcare professional for medical decisions. In an emergency, contact emergency services immediately. All doctor and facility information for Khulna is verified against official directories.'}
+            MedNex is an educational healthcare helper tool and does not provide an official medical diagnosis or replace a doctor's examination. Always consult a licensed doctor for medical treatment and prescriptions. In a medical emergency, call 999 immediately. All doctors and hospitals in Khulna are checked against official BMDC and government records.
           </p>
         </div>
 
         {/* Copyright */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {new Date().getFullYear()} MedNex Health Technologies. {bilingualMode ? 'সর্বস্বত্ব সংরক্ষিত।' : 'All rights reserved.'}</p>
+          <p>© {new Date().getFullYear()} MedNex Health. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            {bilingualMode ? 'বাংলাদেশের স্বাস্থ্য সেবায় এআই প্রযুক্তি' : 'Built for safer, smarter healthcare in Bangladesh'}{' '}
+            Built for safer, smarter healthcare in Bangladesh{' '}
             <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 inline" />
           </p>
         </div>

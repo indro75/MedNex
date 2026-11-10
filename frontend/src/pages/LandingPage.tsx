@@ -12,93 +12,76 @@ import {
   CheckCircle2,
   ArrowRight,
   PhoneCall,
-  Clock,
   Sparkles,
-  Users,
   Building2,
-  Heart
 } from 'lucide-react';
 import { useHealth } from '../context/HealthContext';
 
 export const LandingPage: React.FC = () => {
-  const { bilingualMode, t } = useHealth();
+  const { t } = useHealth();
 
   const features = [
     {
       id: 'symptom-checker',
-      title: bilingualMode ? 'এআই লক্ষণ নিরীক্ষক' : 'AI Symptom Checker',
-      desc: bilingualMode
-        ? 'আপনার স্বাস্থ্য সমস্যা নিজের ভাষায় লিখুন। আমাদের এনএলপি ইঞ্জিন উপযুক্ত বিশেষজ্ঞ বিভাগ সুপারিশ করবে এবং জরুরি লাল সংকেত সতর্ক করবে।'
-        : 'Describe what you feel in natural language. Our NLP classification suggests relevant specialties and alerts for emergency red flags.',
+      title: 'Symptom Checker',
+      desc: 'Tell us how you are feeling in simple words. Our helper checks your symptoms, flags any danger signs, and tells you which doctor specialty can help you best.',
       icon: Stethoscope,
       link: '/dashboard/symptom-checker',
-      badge: bilingualMode ? 'এনএলপি ট্রায়াজ' : 'NLP Triage',
+      badge: 'Easy Check',
       color: 'blue'
     },
     {
       id: 'find-doctors',
-      title: bilingualMode ? 'খুলনার ডাক্তার খুঁজুন' : 'Find Nearby Specialists',
-      desc: bilingualMode
-        ? 'খুলনা শহরের বিএমডিসি নিবন্ধিত ডাক্তার, ভিজিটিং আওয়ার, পরামর্শ ফি এবং হাসপাতালের অবস্থান সরাসরি ম্যাপে দেখুন।'
-        : 'Discover verified doctors, BMDC registrations, consultation fees, and hospital emergency wings across Khulna with directions.',
+      title: 'Find Doctors in Khulna',
+      desc: 'Discover verified doctors in Khulna, view visiting hours, consultation fees, chamber locations on the map, and book your appointment serial easily.',
       icon: MapPin,
       link: '/dashboard/find-doctors',
-      badge: bilingualMode ? 'খুলনা যাচাইকৃত' : 'Khulna Verified',
+      badge: 'Khulna Doctors',
       color: 'teal'
     },
     {
       id: 'first-aid',
-      title: bilingualMode ? 'প্রাথমিক চিকিৎসা সহায়ক' : 'AI First Aid Assistant',
-      desc: bilingualMode
-        ? 'পোড়া, কাটাছেঁড়া, নাক দিয়ে রক্ত পড়া বা গলায় কিছু আটকে গেলে তাৎক্ষণিক প্রমাণ-ভিত্তিক চিকিৎসা নির্দেশিকা এবং সিপিআর অডিও মেট্রোনোম।'
-        : 'Get immediate step-by-step guidance for burns, cuts, nosebleeds, choking, and sprains following recognized medical guidelines.',
+      title: 'First Aid Helper',
+      desc: 'Simple step-by-step guidance for burns, cuts, nosebleeds, choking, and sprains with countdown timers and CPR rhythm guidance.',
       icon: LifeBuoy,
       link: '/dashboard/first-aid',
-      badge: bilingualMode ? 'জীবন রক্ষাকারী' : 'Life Saving',
+      badge: 'Life Saving',
       color: 'emerald'
     },
     {
       id: 'report-analyzer',
-      title: bilingualMode ? 'মেডিকেল রিপোর্ট ওসিআর' : 'Medical Report Analyzer',
-      desc: bilingualMode
-        ? 'সিবিসি, লিপিড প্রোফাইল বা লিভার ফাংশন ল্যাব রিপোর্ট আপলোড করুন। এআই বায়োমার্কার স্ক্যান করে অস্বাভাবিক রিডিং সহজ ভাষায় ব্যাখ্যা করবে।'
-        : 'Upload laboratory test reports (CBC, Lipid, LFT). Extracts values via OCR, detects out-of-range biomarkers, and explains them simply.',
+      title: 'Medical Report Reader',
+      desc: 'Upload lab reports for blood tests, diabetes, kidney, liver, thyroid, and urine. Understand what your numbers mean in clear, simple English.',
       icon: FileText,
       link: '/dashboard/report-analyzer',
-      badge: bilingualMode ? 'স্মার্ট ওসিআর' : 'Smart OCR',
+      badge: 'All Test Panels',
       color: 'indigo'
     },
     {
       id: 'emergency',
-      title: bilingualMode ? 'জরুরি অ্যাম্বুলেন্স সেবা' : 'Emergency Ambulance Finder',
-      desc: bilingualMode
-        ? 'জাতীয় হেল্পলাইন ৯৯৯ এ তাৎক্ষণিক সরাসরি কল এবং খুলনার যাচাইকৃত সার্বক্ষণিক আইসিইউ ও নরমাল অ্যাম্বুলেন্স সার্ভিস ডিরেক্টরি।'
-        : 'Instant direct dial to 999 Bangladesh emergency dispatch, alongside verified 24/7 ICU ambulance pools and hospital emergency rooms.',
+      title: 'Emergency 999 & Ambulances',
+      desc: 'One tap to call the national 999 hotline, plus direct phone numbers for verified 24/7 ICU ambulances and hospital emergency rooms in Khulna.',
       icon: AlertCircle,
       link: '/dashboard/emergency',
-      badge: bilingualMode ? '২৪/৭ হটলাইন' : '24/7 Hotline',
+      badge: '24/7 Helpline',
       color: 'red'
     },
     {
       id: 'fitness-tracker',
-      title: bilingualMode ? 'দৈনিক ফিটনেস ও বিএমআই' : 'Daily Fitness & BMI Tracker',
-      desc: bilingualMode
-        ? 'বডি মাস ইনডেক্স (বিএমআই) এবং সময়ের সাথে সাথে ওজন পরিবর্তনের চার্ট দেখুন। সুস্থ জীবনযাত্রার উপযোগী ক্যালোরি চাহিদা জানুন।'
-        : 'Track body mass index, weight progress over time with interactive charts, and receive tailored adult wellness recommendations.',
+      title: 'Healthy Weight & BMI',
+      desc: 'Find out your Body Mass Index (BMI), see if your weight is in a healthy range, check daily calories needed, and track progress over time.',
       icon: Activity,
       link: '/dashboard/fitness-tracker',
-      badge: bilingualMode ? 'অ্যানালিটিক্স' : 'Analytics',
+      badge: 'Weight Tracker',
       color: 'sky'
     },
     {
       id: 'medicine-checker',
-      title: bilingualMode ? 'ওষুধ তথ্য নির্দেশিকা' : 'Medicine Information Checker',
-      desc: bilingualMode
-        ? 'ওষুধের নাম লিখুন বা প্যাকেজের ছবি তুলুন। জেনেরিক নাম, ব্যবহারবিধি, পার্শ্বপ্রতিক্রিয়া এবং একাধিক ওষুধের মধ্যকার প্রতিক্রিয়া জানুন।'
-        : 'Search or snap medicine packages. Understand generics, therapeutic classes, safe uses, side effects, and crucial food interactions.',
+      title: 'Medicine Information Checker',
+      desc: 'Look up common Bangladeshi medicines, see what they are used for, check side effects, and see if two medicines are safe to take together.',
       icon: Pill,
       link: '/dashboard/medicine-checker',
-      badge: bilingualMode ? 'নিরাপত্তা প্রথম' : 'Safety First',
+      badge: 'Safe Medicine',
       color: 'amber'
     }
   ];
@@ -112,31 +95,20 @@ export const LandingPage: React.FC = () => {
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs sm:text-sm font-semibold">
               <Sparkles className="w-4 h-4 text-blue-600" />
-              <span>{bilingualMode ? 'স্মার্ট স্বাস্থ্যসেবা • সঠিক সিদ্ধান্ত' : 'Smarter Healthcare. Better Decisions.'}</span>
+              <span>Smarter Healthcare • Better Decisions</span>
               <span className="hidden sm:inline text-slate-400">|</span>
               <span className="hidden sm:inline text-teal-700 font-medium">
-                {bilingualMode ? 'খুলনা বিভাগীয় স্বাস্থ্য পোর্টাল' : 'Khulna Division Ready'}
+                Khulna Division Ready
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-              {bilingualMode ? (
-                <>
-                  আপনার স্বাস্থ্য, <span className="text-blue-600">স্মার্ট।</span><br />
-                  আপনার যত্ন, <span className="text-teal-600">কাছে।</span>
-                </>
-              ) : (
-                <>
-                  Your Health, <span className="text-blue-600">Smarter.</span><br />
-                  Your Care, <span className="text-teal-600">Closer.</span>
-                </>
-              )}
+              Your Health, <span className="text-blue-600">Smarter.</span><br />
+              Your Care, <span className="text-teal-600">Closer.</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
-              {bilingualMode
-                ? 'একটি এআই চালিত নির্ভরযোগ্য স্বাস্থ্য প্ল্যাটফর্ম যা আপনাকে শারীরিক লক্ষণ বুঝতে, খুলনার যাচাইকৃত বিশেষজ্ঞ ডাক্তার খুঁজে পেতে, ল্যাব রিপোর্ট বুঝতে এবং ২৪/৭ জরুরি সেবা পেতে সহায়তা করে।'
-                : 'An AI-powered healthcare companion that helps you understand symptoms, find verified specialists in Khulna, analyze medical reports, and access 24/7 emergency services.'}
+              A friendly healthcare assistant that helps you understand symptoms in plain words, find verified doctors in Khulna, read medical reports easily, and access 24/7 emergency support.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-2">
@@ -144,42 +116,42 @@ export const LandingPage: React.FC = () => {
                 to="/signup"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-blue-600 text-white font-semibold shadow-md shadow-blue-500/25 hover:bg-blue-700 transition"
               >
-                {bilingualMode ? 'বিনামূল্যে শুরু করুন' : 'Get Started Free'}
+                Get Started Free
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
                 href="#features"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 transition shadow-xs"
               >
-                {bilingualMode ? 'সেবা সমূহ দেখুন' : 'Explore Features'}
+                Explore Features
               </a>
               <Link
                 to="/dashboard/emergency"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 font-semibold hover:bg-red-100 transition"
               >
                 <PhoneCall className="w-4 h-4 text-red-600" />
-                {bilingualMode ? 'জরুরি ৯৯৯' : '999 Emergency'}
+                999 Emergency
               </Link>
             </div>
 
             {/* Trust Indicators */}
             <div className="pt-6 border-t border-slate-200/80 grid grid-cols-3 gap-4 text-left">
               <div>
-                <p className="text-2xl font-bold text-slate-900">১০০%</p>
+                <p className="text-2xl font-bold text-slate-900">100%</p>
                 <p className="text-xs text-slate-500 font-medium">
-                  {bilingualMode ? 'বিএমডিসি নিবন্ধিত ডাক্তার' : 'BMDC Verified Doctors'}
+                  BMDC Verified Doctors
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-teal-600">২৪/৭</p>
+                <p className="text-2xl font-bold text-teal-600">24/7</p>
                 <p className="text-xs text-slate-500 font-medium">
-                  {bilingualMode ? 'খুলনা ৯৯৯ ডিসপ্যাচ' : '999 Khulna Dispatch'}
+                  999 Emergency Dial
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-blue-600">শূন্য</p>
+                <p className="text-2xl font-bold text-blue-600">Zero</p>
                 <p className="text-xs text-slate-500 font-medium">
-                  {bilingualMode ? 'ভুয়া তথ্য নিশ্চয়তা' : 'Fake Info Guarantee'}
+                  No Fake Doctor Info
                 </p>
               </div>
             </div>
@@ -188,36 +160,32 @@ export const LandingPage: React.FC = () => {
           {/* Right Preview Card / Healthcare Illustration */}
           <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Decorative background glow */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-teal-400 rounded-3xl blur-xl opacity-30"></div>
 
               {/* Main Card */}
               <div className="relative bg-white rounded-2xl shadow-xl border border-slate-200/80 p-5 space-y-4">
-                {/* Header of Preview */}
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-2.5">
                     <div className="w-3 h-3 rounded-full bg-red-400" />
                     <div className="w-3 h-3 rounded-full bg-amber-400" />
                     <div className="w-3 h-3 rounded-full bg-green-400" />
-                    <span className="text-xs font-semibold text-slate-400 ml-2">MedNex Assistant Engine</span>
+                    <span className="text-xs font-semibold text-slate-400 ml-2">MedNex Assistant Preview</span>
                   </div>
                   <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">
-                    {bilingualMode ? 'ইন্টারেক্টিভ প্রিভিউ' : 'Interactive Preview'}
+                    Live Demo
                   </span>
                 </div>
 
-                {/* Simulated Triage Card */}
                 <div className="p-3.5 bg-slate-50 rounded-xl space-y-2 border border-slate-100">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-slate-700">Symptom Input:</span>
+                    <span className="text-xs font-semibold text-slate-700">Patient Symptoms:</span>
                     <span className="text-[10px] text-slate-400">Just now</span>
                   </div>
                   <p className="text-xs text-slate-800 italic bg-white p-2.5 rounded-lg border border-slate-200">
-                    "I have tightness on the left side of my chest with slight breathlessness after walking."
+                    "I have tightness on the left side of my chest and feel short of breath after walking."
                   </p>
                 </div>
 
-                {/* AI Output preview */}
                 <div className="p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 text-blue-900 font-semibold text-xs">
@@ -225,18 +193,17 @@ export const LandingPage: React.FC = () => {
                       <span>Recommended Specialty:</span>
                     </div>
                     <span className="text-[11px] font-bold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">
-                      Urgent Triage
+                      Urgent Check
                     </span>
                   </div>
                   <p className="text-xs font-bold text-blue-950">
-                    Cardiology & Emergency Evaluation
+                    Cardiology & Heart Evaluation
                   </p>
                   <p className="text-[11px] text-blue-800 leading-snug">
-                    Chest symptoms warrant rapid clinical assessment. Emergency signs flagged for potential cardiac origin.
+                    Chest symptoms need prompt clinical attention. We recommend visiting a heart specialist or ER promptly.
                   </p>
                 </div>
 
-                {/* Khulna Doctor Match Preview */}
                 <div className="p-3 bg-emerald-50/70 border border-emerald-200 rounded-xl flex items-center justify-between">
                   <div>
                     <p className="text-[11px] font-semibold text-emerald-900">Nearby Khulna Specialist:</p>
@@ -251,13 +218,12 @@ export const LandingPage: React.FC = () => {
                   </Link>
                 </div>
 
-                {/* 999 Direct Call Action */}
                 <a
                   href="tel:999"
                   className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold transition shadow-xs"
                 >
                   <PhoneCall className="w-3.5 h-3.5" />
-                  Instant Emergency 999 Hotline
+                  Instant Emergency 999 Call
                 </a>
               </div>
             </div>
@@ -265,19 +231,17 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Core Features Section (7 primary services) */}
+      {/* Core Features Section */}
       <section id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-            {bilingualMode ? 'ইন্টেলিজেন্ট মেডিকেল স্যুট' : 'Intelligent Medical Suite'}
+            Healthcare Services
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            {bilingualMode ? '৭টি মূল স্বাস্থ্যসেবা, এক প্ল্যাটফর্মে' : 'Seven Core Healthcare Services, Reimagined'}
+            Seven Core Healthcare Services In One Place
           </h2>
           <p className="text-slate-600 text-base sm:text-lg">
-            {bilingualMode
-              ? 'ক্লিনিক্যাল নিরাপত্তা বিধিমালা, সঠিক স্থানীয় হাসপাতাল ডিরেক্টরি এবং বুদ্ধিমত্তা সম্পন্ন এআই সহায়তায় তৈরি।'
-              : 'Built with clinical safety safeguards, accurate local medical directories, and intelligent NLP assistance.'}
+            Built with medical safety guidelines, verified Khulna doctor contacts, and simple guidance anyone can understand.
           </p>
         </div>
 
@@ -313,7 +277,7 @@ export const LandingPage: React.FC = () => {
                     to={feature.link}
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700"
                   >
-                    {bilingualMode ? 'সেবা ব্যবহার করুন' : 'Open Service'}
+                    Open Service
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
                   </Link>
                 </div>
@@ -323,20 +287,18 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* How It Works Section (3-step workflow) */}
+      {/* How It Works Section */}
       <section id="how-it-works" className="bg-slate-100/70 py-20 border-y border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
             <span className="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
-              {bilingualMode ? 'সহজ ৩-ধাপের প্রক্রিয়া' : 'Simple 3-Step Process'}
+              Simple 3-Step Process
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              {bilingualMode ? 'মেডনেক্স যেভাবে আপনার স্বাস্থ্য সুরক্ষা নিশ্চিত করে' : 'How MedNex Supports Your Health'}
+              How MedNex Helps You
             </h2>
             <p className="text-slate-600 text-base">
-              {bilingualMode
-                ? 'দ্রুত, স্বচ্ছ এবং সরাসরি নির্ভরযোগ্য স্বাস্থ্যসেবার সাথে যুক্ত করার জন্য তৈরি।'
-                : 'Fast, transparent, and designed to connect you to the right care without delay.'}
+              Fast, clear, and designed to help you get the right care without confusion.
             </p>
           </div>
 
@@ -344,45 +306,39 @@ export const LandingPage: React.FC = () => {
             {/* Step 1 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm relative">
               <div className="w-10 h-10 rounded-full bg-blue-600 text-white font-extrabold flex items-center justify-center mb-5 text-sm shadow-sm">
-                ১
+                1
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2">
-                {bilingualMode ? 'আপনার স্বাস্থ্য সমস্যা জানান' : 'Tell MedNex what you need'}
+                1. Describe your health problem
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                {bilingualMode
-                  ? 'নিজের ভাষায় লক্ষণ বর্ণনা করুন, ল্যাব টেস্ট রিপোর্টের ছবি আপলোড করুন অথবা জরুরি প্রাথমিক চিকিৎসা অনুসন্ধান করুন।'
-                  : 'Describe your symptoms in plain language, upload an image of a lab test report, or search for an acute first-aid emergency situation.'}
+                Type what you are feeling in your own words, upload a photo or document of your medical test report, or look up emergency first aid.
               </p>
             </div>
 
             {/* Step 2 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm relative">
               <div className="w-10 h-10 rounded-full bg-teal-600 text-white font-extrabold flex items-center justify-center mb-5 text-sm shadow-sm">
-                ২
+                2
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2">
-                {bilingualMode ? 'এআই তথ্য বিশ্লেষণ করে' : 'AI analyzes the information'}
+                2. Get an easy explanation
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                {bilingualMode
-                  ? 'আমাদের ক্লিনিক্যাল অ্যালগরিদম লক্ষণ ও বায়োমার্কার স্ক্যান করে, জরুরি লাল সংকেত যাচাই করে এবং ট্রায়াজ লেভেল নির্ধারণ করে।'
-                  : 'Our clinical algorithms parse text and lab values, triage urgency, screen for emergency red flags, and extract vital parameters.'}
+                MedNex reads your information, checks for any urgent danger signs, and explains your symptoms or test numbers in plain words.
               </p>
             </div>
 
             {/* Step 3 */}
             <div className="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm relative">
               <div className="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center mb-5 text-sm shadow-sm">
-                ৩
+                3
               </div>
               <h3 className="text-lg font-bold text-slate-900 mb-2">
-                {bilingualMode ? 'সঠিক চিকিৎসা সেবা ও পরামর্শ পান' : 'Get healthcare guidance & care'}
+                3. Connect with verified care
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                {bilingualMode
-                  ? 'সহজ ভাষায় ব্যাখ্যা, প্রস্তাবিত বিশেষজ্ঞ ডাক্তারের বিবরণ, খুলনা চেম্বার বুকিং অথবা এক স্পর্শে ৯৯৯ অ্যাম্বুলেন্স কল করুন।'
-                  : 'Receive plain explanations, recommended specialist categories, verified Khulna doctor contacts, or 1-click 999 ambulance dispatch.'}
+                See recommended doctor specialties, book an appointment serial at a Khulna chamber, or call a 24/7 ambulance in an emergency.
               </p>
             </div>
           </div>
@@ -395,30 +351,30 @@ export const LandingPage: React.FC = () => {
           <div className="space-y-5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-semibold">
               <Building2 className="w-4 h-4 text-teal-600" />
-              <span>Initial Sample Region: Khulna, Bangladesh</span>
+              <span>Khulna Division, Bangladesh</span>
             </div>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-              Ground-Truth Medical Data, Never Synthetic Hallucinations
+              Real Medical Contacts You Can Trust
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              MedNex is built with an unwavering commitment to medical ethics: we never invent fake doctors, fictional addresses, or phantom contact numbers.
+              MedNex is built with honesty and clinical safety at its heart: we never invent fake doctors, fictional addresses, or phantom phone numbers.
             </p>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Our initial deployment features verified records from Khulna Medical College Hospital (KMCH), Gazi Medical College, Fortis Escorts Heart Institute, and the 999 Bangladesh National Emergency Service.
+              Our directory features verified records from Khulna Medical College Hospital (KMCH), Gazi Medical College, Fortis Escorts Heart Institute, Shaheed Sheikh Abu Naser Specialized Hospital, and the 999 National Emergency Service.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-4 text-xs text-slate-700 font-semibold">
               <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <span>BMDC Doctor Verification</span>
+                <span>BMDC Verified Doctors</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <span>999 National Integration</span>
+                <span>999 Emergency Support</span>
               </div>
               <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <span>Patient Data Privacy</span>
+                <span>Private & Secure</span>
               </div>
             </div>
           </div>
@@ -426,20 +382,20 @@ export const LandingPage: React.FC = () => {
           <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200/80 space-y-4">
             <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-blue-600" />
-              MedNex Medical Safety Principles
+              MedNex Health Safety Principles
             </h4>
             <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
               <li className="flex items-start gap-2.5">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
-                <span><strong>No fake diagnosis:</strong> AI assists in triage and specialty recommendation without declaring a finalized diagnostic verdict.</span>
+                <span><strong>Helpful advice, not a doctor's diagnosis:</strong> We help guide you to the right specialist without making unauthorized claims.</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
-                <span><strong>No unauthorized prescriptions:</strong> We never alter doses or recommend stopping medications prescribed by your physician.</span>
+                <span><strong>No unauthorized medicine changes:</strong> Never stop or change medicines prescribed by your doctor without their advice.</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
-                <span><strong>Emergency prioritization:</strong> High-risk symptoms instantly bypass standard chat and display immediate 999 emergency instructions.</span>
+                <span><strong>Emergency priority:</strong> If symptoms sound dangerous, we guide you directly to 999 and the nearest emergency room.</span>
               </li>
             </ul>
 
@@ -448,7 +404,7 @@ export const LandingPage: React.FC = () => {
                 to="/dashboard"
                 className="w-full flex items-center justify-center gap-2 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition"
               >
-                Enter MedNex Platform
+                Go to Health Dashboard
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -460,37 +416,37 @@ export const LandingPage: React.FC = () => {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-3 mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-            Frequently Asked Questions
+            Common Questions
           </span>
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            Transparent Answers About MedNex
+            Frequently Asked Questions
           </h2>
           <p className="text-sm text-slate-600 max-w-xl mx-auto">
-            Everything you need to know about our clinical triage engine, BMDC verified directories, and patient safety safeguards.
+            Everything you need to know about our health helper, verified doctors, and medical safety.
           </p>
         </div>
 
         <div className="space-y-3">
           {[
             {
-              q: 'Does MedNex replace my doctor or hospital emergency visit?',
-              a: 'No. MedNex is an AI-powered healthcare assistant designed for educational guidance and clinical triage. It helps you understand urgency, flags critical warning signs, and directs you to the appropriate specialist. For diagnostic determinations or acute treatment, always see a qualified healthcare professional.'
+              q: 'Does MedNex replace my doctor?',
+              a: 'No. MedNex is an educational helper to help you understand your symptoms, lab reports, and healthy weight. It helps you find the right doctor and warns you about emergency signs. Always visit a licensed doctor for diagnosis and treatment.'
             },
             {
-              q: 'Are the Khulna doctors, addresses, and ambulances real?',
-              a: 'Yes, 100%. MedNex enforces a strict zero-hallucination standard. All hospital profiles (KMCH, Gazi, Fortis, Abu Naser), doctor credentials with BMDC registration numbers, consultation fees, and emergency phone numbers are verified against official medical directories.'
+              q: 'Are the Khulna doctors and ambulances real?',
+              a: 'Yes, 100%. Every doctor is verified with official BMDC registration numbers. The hospital ERs (KMCH, Gazi, Fortis, Abu Naser) and ambulance phone numbers are real contacts in Khulna.'
             },
             {
-              q: 'What happens if I describe life-threatening emergency symptoms?',
-              a: 'If your symptom input describes acute cardiac red flags (e.g. crushing chest pain, radiating arm pain), stroke indicators (facial drooping, sudden weakness), or severe trauma, MedNex immediately bypasses standard chat routines to display prominent 999 hotline dialers and emergency instructions.'
+              q: 'What should I do in an emergency?',
+              a: 'If you or someone with you has severe chest pain, trouble breathing, signs of stroke, or heavy bleeding, call 999 immediately or go straight to the nearest emergency room.'
             },
             {
-              q: 'How does the Medical Report Analyzer interpret lab values?',
-              a: 'Our report analyzer extracts laboratory biomarkers via OCR, compares observed values with stated laboratory reference bounds, highlights abnormal flags, and explains the medical significance in simple language alongside recommended questions for your physician.'
+              q: 'How does the Medical Report Reader work?',
+              a: 'You can upload an image, PDF, or text of your lab report (CBC, diabetes, liver, kidney, thyroid, urine, vitamins, etc.). The tool reads the numbers, compares them with normal healthy ranges, and explains what is high, low, or normal in easy words.'
             },
             {
-              q: 'How is my private medical data secured?',
-              a: 'Your health inputs and vitals are stored locally on your device with patient consent. You can view, export in JSON format, or delete your entire health history at any time.'
+              q: 'Is my health information private?',
+              a: 'Yes. Your health logs and calculations stay safely in your private account. You can view, download, or delete your records at any time.'
             }
           ].map((faq, idx) => (
             <details
@@ -513,4 +469,3 @@ export const LandingPage: React.FC = () => {
     </div>
   );
 };
-

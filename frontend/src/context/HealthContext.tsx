@@ -39,13 +39,7 @@ interface HealthContextType {
   currentBmiCategory: 'Underweight' | 'Normal weight' | 'Overweight' | 'Obesity';
 }
 
-const INITIAL_BMI_LOGS: BMILogEntry[] = [
-  { id: 'bmi-1', date: '2026-06-15', weightKg: 78.5, heightCm: 172, bmi: 26.5, category: 'Overweight', notes: 'Initial baseline weigh-in' },
-  { id: 'bmi-2', date: '2026-07-20', weightKg: 77.0, heightCm: 172, bmi: 26.0, category: 'Overweight', notes: 'Started 30-min evening brisk walking' },
-  { id: 'bmi-3', date: '2026-08-25', weightKg: 75.8, heightCm: 172, bmi: 25.6, category: 'Overweight', notes: 'Reduced refined carbs and sugar' },
-  { id: 'bmi-4', date: '2026-09-22', weightKg: 74.2, heightCm: 172, bmi: 25.1, category: 'Overweight', notes: 'Consistent morning routine' },
-  { id: 'bmi-5', date: '2026-10-25', weightKg: 73.2, heightCm: 172, bmi: 24.7, category: 'Normal weight', notes: 'Crossed into healthy normal BMI range!' }
-];
+const INITIAL_BMI_LOGS: BMILogEntry[] = [];
 
 const INITIAL_APPOINTMENTS: Appointment[] = [];
 
@@ -58,12 +52,17 @@ export const HealthProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const saved = localStorage.getItem('mednex_bmi_logs');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Exclude hardcoded demo entries if they exist
+        if (Array.isArray(parsed)) {
+          return parsed.filter((item: BMILogEntry) => !['bmi-1', 'bmi-2', 'bmi-3', 'bmi-4', 'bmi-5'].includes(item.id));
+        }
+        return [];
       } catch {
-        return INITIAL_BMI_LOGS;
+        return [];
       }
     }
-    return INITIAL_BMI_LOGS;
+    return [];
   });
 
   const [appointments, setAppointments] = useState<Appointment[]>(() => {
@@ -90,32 +89,30 @@ export const HealthProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     return INITIAL_ACTIVITIES;
   });
 
-  const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('mednex_language');
-    if (saved === 'bn' || saved === 'en') return saved as Language;
-    return localStorage.getItem('mednex_bilingual') === 'true' ? 'bn' : 'en';
-  });
+  // Pure English mode - simple, accessible, easy to understand
+  const [language, setLanguageState] = useState<Language>('en');
 
-  const bilingualMode = language === 'bn';
+  const bilingualMode = false;
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem('mednex_language', lang);
-    localStorage.setItem('mednex_bilingual', lang === 'bn' ? 'true' : 'false');
+  const setLanguage = (_lang: Language) => {
+    setLanguageState('en');
+    localStorage.setItem('mednex_language', 'en');
+    localStorage.setItem('mednex_bilingual', 'false');
   };
 
   const toggleBilingualMode = () => {
-    setLanguage(language === 'en' ? 'bn' : 'en');
+    // English only
+    setLanguageState('en');
   };
 
   const t = (key: keyof typeof TRANSLATIONS.en): string => {
-    return getTranslation(key, language);
+    return getTranslation(key, 'en');
   };
 
   useEffect(() => {
-    localStorage.setItem('mednex_language', language);
-    localStorage.setItem('mednex_bilingual', language === 'bn' ? 'true' : 'false');
-  }, [language]);
+    localStorage.setItem('mednex_language', 'en');
+    localStorage.setItem('mednex_bilingual', 'false');
+  }, []);
 
   const addBmiLog = (weightKg: number, heightCm: number, notes?: string) => {
     const heightM = heightCm / 100;
@@ -230,7 +227,7 @@ export const HealthProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setAppointments([]);
   };
 
-  const latestBmi = bmiLogs.length > 0 ? bmiLogs[0].bmi : 24.7;
+  const latestBmi = bmiLogs.length > 0 ? bmiLogs[0].bmi : 0;
   const latestCategory = bmiLogs.length > 0 ? bmiLogs[0].category : 'Normal weight';
 
   return (

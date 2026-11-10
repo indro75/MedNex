@@ -20,7 +20,7 @@ import { useHealth } from '../../context/HealthContext';
 
 export const Sidebar: React.FC = () => {
   const { user, logout } = useAuth();
-  const { t, bilingualMode } = useHealth();
+  const { t } = useHealth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -51,10 +51,10 @@ export const Sidebar: React.FC = () => {
           </div>
           <div>
             <span className="text-xl font-bold tracking-tight text-slate-900">
-              {bilingualMode ? 'মেড' : 'Med'}<span className="text-blue-600">{bilingualMode ? 'নেক্স' : 'Nex'}</span>
+              Med<span className="text-blue-600">Nex</span>
             </span>
             <span className="block text-[10px] font-semibold uppercase tracking-wider text-teal-600 -mt-1">
-              {bilingualMode ? 'খুলনা পোর্টাল' : 'Khulna Portal'}
+              Khulna Portal
             </span>
           </div>
         </NavLink>
@@ -64,7 +64,7 @@ export const Sidebar: React.FC = () => {
       <div className="p-3 mx-3 my-2 rounded-xl bg-red-50 border border-red-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />
-          <span className="text-xs font-bold text-red-700">{bilingualMode ? 'খুলনা ৯৯৯ ডিসপ্যাচ' : 'Khulna 999 Dispatch'}</span>
+          <span className="text-xs font-bold text-red-700">Khulna 999 Dispatch</span>
         </div>
         <a
           href="tel:999"
@@ -119,10 +119,10 @@ export const Sidebar: React.FC = () => {
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-xs font-semibold text-slate-900 truncate">
-                {user?.name || (bilingualMode ? 'ব্যবহারকারী' : 'Patient')}
+                {user?.name || 'Patient'}
               </p>
               <p className="text-[11px] text-slate-500 truncate">
-                {user?.bloodGroup ? `${user.bloodGroup} | ${bilingualMode ? 'খুলনা' : 'Khulna'}` : bilingualMode ? 'খুলনা' : 'Khulna'}
+                {user?.bloodGroup ? `${user.bloodGroup} | Khulna` : 'Khulna'}
               </p>
             </div>
           </div>

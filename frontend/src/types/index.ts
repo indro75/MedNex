@@ -125,7 +125,7 @@ export interface MedicalReportData {
   title: string;
   date: string;
   labName: string;
-  category: 'Complete Blood Count' | 'Lipid Profile' | 'Liver Function' | 'Diabetic Panel' | 'Thyroid Panel' | 'Kidney Function';
+  category: string;
   patientName: string;
   patientAge: number;
   parameters: ReportParameter[];

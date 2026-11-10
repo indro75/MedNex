@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Activity, Lock, Mail, User, Phone, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Activity, Lock, Mail, User, Phone, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useHealth } from '../context/HealthContext';
 import { BloodGroup } from '../types';
 
 export const SignupPage: React.FC = () => {
@@ -15,17 +14,12 @@ export const SignupPage: React.FC = () => {
   const [bloodGroup, setBloodGroup] = useState<BloodGroup>('B+');
   const [consent, setConsent] = useState(true);
   const { signup } = useAuth();
-  const { bilingualMode } = useHealth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!consent) {
-      alert(
-        bilingualMode
-          ? 'অনুগ্রহ করে এগিয়ে যেতে মেডিকেল সম্মতি ও সুরক্ষা নীতিমালায় টিক দিন।'
-          : 'Please agree to medical consent and safety guidelines to proceed.'
-      );
+      alert('Please check the safety agreement box to proceed.');
       return;
     }
 
@@ -51,16 +45,14 @@ export const SignupPage: React.FC = () => {
               <Activity className="w-6 h-6 stroke-[2.5]" />
             </div>
             <span className="text-2xl font-bold tracking-tight text-slate-900">
-              {bilingualMode ? 'মেড' : 'Med'}<span className="text-blue-600">{bilingualMode ? 'নেক্স' : 'Nex'}</span>
+              Med<span className="text-blue-600">Nex</span>
             </span>
           </Link>
           <h2 className="text-xl font-bold text-slate-900">
-            {bilingualMode ? 'নতুন রোগী অ্যাকাউন্ট তৈরি করুন' : 'Create Patient Account'}
+            Create Your Account
           </h2>
           <p className="text-xs text-slate-500">
-            {bilingualMode
-              ? 'ব্যক্তিগত এআই স্বাস্থ্য ট্রায়াজ এবং খুলনার যাচাইকৃত ডাক্তারদের সেবা পেতে মেডনেক্সে যোগ দিন'
-              : 'Join MedNex for personalized AI health triage and verified doctor discovery in Khulna'}
+            Join MedNex for simple health guidance and verified doctors in Khulna
           </p>
         </div>
 
@@ -68,7 +60,7 @@ export const SignupPage: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {bilingualMode ? 'পুরো নাম' : 'Full Name'}
+                Full Name
               </label>
               <div className="relative">
                 <User className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
@@ -76,7 +68,7 @@ export const SignupPage: React.FC = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder={bilingualMode ? 'যেমন: তানভীর হাসান' : 'e.g. Tanvir Hasan'}
+                  placeholder="e.g. Tanvir Hasan"
                   className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                   required
                 />
@@ -85,7 +77,7 @@ export const SignupPage: React.FC = () => {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {bilingualMode ? 'মোবাইল নম্বর' : 'Phone Number'}
+                Phone Number
               </label>
               <div className="relative">
                 <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
@@ -103,7 +95,7 @@ export const SignupPage: React.FC = () => {
 
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
-              {bilingualMode ? 'ইমেইল অ্যাড্রেস' : 'Email Address'}
+              Email Address
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
@@ -121,7 +113,7 @@ export const SignupPage: React.FC = () => {
           <div className="grid grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {bilingualMode ? 'বয়স' : 'Age'}
+                Age
               </label>
               <input
                 type="number"
@@ -136,22 +128,22 @@ export const SignupPage: React.FC = () => {
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {bilingualMode ? 'লিঙ্গ' : 'Gender'}
+                Gender
               </label>
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value as 'male' | 'female' | 'other')}
                 className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500"
               >
-                <option value="male">{bilingualMode ? 'পুরুষ' : 'Male'}</option>
-                <option value="female">{bilingualMode ? 'নারী' : 'Female'}</option>
-                <option value="other">{bilingualMode ? 'অন্যান্য' : 'Other'}</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {bilingualMode ? 'রক্তের গ্রুপ' : 'Blood Group'}
+                Blood Group
               </label>
               <select
                 value={bloodGroup}
@@ -172,7 +164,7 @@ export const SignupPage: React.FC = () => {
 
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
-              {bilingualMode ? 'পাসওয়ার্ড তৈরি করুন' : 'Create Password'}
+              Create Password
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
@@ -180,7 +172,7 @@ export const SignupPage: React.FC = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder={bilingualMode ? 'কমপক্ষে ৬ বা ৮ অক্ষর' : 'At least 8 characters'}
+                placeholder="At least 6 characters"
                 minLength={6}
                 className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500"
                 required
@@ -198,9 +190,7 @@ export const SignupPage: React.FC = () => {
                 className="mt-1 w-4 h-4 text-blue-600 rounded-sm border-slate-300 focus:ring-blue-500"
               />
               <span className="text-xs text-slate-600 leading-relaxed">
-                {bilingualMode
-                  ? 'আমি বুঝতে পেরেছি যে মেডনেক্স এআই স্বাস্থ্য ট্রায়াজ পরামর্শ প্রদান করে, চূড়ান্ত মেডিকেল রোগনির্ণয় নয়। জরুরি সংকটাপন্ন অবস্থায় আমি অবিলম্বে ৯৯৯ এ কল করব।'
-                  : 'I understand that MedNex provides AI triage assistance and not a definitive medical diagnosis. In life-threatening emergencies, I will dial 999 immediately.'}
+                I understand that MedNex provides educational healthcare assistance and is not a replacement for a doctor's examination. In an emergency, I will call 999 immediately.
               </span>
             </label>
           </div>
@@ -209,15 +199,15 @@ export const SignupPage: React.FC = () => {
             type="submit"
             className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold shadow-md shadow-blue-500/20 transition flex items-center justify-center gap-2"
           >
-            <span>{bilingualMode ? 'অ্যাকাউন্ট তৈরি করুন' : 'Create Account'}</span>
+            <span>Create Account</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
         <div className="pt-2 text-center text-xs text-slate-500">
-          {bilingualMode ? 'ইতিমধ্যে একটি অ্যাকাউন্ট আছে? ' : 'Already have an account? '}
+          Already have an account?{' '}
           <Link to="/login" className="font-semibold text-blue-600 hover:underline">
-            {bilingualMode ? 'লগইন করুন' : 'Sign In'}
+            Sign In
           </Link>
         </div>
       </div>
