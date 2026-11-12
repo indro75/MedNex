@@ -100,7 +100,14 @@ export const MobileNav: React.FC = () => {
           <div className="w-72 bg-white h-full p-5 flex flex-col justify-between shadow-2xl">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                <span className="font-bold text-slate-900 text-base">MedNex Services</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-xs">
+                    <Activity className="w-4 h-4 stroke-[2.5]" />
+                  </div>
+                  <span className="font-bold text-slate-900 text-base">
+                    Med<span className="text-blue-600">Nex</span> Services
+                  </span>
+                </div>
                 <button
                   onClick={() => setDrawerOpen(false)}
                   className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg"

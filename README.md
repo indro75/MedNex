@@ -1,9 +1,24 @@
 # MedNex – AI-Powered Healthcare Assistance Platform
 
+> **Course:** CSE4104 – Software Engineering Project  
 > **Tagline:** Smarter Healthcare. Better Decisions.  
 > **Primary Market:** Bangladesh  
 > **Initial Sample Region:** Khulna  
-> **Project Type:** AI/ML-Powered Healthcare Assistance Web Application
+> **Project Type:** AI/ML-Powered Healthcare Assistance Web Application  
+> **Specification Document:** [Software Requirements Specification (SRS.md)](./SRS.md)
+
+---
+
+## 👥 Team Information
+
+| Role | Student Name | Student ID | Academic Email | Contribution Area |
+|---|---|---|---|---|
+| **Team Lead / Full-Stack** | [Student Name 1] | [Student ID 1] | student1@university.edu.bd | Full-Stack Architecture, AI & Triage |
+| **Backend / ML Engineer** | [Student Name 2] | [Student ID 2] | student2@university.edu.bd | FastAPI REST APIs, ML Models & DB |
+| **Frontend / UI-UX** | [Student Name 3] | [Student ID 3] | student3@university.edu.bd | React 19 Client, Responsive UI & Flow |
+| **QA / Technical Writer** | [Student Name 4] | [Student ID 4] | student4@university.edu.bd | SRS Documentation, Testing & UML |
+
+*(Please replace placeholders with your team members' actual names and IDs).*
 
 ---
 

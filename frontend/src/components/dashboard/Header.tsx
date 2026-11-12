@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { PhoneCall, HeartPulse, User, Ticket } from 'lucide-react';
+import { PhoneCall, HeartPulse, User, Ticket, Activity } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealth } from '../../context/HealthContext';
 
@@ -39,11 +39,34 @@ export const Header: React.FC = () => {
   return (
     <header className="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
       <div className="flex items-center gap-3">
-        <div>
+        {/* Mobile Branding on Top Left Corner */}
+        <Link to="/dashboard" className="flex md:hidden items-center gap-2 group">
+          <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:bg-blue-700 transition shrink-0">
+            <Activity className="w-4 h-4 stroke-[2.5]" />
+          </div>
+          <div>
+            <span className="text-lg font-bold tracking-tight text-slate-900 flex items-center leading-tight">
+              Med<span className="text-blue-600">Nex</span>
+            </span>
+            <span className="block text-[9px] font-semibold uppercase tracking-wider text-teal-600 leading-none">
+              Khulna Portal
+            </span>
+          </div>
+        </Link>
+
+        {/* Sub-header / Page Title on tablet screens */}
+        <div className="hidden sm:block md:hidden border-l border-slate-200 pl-3">
+          <span className="text-xs font-semibold text-slate-600">
+            {getPageTitle(location.pathname)}
+          </span>
+        </div>
+
+        {/* Desktop Page Title & Region */}
+        <div className="hidden md:block">
           <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
             {getPageTitle(location.pathname)}
           </h1>
-          <p className="text-xs text-slate-500 hidden sm:block">
+          <p className="text-xs text-slate-500">
             {t('connectedRegion')}
           </p>
         </div>

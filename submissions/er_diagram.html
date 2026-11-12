@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>CSE4104-7A-T01_ERDiagram</title>
+<style>
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+  .diagram-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+  }
+  svg {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+</style>
+</head>
+<body>
+  <div class="diagram-box">
+    
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1350 940" width="100%" height="100%" style="background:#ffffff; font-family:'Segoe UI', Inter, system-ui, sans-serif;">
+  <defs>
+    <linearGradient id="headerBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="headerTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="headerPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#581c87"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="headerRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#991b1b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="headerAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Banner -->
+  <rect x="25" y="15" width="1300" height="60" rx="10" fill="url(#headerBlue)"/>
+  <text x="45" y="44" fill="#ffffff" font-size="20" font-weight="700">ENTITY RELATIONSHIP DIAGRAM (ERD) – MEDNEX RELATIONAL SCHEMA</text>
+  <text x="45" y="62" fill="#bfdbfe" font-size="11">Course: CSE4104 | Complete Database Entities, Data Types, Primary Keys (PK), Foreign Keys (FK) &amp; Cardinalities</text>
+
+  <!-- ENTITY 1: USERS -->
+  <g transform="translate(30, 95)" filter="url(#cardShadow)">
+    <rect width="260" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="260" height="34" rx="8" fill="url(#headerBlue)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">USERS (Table: users)</text>
+    
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">String(36)</text>
+    
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(100)</text>
+    
+    <text x="15" y="101" fill="#3b82f6" font-weight="700" font-size="11">UK</text>
+    <text x="45" y="101" fill="#0f172a" font-size="11">email</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String(100)</text>
+    
+    <text x="45" y="124" fill="#0f172a" font-size="11">password_hash</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">String(255)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">phone</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String(20)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">age / gender</text>
+    <text x="175" y="170" fill="#64748b" font-size="10">Integer / Str</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">blood_group</text>
+    <text x="175" y="193" fill="#64748b" font-size="10">String(10)</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">city</text>
+    <text x="175" y="216" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">emergency_contact</text>
+    <text x="175" y="239" fill="#64748b" font-size="10">String(20)</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">allergies</text>
+    <text x="175" y="262" fill="#64748b" font-size="10">JSON (List)</text>
+
+    <text x="45" y="285" fill="#0f172a" font-size="11">chronic_conditions</text>
+    <text x="175" y="285" fill="#64748b" font-size="10">JSON (List)</text>
+
+    <text x="45" y="308" fill="#0f172a" font-size="11">created_at</text>
+    <text x="175" y="308" fill="#64748b" font-size="10">DateTime</text>
+  </g>
+
+  <!-- ENTITY 2: APPOINTMENTS -->
+  <g transform="translate(370, 95)" filter="url(#cardShadow)">
+    <rect width="270" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="270" height="34" rx="8" fill="url(#headerPurple)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">APPOINTMENTS</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="185" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="15" y="78" fill="#8b5cf6" font-weight="700" font-size="11">FK</text>
+    <text x="45" y="78" fill="#0f172a" font-size="11">user_id (users.id)</text>
+    <text x="185" y="78" fill="#64748b" font-size="10">String(36)</text>
+
+    <text x="15" y="101" fill="#8b5cf6" font-weight="700" font-size="11">FK</text>
+    <text x="45" y="101" fill="#0f172a" font-size="11">doctor_id (doctors.id)</text>
+    <text x="185" y="101" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">doctor_name</text>
+    <text x="185" y="124" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">specialty</text>
+    <text x="185" y="147" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">hospital_or_chamber</text>
+    <text x="185" y="170" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">appointment_date</text>
+    <text x="185" y="193" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">serial_number</text>
+    <text x="185" y="216" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">estimated_time</text>
+    <text x="185" y="239" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">patient_name / phone</text>
+    <text x="185" y="262" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="285" fill="#0f172a" font-size="11">symptom_summary</text>
+    <text x="185" y="285" fill="#64748b" font-size="10">Text</text>
+
+    <text x="45" y="308" fill="#0f172a" font-size="11">status (Confirmed)</text>
+    <text x="185" y="308" fill="#64748b" font-size="10">String(30)</text>
+  </g>
+
+  <!-- ENTITY 3: DOCTORS -->
+  <g transform="translate(710, 95)" filter="url(#cardShadow)">
+    <rect width="280" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="280" height="34" rx="8" fill="url(#headerTeal)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">DOCTORS (Verified BMDC)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="195" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="195" y="78" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">degrees / specialty</text>
+    <text x="195" y="101" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">designation</text>
+    <text x="195" y="124" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">hospital</text>
+    <text x="195" y="147" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="15" y="170" fill="#3b82f6" font-weight="700" font-size="11">UK</text>
+    <text x="45" y="170" fill="#0f172a" font-size="11">bmdc_reg_no</text>
+    <text x="195" y="170" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">chamber_address / area</text>
+    <text x="195" y="193" fill="#64748b" font-size="10">Text / String</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">consultation_fee</text>
+    <text x="195" y="216" fill="#64748b" font-size="10">Integer (BDT)</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">visiting_hours / days</text>
+    <text x="195" y="239" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">phone / serial_phone</text>
+    <text x="195" y="262" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="285" fill="#0f172a" font-size="11">latitude / longitude</text>
+    <text x="195" y="285" fill="#64748b" font-size="10">Float</text>
+
+    <text x="45" y="308" fill="#0f172a" font-size="11">rating / verified</text>
+    <text x="195" y="308" fill="#64748b" font-size="10">Float / Boolean</text>
+  </g>
+
+  <!-- ENTITY 4: HOSPITALS -->
+  <g transform="translate(1060, 95)" filter="url(#cardShadow)">
+    <rect width="255" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="255" height="34" rx="8" fill="url(#headerBlue)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">HOSPITALS (Khulna)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">type (Govt/Private)</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">address / area</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">Text / String</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">emergency_number</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">reception_number</text>
+    <text x="175" y="170" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">has_icu / has_er</text>
+    <text x="175" y="193" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">ambulance_available</text>
+    <text x="175" y="216" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">total_beds</text>
+    <text x="175" y="239" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">latitude / longitude</text>
+    <text x="175" y="262" fill="#64748b" font-size="10">Float</text>
+  </g>
+
+  <!-- ENTITY 5: AMBULANCES -->
+  <g transform="translate(30, 480)" filter="url(#cardShadow)">
+    <rect width="260" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="260" height="34" rx="8" fill="url(#headerRed)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">AMBULANCES (24/7)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">type (ICU / BLS)</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">base_location</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">phone / alt_phone</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">available_24_7</text>
+    <text x="175" y="170" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">has_oxygen / ventilator</text>
+    <text x="175" y="193" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">estimated_response</text>
+    <text x="175" y="216" fill="#64748b" font-size="10">String(50)</text>
+  </g>
+
+  <!-- ENTITY 6: MEDICINES -->
+  <g transform="translate(370, 480)" filter="url(#cardShadow)">
+    <rect width="270" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="270" height="34" rx="8" fill="url(#headerAmber)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">MEDICINES (Pharma)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="185" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">brand_name / generic</text>
+    <text x="185" y="78" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">therapeutic_class</text>
+    <text x="185" y="101" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">manufacturer</text>
+    <text x="185" y="124" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">dosage_form / strength</text>
+    <text x="185" y="147" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">price_bdt</text>
+    <text x="185" y="170" fill="#64748b" font-size="10">Float</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">indications / side_eff</text>
+    <text x="185" y="193" fill="#64748b" font-size="10">JSON</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">pregnancy / food_rel</text>
+    <text x="185" y="216" fill="#64748b" font-size="10">String</text>
+  </g>
+
+  <!-- ENTITY 7: DRUG_INTERACTIONS -->
+  <g transform="translate(710, 480)" filter="url(#cardShadow)">
+    <rect width="280" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="280" height="34" rx="8" fill="url(#headerAmber)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">DRUG_INTERACTIONS</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="195" y="55" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">drug1 (Generic)</text>
+    <text x="195" y="78" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">drug2 (Generic)</text>
+    <text x="195" y="101" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">severity (Severe/Mod)</text>
+    <text x="195" y="124" fill="#64748b" font-size="10">String(20)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">effect</text>
+    <text x="195" y="147" fill="#64748b" font-size="10">Text</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">recommendation</text>
+    <text x="195" y="170" fill="#64748b" font-size="10">Text</text>
+  </g>
+
+  <!-- ENTITY 8: BMI_LOGS & HEALTH_ACTIVITIES (STACKED RIGHT) -->
+  <g transform="translate(1060, 480)" filter="url(#cardShadow)">
+    <rect width="255" height="180" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="255" height="34" rx="8" fill="url(#headerTeal)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">BMI_LOGS</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="15" y="78" fill="#8b5cf6" font-weight="700" font-size="11">FK</text>
+    <text x="45" y="78" fill="#0f172a" font-size="11">user_id</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(36)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">date / weight_kg</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String / Float</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">height_cm / bmi</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">Float / Float</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">category / notes</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String</text>
+  </g>
+
+  <!-- RELATIONSHIP CONNECTORS -->
+  <!-- Users to Appointments (1 to N) -->
+  <line x1="290" y1="160" x2="370" y2="160" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="300" y="152" fill="#2563eb" font-size="10" font-weight="700">1</text>
+  <text x="355" y="152" fill="#2563eb" font-size="10" font-weight="700">N</text>
+
+  <!-- Doctors to Appointments (1 to N) -->
+  <line x1="710" y1="180" x2="640" y2="180" stroke="#4f46e5" stroke-width="2.5"/>
+  <text x="695" y="172" fill="#4f46e5" font-size="10" font-weight="700">1</text>
+  <text x="655" y="172" fill="#4f46e5" font-size="10" font-weight="700">N</text>
+
+  <!-- Users to BMI_Logs (1 to N) -->
+  <path d="M 160 435 L 160 820 L 1180 820 L 1180 660" fill="none" stroke="#0d9488" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="170" y="450" fill="#0d9488" font-size="10" font-weight="700">1 (users)</text>
+  <text x="1115" y="685" fill="#0d9488" font-size="10" font-weight="700">N (bmi_logs)</text>
+
+  <!-- Footer Legend -->
+  <rect x="30" y="865" width="1285" height="45" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="45" y="892" fill="#0f172a" font-size="11" font-weight="600">Schema Summary: 9 Relational Entities, SQLite/PostgreSQL Compatible via SQLAlchemy ORM</text>
+  <text x="800" y="892" fill="#64748b" font-size="11">PK: Primary Key | FK: Foreign Key | UK: Unique Key | 1:N Cardinality</text>
+</svg>
+
+  </div>
+</body>
+</html>

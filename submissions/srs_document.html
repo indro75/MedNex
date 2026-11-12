@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>CSE4104-7A-T01_SRS</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 18mm 15mm 18mm 15mm;
+    @bottom-center {
+      content: counter(page);
+    }
+  }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Inter, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    line-height: 1.6;
+    font-size: 10.5pt;
+    margin: 0;
+    padding: 0;
+  }
+  .cover-page {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    page-break-after: always;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .cover-badge {
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 11pt;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    display: inline-block;
+  }
+  .cover-title {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin: 0 0 10px 0;
+  }
+  .cover-subtitle {
+    font-size: 16pt;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 30px;
+  }
+  .cover-meta {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px 32px;
+    width: 80%;
+    margin-top: 40px;
+    text-align: left;
+    font-size: 11pt;
+  }
+  .cover-meta table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .cover-meta td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .cover-meta td:first-child {
+    font-weight: 700;
+    color: #475569;
+    width: 35%;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #0f172a;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 8px;
+    margin-top: 30px;
+    page-break-after: avoid;
+  }
+  h2.section-title {
+    font-size: 15pt;
+    color: #1e3a8a;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-left: 5px solid #2563eb;
+    margin-top: 28px;
+    border-radius: 4px;
+    page-break-before: always;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 12.5pt;
+    color: #0f172a;
+    margin-top: 18px;
+    page-break-after: avoid;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #334155;
+    margin-top: 14px;
+    page-break-after: avoid;
+  }
+  p {
+    margin: 6px 0;
+    text-align: justify;
+  }
+  li {
+    margin: 4px 0;
+  }
+  .divider {
+    border: none;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 20px 0;
+  }
+  .table-wrapper {
+    margin: 15px 0;
+    page-break-inside: avoid;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+  tr:nth-child(even) {
+    background: #f8fafc;
+  }
+  tr:first-child {
+    background: #1e3a8a;
+    color: #ffffff;
+    font-weight: 700;
+  }
+  td {
+    padding: 6px 8px;
+    border: 1px solid #cbd5e1;
+  }
+  code {
+    background: #f1f5f9;
+    color: #0f766e;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 9pt;
+  }
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+  .diagram-container {
+    margin: 20px 0;
+    page-break-inside: avoid;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <!-- Cover Page -->
+  <div class="cover-page">
+    <div class="cover-badge">DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING</div>
+    <div class="cover-title">SOFTWARE REQUIREMENTS SPECIFICATION (SRS)</div>
+    <div class="cover-subtitle">MedNex – AI-Powered Healthcare Assistance &amp; Clinical Triage Platform</div>
+    
+    <div class="cover-meta">
+      <table>
+        <tr><td>Course Code:</td><td><strong>CSE4104 – Software Engineering Project</strong></td></tr>
+        <tr><td>Project Title:</td><td><strong>MedNex Platform</strong></td></tr>
+        <tr><td>Submission Stage:</td><td>Phase 1: Project Proposal &amp; Formal SRS</td></tr>
+        <tr><td>Document ID:</td><td>CSE4104-7A-T01_SRS</td></tr>
+        <tr><td>Academic Term:</td><td>Fall 2026</td></tr>
+        <tr><td>Target Region:</td><td>Khulna Division, Bangladesh</td></tr>
+        <tr><td>Status:</td><td>Approved for System Design &amp; Architecture Phase</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Body Content -->
+  <h1>SOFTWARE REQUIREMENTS SPECIFICATION (SRS)</h1><h2 class="section-title">MedNex – AI-Powered Healthcare Assistance & Clinical Triage Platform</h2><br/><p><strong>Course Code:</strong> CSE4104  </p><p><strong>Document Version:</strong> 1.0.0  </p><p><strong>Status:</strong> Approved for System Design & Development Phase  </p><p><strong>Release Date:</strong> November 2026  </p><p><strong>Target Market:</strong> Bangladesh (Primary Deployment Region: Khulna Division)</p><br/><hr class="divider"/><br/><h2 class="section-title">TABLE OF CONTENTS</h2><p>1. [Introduction](#1-introduction)</p><p>   - 1.1 Project Title</p><p>   - 1.2 Project Overview</p><p>   - 1.3 Problem Statement</p><p>   - 1.4 Objectives</p><p>   - 1.5 Scope of the Project</p><p>2. [Functional Requirements (FR)](#2-functional-requirements)</p><p>   - 2.1 User Authentication & Profile Management</p><p>   - 2.2 AI Symptom Checker & Clinical Triage</p><p>   - 2.3 Verified Doctor Directory & Chamber Serial Booking</p><p>   - 2.4 Medical Laboratory Report Analyzer (OCR & Biomarkers)</p><p>   - 2.5 Emergency Ambulance & Hospital Locator (999 Hotline)</p><p>   - 2.6 Clinical First Aid Assistant & Interactive CPR</p><p>   - 2.7 AI Medicine Directory & Drug Interaction Checker</p><p>   - 2.8 Patient Vitals & Health History Tracking</p><p>3. [Non-Functional Requirements (NFR)](#3-non-functional-requirements)</p><p>   - 3.1 Performance & Latency</p><p>   - 3.2 Responsiveness & Usability</p><p>   - 3.3 Security & Medical Data Privacy</p><p>   - 3.4 Reliability, Fault Tolerance & Clinical Safety</p><p>   - 3.5 Scalability & Maintainability</p><p>4. [User Roles & Responsibilities](#4-user-roles--responsibilities)</p><p>   - 4.1 Patient / General User</p><p>   - 4.2 Doctor / Healthcare Provider</p><p>   - 4.3 Emergency Ambulance Provider / Dispatcher</p><p>   - 4.4 System Administrator</p><p>5. [Use Cases & System Interactions](#5-use-cases--system-interactions)</p><p>   - 5.1 Use Case Summary Table</p><p>   - 5.2 Detailed Use Case Specifications (UC-01 to UC-07)</p><p>6. [Initial System Diagrams](#6-initial-system-diagrams)</p><p>   - 6.1 Use Case Diagram (UML)</p><p>   - 6.2 Entity Relationship Diagram (ERD) & DBDiagram Code</p><p>   - 6.3 System Architecture Diagram</p><p>7. [Project GitHub & Submission Standards](#7-project-github--submission-standards)</p><p>   - 7.1 Official File Naming Conventions</p><p>   - 7.2 Repository Organization & README Standards</p><br/><hr class="divider"/><br/><h2 class="section-title">1. INTRODUCTION</h2><br/><h3>1.1 Project Title</h3><p><strong>MedNex – AI-Powered Healthcare Assistance & Clinical Triage Platform</strong></p><br/><h3>1.2 Project Overview</h3><p><strong>MedNex</strong> is an intelligent, ethical, full-stack healthcare companion platform engineered to bridge critical accessibility, navigation, and medical triage gaps across Bangladesh, with localized deployment centered on the <strong>Khulna</strong> metropolitan and divisional area. </p><br/><p>MedNex equips citizens and patients with a multi-layered healthcare support system:</p><p>1. An NLP-driven symptom evaluation engine that classifies clinical urgency and maps conditions to appropriate medical specialties.</p><p>2. A zero-hallucination registry of verified Bangladesh Medical and Dental Council (BMDC) registered doctors, regional hospitals, and emergency chambers in Khulna with instant serial booking.</p><p>3. An Optical Character Recognition (OCR) and biomarker parsing engine that translates dense diagnostic laboratory reports into plain-language clinical insights and doctor consultation checklists.</p><p>4. An interactive first-aid guide with acoustic CPR pacing and verified clinical protocols.</p><p>5. Direct 24/7 emergency dispatch connectivity linking users to the national <strong>999</strong> helpline and certified regional ambulance pools.</p><p>6. A pharmaceutical reference and multi-drug interaction safety checker tailored to Bangladeshi commercial medicines.</p><p>7. Longitudinal anthropometric and BMI vitals monitoring with exportable patient history.</p><br/><h3>1.3 Problem Statement</h3><p>The healthcare delivery landscape in developing regions such as Bangladesh suffers from acute systemic bottlenecks:</p><li>**Low Health Literacy & Delayed Emergency Response:** Patients frequently ignore early warning signs of acute cardiovascular, neurological, or respiratory emergencies, or attempt inappropriate self-medication during critical intervention windows.</li><li>**Proliferation of Unverified Practitioners & Chamber Confusion:** Patients struggle to find verified medical specialists, often falling prey to unqualified practitioners or experiencing chaotic booking procedures at private chambers in divisional centers like Khulna.</li><li>**Diagnostic Report Misinterpretation:** Routine pathology reports (e.g., Complete Blood Count, Lipid Profile, Liver Function Tests) are delivered in complex clinical terminology with numerical ranges that patients cannot interpret, causing unnecessary anxiety or neglected chronic illnesses.</li><li>**Critical Gaps in Emergency First Aid:** When accidents, burns, choking, or snakebites occur, bystanders frequently resort to unscientific folk remedies rather than medically recognized protocols.</li><li>**Fragmented Emergency Transport:** Securing an equipped ICU or Basic Life Support (BLS) ambulance during odd hours in Khulna typically relies on word-of-mouth with unpredictable response times and opaque pricing.</li><li>**Polypharmacy & Drug Interactions:** Concurrent usage of over-the-counter and prescription drugs without cross-checking adverse contraindications poses severe health risks.</li><br/><h3>1.4 Objectives</h3><p>The primary engineering and clinical objectives of MedNex are:</p><li>**Obj-01:** Build an intelligent, conversational, and visual symptom triage system using Machine Learning (TF-IDF + Naive Bayes) and deterministic clinical red-flag rules that flags emergencies within 500 ms.</li><li>**Obj-02:** Establish an authenticated, zero-hallucination directory of BMDC-registered physicians and hospitals in Khulna, enabling automated chamber serial number reservation.</li><li>**Obj-03:** Implement automated diagnostic report parsing using OCR and regular expression heuristics to extract clinical biomarkers, compare them against standard biological reference intervals, and generate patient-friendly summaries.</li><li>**Obj-04:** Provide offline-capable, step-by-step first-aid protocols, interactive DOs/DON'Ts, and an acoustic CPR metronome (100–120 BPM) for emergency bystanders.</li><li>**Obj-05:** Deliver single-tap emergency dispatch connectivity with the national 999 hotline and direct telephonic routing to verified 24/7 ICU/Oxygen ambulance fleets in Khulna.</li><li>**Obj-06:** Implement a pharmaceutical safety index covering Bangladesh-marketed medicines (Square, Beximco, Incepta, etc.) to detect acute drug-drug contraindications.</li><li>**Obj-07:** Provide longitudinal health tracking including adult Body Mass Index (BMI) calculations, WHO classifications, and downloadable medical history timelines.</li><br/><h3>1.5 Scope of the Project</h3><h4>In-Scope:</h4><li>User registration, authentication, medical profile persistence (blood group, allergies, chronic conditions).</li><li>Free-text and visual interactive SVG body map symptom intake.</li><li>Natural Language Processing (NLP) symptom classification and specialty routing.</li><li>Real-time red-flag emergency detection and 999 dialing prompts.</li><li>Khulna medical registry: BMDC doctor directory, chambers, fees, visiting days/hours, GPS location mapping, and chamber appointment serial booking.</li><li>Laboratory report OCR text ingestion, biomarker reference range comparison, abnormal value flagging, and doctor discussion question generation.</li><li>Emergency ambulance registry with equipment breakdown (ICU, ventilator, oxygen) and direct dialing.</li><li>Step-by-step emergency first aid procedures with DOs/DON'Ts and CPR metronome.</li><li>Pharmaceutical database search and multi-drug interaction risk evaluator.</li><li>BMI calculator, WHO category scoring, longitudinal weight chart (Recharts), and health activity export.</li><br/><h4>Out-of-Scope:</h4><li>Autonomous clinical diagnosis or issuing prescription medications without a certified doctor.</li><li>Direct digital financial payment processing (chamber consultation fees are settled directly at chamber reception).</li><li>Telemedicine video streaming consultations (referrals and bookings are handled).</li><li>Invasive medical equipment telemetry or direct hospital Electronic Health Record (EHR) database integration.</li><br/><hr class="divider"/><br/><h2 class="section-title">2. FUNCTIONAL REQUIREMENTS</h2><br/><p>Functional requirements detail the specific operations, services, and behaviors that the MedNex system must execute.</p><br/><h3>2.1 User Authentication & Profile Management</h3><li>**FR-01:** The system shall allow new users to register an account by providing Full Name, Email Address, Phone Number, Age, Gender, Blood Group, and Password.</li><li>**FR-02:** The system shall require user consent to the Medical Safety Disclaimer during account registration.</li><li>**FR-03:** The system shall authenticate returning users using their registered email and encrypted password.</li><li>**FR-04:** The system shall allow users to log out and invalidate active session tokens.</li><li>**FR-05:** The system shall provide a password reset workflow via registered email verification.</li><li>**FR-06:** The system shall allow users to manage personal clinical metadata including blood group, known drug/food allergies, chronic health conditions, and emergency contact numbers.</li><br/><h3>2.2 AI Symptom Checker & Clinical Triage</h3><li>**FR-07:** The system shall allow users to input symptoms via free-text natural language queries.</li><li>**FR-08:** The system shall allow users to select affected body regions via an interactive visual anatomical SVG body map (Head, Chest, Abdomen, Back, Limbs, Pelvis, Skin).</li><li>**FR-09:** The system shall capture duration of symptoms (hours, days, weeks) and pain severity (scale 1 to 10).</li><li>**FR-10:** The system shall process symptom text using TF-IDF vectorization and Multinomial Naive Bayes classification to predict the relevant medical specialty.</li><li>**FR-11:** The system shall instantly intercept red-flag symptoms (e.g., crushing chest pain radiating to arm, sudden unilateral paralysis, acute respiratory failure, massive hemorrhage) and trigger an emergency modal redirecting the user to 999.</li><li>**FR-12:** The system shall present recommended doctor specialties along with direct filter links to verified specialists in Khulna.</li><br/><h3>2.3 Verified Doctor Directory & Chamber Serial Booking</h3><li>**FR-13:** The system shall display verified physicians in Khulna with BMDC registration number, qualifications, designation, hospital affiliation, chamber address, fees, and visiting hours.</li><li>**FR-14:** The system shall allow users to filter doctors by medical specialty, geographic area in Khulna (Sadar, Sonadanga, Boyra, Khalishpur, Daulatpur, Gollamari), and maximum consultation fee.</li><li>**FR-15:** The system shall plot doctor chamber locations and hospitals on an interactive map view.</li><li>**FR-16:** The system shall allow authenticated users to book a chamber serial number for a specific doctor by submitting patient details and appointment date.</li><li>**FR-17:** The system shall compute and issue an sequential serial number and estimated consultation time upon successful booking.</li><li>**FR-18:** The system shall display the active appointment serial pill on the user's dashboard and allow cancellation of pending appointments.</li><br/><h3>2.4 Medical Laboratory Report Analyzer (OCR & Biomarkers)</h3><li>**FR-19:** The system shall accept laboratory report uploads in PDF, PNG, and JPEG formats, as well as pre-configured clinical presets (CBC Anemia, Lipid Profile, Pre-Diabetes, Liver Function).</li><li>**FR-20:** The system shall extract laboratory text and identify target clinical biomarkers (e.g., Hemoglobin, WBC, Platelets, Total Cholesterol, LDL, HDL, Triglycerides, Fasting Blood Glucose, HbA1c, SGPT/ALT, Bilirubin).</li><li>**FR-21:** The system shall evaluate extracted numerical values against standardized adult biological reference intervals and classify status as `Normal`, `Low`, `Elevated`, or `Critical`.</li><li>**FR-22:** The system shall generate a plain-language summary explaining what each abnormal parameter signifies in non-technical terms.</li><li>**FR-23:** The system shall generate an actionable checklist of questions for the patient to ask their doctor during their next visit.</li><br/><h3>2.5 Emergency Ambulance & Hospital Locator (999 Hotline)</h3><li>**FR-24:** The system shall display a dedicated, prominent emergency dialer that triggers a direct telephone call to the Bangladesh National Emergency Helpline `999`.</li><li>**FR-25:** The system shall maintain and display a verified list of 24/7 ambulance providers in Khulna categorized by type (ICU Ambulance, Standard BLS, Neonatal ICU).</li><li>**FR-26:** The system shall specify ambulance equipment capabilities (oxygen cylinder, cardiac monitor, portable ventilator) and estimated dispatch response times.</li><li>**FR-27:** The system shall provide single-tap phone calling to ambulance drivers and hospital emergency reception desks.</li><li>**FR-28:** The system shall list 24/7 hospital emergency departments in Khulna (KMCH, Gazi Medical, Sheikh Abu Naser, City Medical) with bed count and ICU status.</li><br/><h3>2.6 Clinical First Aid Assistant & Interactive CPR</h3><li>**FR-29:** The system shall provide structured, step-by-step first-aid protocols for standard emergencies (Burns, Severe Bleeding, Adult Choking/Heimlich, Sprains/R.I.C.E., Fainting, Heat Stroke, Animal/Snake Bites).</li><li>**FR-30:** The system shall present clear, color-coded DOs and DON'Ts for each emergency condition to prevent harmful folk practices.</li><li>**FR-31:** The system shall provide an interactive CPR Metronome generating visual pulses and acoustic beeps at the clinically recommended rate of 100 to 120 compressions per minute.</li><br/><h3>2.7 AI Medicine Directory & Drug Interaction Checker</h3><li>**FR-32:** The system shall allow users to search medicines by commercial brand name (e.g., Napa, Seclo, Monas, Sergel, Ciprocin) or generic name (e.g., Paracetamol, Omeprazole, Montelukast).</li><li>**FR-33:** The system shall display dosage forms, strength, manufacturer, unit price (BDT ৳), clinical indications, side effects, precautions, and food relations.</li><li>**FR-34:** The system shall simulate camera OCR package recognition to identify medicines from uploaded box or strip images.</li><li>**FR-35:** The system shall allow users to select two concurrent medications and evaluate them against a clinical drug-drug interaction matrix.</li><li>**FR-36:** The system shall categorize drug interaction severity into `Severe / Contraindicated`, `Moderate / Caution`, or `Minor / Monitor`, providing clinical rationale and recommendations.</li><br/><h3>2.8 Patient Vitals & Health History Tracking</h3><li>**FR-37:** The system shall compute Body Mass Index (BMI) using user-entered weight ($kg$) and height ($cm$) according to the standard formula:</li><p>  $$\text{BMI} = \frac{\text{weight (kg)}}{[\text{height (m)}]^2}$$</p><li>**FR-38:** The system shall assign WHO adult BMI classifications (`Underweight`, `Normal weight`, `Overweight`, `Obese Class I/II`).</li><li>**FR-39:** The system shall calculate Basal Metabolic Rate (BMR) and recommended daily hydration targets based on patient metrics.</li><li>**FR-40:** The system shall record and visualize longitudinal weight and BMI entries over time using graphical charts.</li><li>**FR-41:** The system shall maintain an aggregated chronological health activity log (symptom checks, report analyses, doctor appointments, BMI updates) and allow JSON export.</li><br/><hr class="divider"/><br/><h2 class="section-title">3. NON-FUNCTIONAL REQUIREMENTS</h2><br/><p>Non-functional requirements specify the criteria used to judge the operation of the system regarding performance, reliability, security, and usability.</p><br/><h3>3.1 Performance & Latency</h3><li>**NFR-01 (Page Load Time):** The client application shall achieve an Initial Contentful Paint (ICP) within 1.5 seconds and become fully interactive within 2.5 seconds on standard 4G mobile connections.</li><li>**NFR-02 (API Response Time):** Standard REST API endpoints (Doctor search, Hospital lookup, Medicine directory) shall respond within 300 milliseconds under normal load.</li><li>**NFR-03 (Triage & NLP Latency):** Symptom classification and red-flag emergency detection shall return triage results within 500 milliseconds.</li><li>**NFR-04 (Report OCR & Parsing Latency):** Laboratory report analysis and biomarker extraction shall complete within 1.5 seconds.</li><br/><h3>3.2 Responsiveness & Usability</h3><li>**NFR-05 (Mobile-First Layout):** The user interface must be 100% responsive, optimized for viewports ranging from 360px mobile displays to 4K desktop screens.</li><li>**NFR-06 (Mobile Navigation Bar):** On mobile devices, the top navigation bar must prominently display the "MedNex" branding in the top-left corner, paired with a sticky bottom navigation bar and slide-over service drawer for one-handed operation.</li><li>**NFR-07 (Accessibility):** The UI shall adhere to WCAG 2.1 Level AA color contrast standards (minimum contrast ratio of 4.5:1 for standard text and 3:1 for large graphical elements).</li><li>**NFR-08 (Typography):** The application shall use highly readable sans-serif typefaces (Inter and Plus Jakarta Sans) with minimum body font size of 14px on mobile devices.</li><br/><h3>3.3 Security & Medical Data Privacy</h3><li>**NFR-09 (Credential Encryption):** User passwords must never be stored in plain text. Passwords must be hashed using industry-standard hashing algorithms (bcrypt or PBKDF2 with SHA-256) with unique cryptographic salts.</li><li>**NFR-10 (Input Sanitization & Validation):** All incoming API payloads must be validated against strict Pydantic v2 schemas to prevent SQL injection, Cross-Site Scripting (XSS), and buffer overflows.</li><li>**NFR-11 (Data Confidentiality):** Personal health metrics, diagnostic reports, and medical notes must remain confidential to the authenticated user and never be shared with third-party tracking services.</li><li>**NFR-12 (CORS Policy):** The backend API shall enforce a strict Cross-Origin Resource Sharing (CORS) whitelist restricting requests to sanctioned application domains.</li><br/><h3>3.4 Reliability, Fault Tolerance & Clinical Safety</h3><li>**NFR-13 (High Availability):** The platform shall maintain 99.9% uptime, with emergency dispatch links, ambulance provider numbers, and 999 dialing permanently reachable.</li><li>**NFR-14 (Zero-Hallucination Safety):** Doctor credentials, BMDC numbers, hospital addresses, and emergency phone numbers must be sourced exclusively from verified records.</li><li>**NFR-15 (Persistent Medical Disclaimer):** Every clinical report, triage outcome, and first aid guide must feature a persistent medical safety notice: *"MedNex provides intelligent triage and health literacy support, not clinical diagnosis or medical prescriptions."*</li><li>**NFR-16 (Client-Side Graceful Degradation):** In the event of backend network latency or temporary unavailability, the frontend shall gracefully fall back to local storage caching and pre-seeded client datasets without crashing.</li><br/><h3>3.5 Scalability & Maintainability</h3><li>**NFR-17 (Modular Micro-Architecture):** The system shall follow a decoupled separation of concerns: React SPA client on the frontend and FastAPI ASGI REST service on the backend.</li><li>**NFR-18 (Database Portability):** The data persistence layer shall utilize SQLAlchemy ORM, ensuring seamless migration between SQLite (development/prototyping) and PostgreSQL (production).</li><li>**NFR-19 (Code Documentation & Typing):** Both frontend (TypeScript strict mode) and backend (Python PEP 484 type hints) shall maintain static type safety across all interfaces and models.</li><br/><hr class="divider"/><br/><h2 class="section-title">4. USER ROLES & RESPONSIBILITIES</h2><br/><p>MedNex identifies four distinct stakeholder roles interacting with or maintaining the system:</p><br/><pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                        MEDNEX SYSTEM STAKEHOLDERS                      │
+└────────────────────────────────────────────────────────────────────────┘
+          │                       │                     │
+          ▼                       ▼                     ▼
+  ┌──────────────┐        ┌──────────────┐      ┌──────────────┐
+  │ Patient/User │        │ Doctor/Chamber│     │ Ambulance /  │
+  │              │        │ Specialist   │      │ Emergency    │
+  └──────────────┘        └──────────────┘      └──────────────┘
+          │                       │                     │
+          └───────────────────────┼─────────────────────┘
+                                  ▼
+                        ┌──────────────────┐
+                        │  Administrator   │
+                        └──────────────────┘</code></pre><br/><h3>4.1 Patient / General User</h3><p>The primary consumer of the MedNex platform.</p><li>**Responsibilities:**</li><p>  - Create and maintain personal account and clinical profile (blood group, allergies, chronic ailments).</p><p>  - Input symptoms via conversational text or interactive SVG body map.</p><p>  - Review AI triage recommendations and explore appropriate medical specialists.</p><p>  - Search verified doctors in Khulna and book chamber appointment serials.</p><p>  - Upload diagnostic laboratory reports to view biomarker evaluations and doctor consultation questions.</p><p>  - Access verified first-aid guidance and utilize the CPR metronome in emergencies.</p><p>  - Access 24/7 ambulance directory and initiate one-click calls to the 999 hotline.</p><p>  - Search medicine dosage, side effects, and check drug-drug interactions.</p><p>  - Track weight, BMI trends, and download personal health history logs.</p><br/><h3>4.2 Doctor / Healthcare Provider (Chamber Specialist)</h3><p>Registered medical practitioners practicing in Khulna Division.</p><li>**Responsibilities:**</li><p>  - Provide verified credentials, BMDC registration number, qualifications, visiting hours, chamber address, and consultation fees.</p><p>  - Receive reserved chamber serial queues generated through the MedNex booking system.</p><p>  - Conduct physical clinical examinations and provide definitive diagnoses and prescriptions during chamber hours.</p><p>  - Review patient symptom summaries and diagnostic report questions prepared through MedNex.</p><br/><h3>4.3 Emergency Ambulance Provider / Dispatcher</h3><p>Private and institutional emergency medical transport operators in Khulna.</p><li>**Responsibilities:**</li><p>  - Maintain verified fleet contact numbers, base locations, and dispatch availability (24/7).</p><p>  - Disclose vehicle life-support tiers accurately (ICU, Standard BLS, Oxygen, Ventilator).</p><p>  - Provide transparent base fees and realistic arrival estimates to callers.</p><p>  - Receive incoming emergency dispatch calls routed through the platform.</p><br/><h3>4.4 System Administrator</h3><p>Technical and medical governance personnel responsible for platform integrity.</p><li>**Responsibilities:**</li><p>  - Audit and verify doctor BMDC registration numbers against government registries before publication.</p><p>  - Manage database seeders, hospitals, ambulance provider contacts, and pharmaceutical directories.</p><p>  - Update ML symptom training datasets, red-flag triage rules, and laboratory biomarker reference ranges.</p><p>  - Monitor API uptime, server latency, error logs, and database backups.</p><p>  - Enforce data protection, security controls, and clinical safety disclaimers.</p><br/><hr class="divider"/><br/><h2 class="section-title">5. USE CASES & SYSTEM INTERACTIONS</h2><br/><h3>5.1 Use Case Summary Table</h3><br/><div class="table-wrapper"><table><tr><td>Use Case ID</td><td>Use Case Name</td><td>Primary Actor</td><td>Secondary Actor</td><td>Core Functionality</td></tr><tr><td>**UC-01**</td><td>User Registration & Profile Setup</td><td>Patient</td><td>System</td><td>Account creation, clinical consent, allergy/blood group setup</td></tr><tr><td>**UC-02**</td><td>User Authentication & Login</td><td>Patient</td><td>System</td><td>Secure credential verification and session initiation</td></tr><tr><td>**UC-03**</td><td>AI Symptom Evaluation & Triage</td><td>Patient</td><td>NLP / ML Engine</td><td>Symptom intake, severity rating, specialty recommendation</td></tr><tr><td>**UC-04**</td><td>Red-Flag Emergency Interception</td><td>Patient</td><td>999 Helpline</td><td>Detection of acute symptoms, modal override, direct 999 dialing</td></tr><tr><td>**UC-05**</td><td>Doctor Search & Chamber Serial Booking</td><td>Patient</td><td>Doctor / Chamber</td><td>Multi-filter doctor search, schedule selection, serial generation</td></tr><tr><td>**UC-06**</td><td>Medical Report OCR & Biomarker Parsing</td><td>Patient</td><td>Parser Engine</td><td>Lab report upload, biomarker extraction, out-of-range flagging</td></tr><tr><td>**UC-07**</td><td>Emergency Ambulance Provider Lookup</td><td>Patient</td><td>Ambulance Fleet</td><td>Filter ICU/Oxygen ambulances, check response times, 1-click call</td></tr><tr><td>**UC-08**</td><td>Clinical First Aid & CPR Guidance</td><td>Patient</td><td>Audio Engine</td><td>Step-by-step procedures, DOs/DON'Ts, acoustic CPR metronome</td></tr><tr><td>**UC-09**</td><td>Medicine Search & Drug Interaction Check</td><td>Patient</td><td>Drug DB Engine</td><td>Brand/generic search, multi-drug contraindication analysis</td></tr><tr><td>**UC-10**</td><td>BMI Calculation & Vitals Logging</td><td>Patient</td><td>Health DB</td><td>Height/weight computation, WHO category, Recharts tracking</td></tr></table></div><br/><hr class="divider"/><br/><h3>5.2 Detailed Use Case Specifications</h3><br/><h4>Use Case UC-01: User Registration & Profile Setup</h4><li>**Actor:** Patient / General User</li><li>**Preconditions:** User has access to a web browser and is not currently logged in.</li><li>**Trigger:** User navigates to `/signup` or clicks "Get Started".</li><li>**Action Sequence:**</li><p>  1. User enters Full Name, Email, Phone Number, Password, Age, Gender, and Blood Group.</p><p>  2. User checks the mandatory Medical Safety Disclaimer and Terms agreement checkbox.</p><p>  3. User submits the registration form.</p><p>  4. System validates inputs (unique email format, minimum 6-character password).</p><p>  5. System hashes password and persists user entity to database.</p><p>  6. System creates initial user session and redirects to <code>/dashboard</code>.</p><li>**System Response:** Confirmation alert displayed; user account initialized with default Khulna regional context.</li><li>**Postconditions:** User is authenticated and can manage allergies and health activities.</li><li>**Alternative Flow:** If the email is already registered, system displays an error message: *"An account with this email address already exists. Please log in."*</li><br/><hr class="divider"/><br/><h4>Use Case UC-03: AI Symptom Evaluation & Clinical Triage</h4><li>**Actor:** Patient / General User</li><li>**Preconditions:** User is logged in and navigates to `/dashboard/symptom-checker`.</li><li>**Trigger:** User submits a symptom query via text input or body map.</li><li>**Action Sequence:**</li><p>  1. User types description of symptoms (e.g., *"Persistent dull pain in lower abdomen for 3 days with nausea"*).</p><p>  2. User optionally selects affected body region on the interactive SVG Body Map.</p><p>  3. User specifies duration and adjusts pain severity slider (1 to 10).</p><p>  4. User clicks "Evaluate Symptoms & Triage".</p><p>  5. System NLP engine scans text for acute clinical red flags.</p><p>  6. System vectorizes symptom tokens (TF-IDF) and applies Naive Bayes classifier.</p><p>  7. System computes matching probability across clinical specialties (Gastroenterology, General Medicine, etc.).</p><p>  8. System renders matched specialties, recommended urgency level, and direct links to verified specialists in Khulna.</p><li>**System Response:** Visual triage card displayed with specialty badges, urgency level, and "Find Specialist in Khulna" action button.</li><li>**Postconditions:** Triage activity is logged to user's health history.</li><br/><hr class="divider"/><br/><h4>Use Case UC-04: Red-Flag Emergency Interception</h4><li>**Actor:** Patient / General User in acute distress</li><li>**Preconditions:** User enters text containing critical clinical keywords (e.g., *"crushing chest pain radiating to left arm and jaw with severe sweating"*).</li><li>**Trigger:** System red-flag regex filter identifies emergency marker during symptom entry.</li><li>**Action Sequence:**</li><p>  1. System immediately suppresses standard conversational triage flows.</p><p>  2. System launches a full-screen, high-priority Red-Flag Emergency Modal (<code>bg-red-600</code>).</p><p>  3. System displays immediate warnings: *"Suspected Acute Medical Emergency (Possible Myocardial Infarction / Heart Attack)"*.</p><p>  4. System renders a prominent 1-click <strong>Call National Emergency 999</strong> button and telephone anchor <code>tel:999</code>.</p><p>  5. System displays the nearest Khulna emergency hospital (Khulna Medical College Hospital ER) and 24/7 ICU ambulance numbers.</p><li>**System Response:** Immediate emergency takeover ensuring patient safety before any secondary text output.</li><li>**Postconditions:** Emergency interception logged in system telemetry.</li><br/><hr class="divider"/><br/><h4>Use Case UC-05: Doctor Search & Chamber Serial Booking</h4><li>**Actor:** Patient / General User</li><li>**Preconditions:** User is authenticated and navigates to `/dashboard/find-doctors`.</li><li>**Trigger:** User selects filters or searches for a medical specialist.</li><li>**Action Sequence:**</li><p>  1. User selects specialty filter (e.g., *"Cardiology"*) and area (e.g., *"Sonadanga, Khulna"*).</p><p>  2. System queries database and displays list of matching verified doctors with BMDC reg, fees, and chambers.</p><p>  3. User clicks "Book Serial" on a chosen doctor card (e.g., Dr. M. A. Hasan, BMDC #A-48291).</p><p>  4. System opens Chamber Booking Modal showing doctor's visiting schedule and fees.</p><p>  5. User enters patient name, phone, age, and selects appointment date.</p><p>  6. User clicks "Confirm Serial Reservation".</p><p>  7. System calculates next sequential serial number for that date (e.g., Serial #14) and estimates consultation time.</p><p>  8. System records appointment in database linked to user and doctor.</p><li>**System Response:** System issues a digital serial ticket pill on user dashboard with serial number and chamber reporting time.</li><li>**Postconditions:** Appointment record stored with status `Confirmed`.</li><br/><hr class="divider"/><br/><h4>Use Case UC-06: Medical Report OCR & Biomarker Parsing</h4><li>**Actor:** Patient / General User</li><li>**Preconditions:** User navigates to `/dashboard/report-analyzer`.</li><li>**Trigger:** User uploads a diagnostic report image/PDF or selects a clinical preset panel.</li><li>**Action Sequence:**</li><p>  1. User drags and drops laboratory report (or clicks "CBC Anemia Sample Preset").</p><p>  2. System OCR pipeline ingests text and parses test names, numerical values, and units.</p><p>  3. System maps parsed parameters against standard biological reference ranges (e.g., Hemoglobin normal: 12.0–15.5 g/dL; user: 9.2 g/dL).</p><p>  4. System flags out-of-range biomarkers with color-coded badges (<code>Low</code> in Amber, <code>Elevated</code> in Orange, <code>Critical</code> in Red).</p><p>  5. System generates plain-language interpretation: *"Your hemoglobin is lower than typical reference ranges, which may indicate mild-to-moderate anemia."*</p><p>  6. System generates 3 specific questions for the patient to ask their doctor.</p><li>**System Response:** Interactive biomarker table rendered with visual status gauges and doctor consultation checklist.</li><li>**Postconditions:** Analysis summary saved to user's health records.</li><br/><hr class="divider"/><br/><h4>Use Case UC-09: Medicine Search & Drug Interaction Check</h4><li>**Actor:** Patient / General User</li><li>**Preconditions:** User navigates to `/dashboard/medicine-checker`.</li><li>**Trigger:** User searches a medicine or selects two drugs to evaluate interactions.</li><li>**Action Sequence:**</li><p>  1. User enters brand name (e.g., *"Napa Extend"*) or generic (e.g., *"Paracetamol"*).</p><p>  2. System retrieves dosage forms, unit price (BDT ৳), manufacturer, indications, and food precautions.</p><p>  3. User switches to "Check Interactions" tab.</p><p>  4. User selects Drug A (e.g., *"Ciprofloxacin"*) and Drug B (e.g., *"Antacid / Aluminium Hydroxide"*).</p><p>  5. User clicks "Evaluate Interaction".</p><p>  6. System queries interaction database for reciprocal pairs.</p><p>  7. System detects known chelation interaction and displays severity: <code>Moderate / Caution</code>.</p><p>  8. System displays clinical rationale: *"Aluminium and magnesium antacids bind to ciprofloxacin, drastically reducing antibiotic absorption. Administer ciprofloxacin at least 2 hours before or 4 hours after antacids."*</p><li>**System Response:** Formatted interaction card displayed with color-coded severity banner and administration advice.</li><br/><hr class="divider"/><br/><h2 class="section-title">6. INITIAL SYSTEM DIAGRAMS</h2><br/><h3>6.1 Use Case Diagram (UML)</h3><p>The following UML Use Case diagram illustrates all system actors, boundary, and relationships:</p><br/><div class="diagram-container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="100%" height="100%" style="background:#ffffff; font-family:'Segoe UI', Inter, system-ui, sans-serif;">
+  <defs>
+    <linearGradient id="gradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="gradActor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="gradUcNormal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="gradUcEmergency" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef2f2"/>
+      <stop offset="100%" stop-color="#fee2e2"/>
+    </linearGradient>
+    <linearGradient id="gradUcAdmin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="100%" stop-color="#dcfce7"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Title Header Banner -->
+  <rect x="30" y="20" width="1140" height="65" rx="12" fill="url(#gradHeader)" filter="url(#shadow)"/>
+  <text x="50" y="50" fill="#ffffff" font-size="20" font-weight="700" letter-spacing="0.5">UML USE CASE DIAGRAM – MEDNEX HEALTHCARE PLATFORM</text>
+  <text x="50" y="70" fill="#93c5fd" font-size="12" font-weight="500">Course: CSE4104 | System Boundary, Actors, Primary Interactions &amp; Extended Emergency Overrides</text>
+
+  <!-- System Boundary Box -->
+  <rect x="230" y="105" width="740" height="730" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="6,6" filter="url(#shadow)"/>
+  <rect x="250" y="115" width="340" height="28" rx="6" fill="#2563eb"/>
+  <text x="260" y="134" fill="#ffffff" font-size="12" font-weight="700" letter-spacing="0.5">MEDNEX PLATFORM BOUNDARY</text>
+
+  <!-- ACTORS (LEFT) -->
+  <!-- Patient Actor -->
+  <g transform="translate(60, 360)">
+    <circle cx="50" cy="30" r="22" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <!-- Head -->
+    <circle cx="50" cy="24" r="10" fill="#2563eb"/>
+    <!-- Body -->
+    <path d="M 32 46 C 32 38, 68 38, 68 46" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <text x="50" y="75" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">Patient / User</text>
+    <text x="50" y="92" text-anchor="middle" fill="#64748b" font-size="10">(Primary Actor)</text>
+  </g>
+
+  <!-- ACTORS (RIGHT) -->
+  <!-- Doctor Actor -->
+  <g transform="translate(1040, 180)">
+    <circle cx="50" cy="30" r="22" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2.5"/>
+    <circle cx="50" cy="24" r="10" fill="#4f46e5"/>
+    <path d="M 32 46 C 32 38, 68 38, 68 46" fill="none" stroke="#4f46e5" stroke-width="3"/>
+    <text x="50" y="75" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">Doctor / Chamber</text>
+    <text x="50" y="92" text-anchor="middle" fill="#64748b" font-size="10">(Healthcare Provider)</text>
+  </g>
+
+  <!-- Emergency Dispatcher Actor -->
+  <g transform="translate(1040, 420)">
+    <circle cx="50" cy="30" r="22" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+    <circle cx="50" cy="24" r="10" fill="#dc2626"/>
+    <path d="M 32 46 C 32 38, 68 38, 68 46" fill="none" stroke="#dc2626" stroke-width="3"/>
+    <text x="50" y="75" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">Emergency 999</text>
+    <text x="50" y="92" text-anchor="middle" fill="#64748b" font-size="10">&amp; Ambulance Pool</text>
+  </g>
+
+  <!-- System Administrator Actor -->
+  <g transform="translate(1040, 660)">
+    <circle cx="50" cy="30" r="22" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+    <circle cx="50" cy="24" r="10" fill="#16a34a"/>
+    <path d="M 32 46 C 32 38, 68 38, 68 46" fill="none" stroke="#16a34a" stroke-width="3"/>
+    <text x="50" y="75" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">System Admin</text>
+    <text x="50" y="92" text-anchor="middle" fill="#64748b" font-size="10">(Platform &amp; BMDC)</text>
+  </g>
+
+  <!-- USE CASES INSIDE BOUNDARY -->
+
+  <!-- Column 1 (Left within Boundary: Intake & Assessment) -->
+  <!-- UC-01 -->
+  <g transform="translate(260, 160)">
+    <rect width="200" height="42" rx="21" fill="url(#gradUcNormal)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="26" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-01: Register &amp; Login</text>
+  </g>
+
+  <!-- UC-02 -->
+  <g transform="translate(260, 225)">
+    <rect width="200" height="42" rx="21" fill="url(#gradUcNormal)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="26" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-02: Manage Health Profile</text>
+  </g>
+
+  <!-- UC-03 -->
+  <g transform="translate(260, 295)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="700">UC-03: AI Symptom Triage</text>
+  </g>
+
+  <!-- UC-04 (Emergency Extend) -->
+  <g transform="translate(540, 295)">
+    <rect width="210" height="44" rx="22" fill="url(#gradUcEmergency)" stroke="#ef4444" stroke-width="2" filter="url(#shadow)"/>
+    <text x="105" y="27" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="700">UC-04: Red-Flag 999 Override</text>
+  </g>
+
+  <!-- UC-05 -->
+  <g transform="translate(260, 380)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#2563eb" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-05: Find Verified Doctors</text>
+  </g>
+
+  <!-- UC-06 (Include) -->
+  <g transform="translate(540, 380)">
+    <rect width="210" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#4f46e5" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="105" y="27" text-anchor="middle" fill="#312e81" font-size="11" font-weight="600">UC-06: Book Chamber Serial</text>
+  </g>
+
+  <!-- UC-07 -->
+  <g transform="translate(260, 465)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-07: Analyze Lab Reports</text>
+  </g>
+
+  <!-- UC-08 -->
+  <g transform="translate(260, 535)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcEmergency)" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="600">UC-08: 24/7 Ambulance &amp; ER</text>
+  </g>
+
+  <!-- UC-09 -->
+  <g transform="translate(260, 605)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-09: First Aid &amp; CPR Metro</text>
+  </g>
+
+  <!-- UC-10 -->
+  <g transform="translate(260, 675)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-10: Drug Interaction Check</text>
+  </g>
+
+  <!-- UC-11 -->
+  <g transform="translate(260, 745)">
+    <rect width="200" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="100" y="27" text-anchor="middle" fill="#1e3a8a" font-size="11" font-weight="600">UC-11: Track BMI &amp; Vitals</text>
+  </g>
+
+  <!-- Provider & Admin Specific Use Cases -->
+  <!-- UC-12 -->
+  <g transform="translate(540, 200)">
+    <rect width="210" height="44" rx="22" fill="url(#gradUcNormal)" stroke="#4f46e5" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="105" y="27" text-anchor="middle" fill="#312e81" font-size="11" font-weight="600">UC-12: Manage Chamber Queue</text>
+  </g>
+
+  <!-- UC-13 -->
+  <g transform="translate(540, 535)">
+    <rect width="210" height="44" rx="22" fill="url(#gradUcEmergency)" stroke="#ef4444" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="105" y="27" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="600">UC-13: Receive Dispatch Calls</text>
+  </g>
+
+  <!-- UC-14 -->
+  <g transform="translate(540, 700)">
+    <rect width="210" height="44" rx="22" fill="url(#gradUcAdmin)" stroke="#16a34a" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="105" y="27" text-anchor="middle" fill="#14532d" font-size="11" font-weight="600">UC-14: Audit BMDC &amp; Seed DB</text>
+  </g>
+
+  <!-- RELATIONSHIP LINES -->
+  <!-- Patient to Use Cases -->
+  <line x1="130" y1="390" x2="260" y2="181" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="395" x2="260" y2="246" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="400" x2="260" y2="317" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="405" x2="260" y2="402" stroke="#2563eb" stroke-width="2"/>
+  <line x1="130" y1="410" x2="260" y2="487" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="415" x2="260" y2="557" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="130" y1="420" x2="260" y2="627" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="425" x2="260" y2="697" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="430" x2="260" y2="767" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Include / Extend Dashed Arrows -->
+  <!-- UC-03 to UC-04 (Extend) -->
+  <line x1="460" y1="317" x2="540" y2="317" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/>
+  <polygon points="536,312 546,317 536,322" fill="#ef4444"/>
+  <text x="500" y="310" text-anchor="middle" fill="#ef4444" font-size="10" font-weight="700">&lt;&lt;extend&gt;&gt;</text>
+
+  <!-- UC-05 to UC-06 (Include) -->
+  <line x1="460" y1="402" x2="540" y2="402" stroke="#4f46e5" stroke-width="2" stroke-dasharray="4,4"/>
+  <polygon points="536,397 546,402 536,407" fill="#4f46e5"/>
+  <text x="500" y="395" text-anchor="middle" fill="#4f46e5" font-size="10" font-weight="700">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- Doctor lines -->
+  <line x1="750" y1="222" x2="1040" y2="210" stroke="#4f46e5" stroke-width="2"/>
+  <line x1="750" y1="402" x2="1040" y2="220" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Emergency Dispatch lines -->
+  <line x1="750" y1="317" x2="1040" y2="445" stroke="#ef4444" stroke-width="2"/>
+  <line x1="750" y1="557" x2="1040" y2="455" stroke="#ef4444" stroke-width="2"/>
+
+  <!-- Admin lines -->
+  <line x1="750" y1="722" x2="1040" y2="690" stroke="#16a34a" stroke-width="2"/>
+
+</svg>
+</div><br/><hr class="divider"/><br/><h3>6.2 Entity Relationship Diagram (ERD)</h3><p>The entity-relationship diagram represents the persistence layer of MedNex, modeling all core entities, foreign key constraints, and relational cardinalities implemented in <code>backend/app/models.py</code>.</p><br/><div class="diagram-container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1350 940" width="100%" height="100%" style="background:#ffffff; font-family:'Segoe UI', Inter, system-ui, sans-serif;">
+  <defs>
+    <linearGradient id="headerBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="headerTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#14b8a6"/>
+    </linearGradient>
+    <linearGradient id="headerPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#581c87"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+    <linearGradient id="headerRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#991b1b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="headerAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Banner -->
+  <rect x="25" y="15" width="1300" height="60" rx="10" fill="url(#headerBlue)"/>
+  <text x="45" y="44" fill="#ffffff" font-size="20" font-weight="700">ENTITY RELATIONSHIP DIAGRAM (ERD) – MEDNEX RELATIONAL SCHEMA</text>
+  <text x="45" y="62" fill="#bfdbfe" font-size="11">Course: CSE4104 | Complete Database Entities, Data Types, Primary Keys (PK), Foreign Keys (FK) &amp; Cardinalities</text>
+
+  <!-- ENTITY 1: USERS -->
+  <g transform="translate(30, 95)" filter="url(#cardShadow)">
+    <rect width="260" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="260" height="34" rx="8" fill="url(#headerBlue)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">USERS (Table: users)</text>
+    
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">String(36)</text>
+    
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(100)</text>
+    
+    <text x="15" y="101" fill="#3b82f6" font-weight="700" font-size="11">UK</text>
+    <text x="45" y="101" fill="#0f172a" font-size="11">email</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String(100)</text>
+    
+    <text x="45" y="124" fill="#0f172a" font-size="11">password_hash</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">String(255)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">phone</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String(20)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">age / gender</text>
+    <text x="175" y="170" fill="#64748b" font-size="10">Integer / Str</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">blood_group</text>
+    <text x="175" y="193" fill="#64748b" font-size="10">String(10)</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">city</text>
+    <text x="175" y="216" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">emergency_contact</text>
+    <text x="175" y="239" fill="#64748b" font-size="10">String(20)</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">allergies</text>
+    <text x="175" y="262" fill="#64748b" font-size="10">JSON (List)</text>
+
+    <text x="45" y="285" fill="#0f172a" font-size="11">chronic_conditions</text>
+    <text x="175" y="285" fill="#64748b" font-size="10">JSON (List)</text>
+
+    <text x="45" y="308" fill="#0f172a" font-size="11">created_at</text>
+    <text x="175" y="308" fill="#64748b" font-size="10">DateTime</text>
+  </g>
+
+  <!-- ENTITY 2: APPOINTMENTS -->
+  <g transform="translate(370, 95)" filter="url(#cardShadow)">
+    <rect width="270" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="270" height="34" rx="8" fill="url(#headerPurple)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">APPOINTMENTS</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="185" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="15" y="78" fill="#8b5cf6" font-weight="700" font-size="11">FK</text>
+    <text x="45" y="78" fill="#0f172a" font-size="11">user_id (users.id)</text>
+    <text x="185" y="78" fill="#64748b" font-size="10">String(36)</text>
+
+    <text x="15" y="101" fill="#8b5cf6" font-weight="700" font-size="11">FK</text>
+    <text x="45" y="101" fill="#0f172a" font-size="11">doctor_id (doctors.id)</text>
+    <text x="185" y="101" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">doctor_name</text>
+    <text x="185" y="124" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">specialty</text>
+    <text x="185" y="147" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">hospital_or_chamber</text>
+    <text x="185" y="170" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">appointment_date</text>
+    <text x="185" y="193" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">serial_number</text>
+    <text x="185" y="216" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">estimated_time</text>
+    <text x="185" y="239" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">patient_name / phone</text>
+    <text x="185" y="262" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="285" fill="#0f172a" font-size="11">symptom_summary</text>
+    <text x="185" y="285" fill="#64748b" font-size="10">Text</text>
+
+    <text x="45" y="308" fill="#0f172a" font-size="11">status (Confirmed)</text>
+    <text x="185" y="308" fill="#64748b" font-size="10">String(30)</text>
+  </g>
+
+  <!-- ENTITY 3: DOCTORS -->
+  <g transform="translate(710, 95)" filter="url(#cardShadow)">
+    <rect width="280" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="280" height="34" rx="8" fill="url(#headerTeal)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">DOCTORS (Verified BMDC)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="195" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="195" y="78" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">degrees / specialty</text>
+    <text x="195" y="101" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">designation</text>
+    <text x="195" y="124" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">hospital</text>
+    <text x="195" y="147" fill="#64748b" font-size="10">String(200)</text>
+
+    <text x="15" y="170" fill="#3b82f6" font-weight="700" font-size="11">UK</text>
+    <text x="45" y="170" fill="#0f172a" font-size="11">bmdc_reg_no</text>
+    <text x="195" y="170" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">chamber_address / area</text>
+    <text x="195" y="193" fill="#64748b" font-size="10">Text / String</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">consultation_fee</text>
+    <text x="195" y="216" fill="#64748b" font-size="10">Integer (BDT)</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">visiting_hours / days</text>
+    <text x="195" y="239" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">phone / serial_phone</text>
+    <text x="195" y="262" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="285" fill="#0f172a" font-size="11">latitude / longitude</text>
+    <text x="195" y="285" fill="#64748b" font-size="10">Float</text>
+
+    <text x="45" y="308" fill="#0f172a" font-size="11">rating / verified</text>
+    <text x="195" y="308" fill="#64748b" font-size="10">Float / Boolean</text>
+  </g>
+
+  <!-- ENTITY 4: HOSPITALS -->
+  <g transform="translate(1060, 95)" filter="url(#cardShadow)">
+    <rect width="255" height="340" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="255" height="34" rx="8" fill="url(#headerBlue)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">HOSPITALS (Khulna)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">type (Govt/Private)</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">address / area</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">Text / String</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">emergency_number</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">reception_number</text>
+    <text x="175" y="170" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">has_icu / has_er</text>
+    <text x="175" y="193" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">ambulance_available</text>
+    <text x="175" y="216" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="239" fill="#0f172a" font-size="11">total_beds</text>
+    <text x="175" y="239" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="45" y="262" fill="#0f172a" font-size="11">latitude / longitude</text>
+    <text x="175" y="262" fill="#64748b" font-size="10">Float</text>
+  </g>
+
+  <!-- ENTITY 5: AMBULANCES -->
+  <g transform="translate(30, 480)" filter="url(#cardShadow)">
+    <rect width="260" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="260" height="34" rx="8" fill="url(#headerRed)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">AMBULANCES (24/7)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">name</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">type (ICU / BLS)</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">base_location</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">phone / alt_phone</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String(30)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">available_24_7</text>
+    <text x="175" y="170" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">has_oxygen / ventilator</text>
+    <text x="175" y="193" fill="#64748b" font-size="10">Boolean</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">estimated_response</text>
+    <text x="175" y="216" fill="#64748b" font-size="10">String(50)</text>
+  </g>
+
+  <!-- ENTITY 6: MEDICINES -->
+  <g transform="translate(370, 480)" filter="url(#cardShadow)">
+    <rect width="270" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="270" height="34" rx="8" fill="url(#headerAmber)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">MEDICINES (Pharma)</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="185" y="55" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">brand_name / generic</text>
+    <text x="185" y="78" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">therapeutic_class</text>
+    <text x="185" y="101" fill="#64748b" font-size="10">String(150)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">manufacturer</text>
+    <text x="185" y="124" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">dosage_form / strength</text>
+    <text x="185" y="147" fill="#64748b" font-size="10">String(50)</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">price_bdt</text>
+    <text x="185" y="170" fill="#64748b" font-size="10">Float</text>
+
+    <text x="45" y="193" fill="#0f172a" font-size="11">indications / side_eff</text>
+    <text x="185" y="193" fill="#64748b" font-size="10">JSON</text>
+
+    <text x="45" y="216" fill="#0f172a" font-size="11">pregnancy / food_rel</text>
+    <text x="185" y="216" fill="#64748b" font-size="10">String</text>
+  </g>
+
+  <!-- ENTITY 7: DRUG_INTERACTIONS -->
+  <g transform="translate(710, 480)" filter="url(#cardShadow)">
+    <rect width="280" height="260" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="280" height="34" rx="8" fill="url(#headerAmber)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">DRUG_INTERACTIONS</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11" font-weight="600">id</text>
+    <text x="195" y="55" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="45" y="78" fill="#0f172a" font-size="11">drug1 (Generic)</text>
+    <text x="195" y="78" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">drug2 (Generic)</text>
+    <text x="195" y="101" fill="#64748b" font-size="10">String(100)</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">severity (Severe/Mod)</text>
+    <text x="195" y="124" fill="#64748b" font-size="10">String(20)</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">effect</text>
+    <text x="195" y="147" fill="#64748b" font-size="10">Text</text>
+
+    <text x="45" y="170" fill="#0f172a" font-size="11">recommendation</text>
+    <text x="195" y="170" fill="#64748b" font-size="10">Text</text>
+  </g>
+
+  <!-- ENTITY 8: BMI_LOGS & HEALTH_ACTIVITIES (STACKED RIGHT) -->
+  <g transform="translate(1060, 480)" filter="url(#cardShadow)">
+    <rect width="255" height="180" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <rect width="255" height="34" rx="8" fill="url(#headerTeal)"/>
+    <text x="15" y="22" fill="#ffffff" font-size="13" font-weight="700">BMI_LOGS</text>
+
+    <text x="15" y="55" fill="#ef4444" font-weight="700" font-size="11">PK</text>
+    <text x="45" y="55" fill="#0f172a" font-size="11">id</text>
+    <text x="175" y="55" fill="#64748b" font-size="10">Integer</text>
+
+    <text x="15" y="78" fill="#8b5cf6" font-weight="700" font-size="11">FK</text>
+    <text x="45" y="78" fill="#0f172a" font-size="11">user_id</text>
+    <text x="175" y="78" fill="#64748b" font-size="10">String(36)</text>
+
+    <text x="45" y="101" fill="#0f172a" font-size="11">date / weight_kg</text>
+    <text x="175" y="101" fill="#64748b" font-size="10">String / Float</text>
+
+    <text x="45" y="124" fill="#0f172a" font-size="11">height_cm / bmi</text>
+    <text x="175" y="124" fill="#64748b" font-size="10">Float / Float</text>
+
+    <text x="45" y="147" fill="#0f172a" font-size="11">category / notes</text>
+    <text x="175" y="147" fill="#64748b" font-size="10">String</text>
+  </g>
+
+  <!-- RELATIONSHIP CONNECTORS -->
+  <!-- Users to Appointments (1 to N) -->
+  <line x1="290" y1="160" x2="370" y2="160" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="300" y="152" fill="#2563eb" font-size="10" font-weight="700">1</text>
+  <text x="355" y="152" fill="#2563eb" font-size="10" font-weight="700">N</text>
+
+  <!-- Doctors to Appointments (1 to N) -->
+  <line x1="710" y1="180" x2="640" y2="180" stroke="#4f46e5" stroke-width="2.5"/>
+  <text x="695" y="172" fill="#4f46e5" font-size="10" font-weight="700">1</text>
+  <text x="655" y="172" fill="#4f46e5" font-size="10" font-weight="700">N</text>
+
+  <!-- Users to BMI_Logs (1 to N) -->
+  <path d="M 160 435 L 160 820 L 1180 820 L 1180 660" fill="none" stroke="#0d9488" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="170" y="450" fill="#0d9488" font-size="10" font-weight="700">1 (users)</text>
+  <text x="1115" y="685" fill="#0d9488" font-size="10" font-weight="700">N (bmi_logs)</text>
+
+  <!-- Footer Legend -->
+  <rect x="30" y="865" width="1285" height="45" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="45" y="892" fill="#0f172a" font-size="11" font-weight="600">Schema Summary: 9 Relational Entities, SQLite/PostgreSQL Compatible via SQLAlchemy ORM</text>
+  <text x="800" y="892" fill="#64748b" font-size="11">PK: Primary Key | FK: Foreign Key | UK: Unique Key | 1:N Cardinality</text>
+</svg>
+</div><br/><h4>DBDiagram.io Export Code</h4><p>To view or edit in [dbdiagram.io](https://dbdiagram.io), paste the following schema definition:</p><br/><pre><code>Table users {
+  id varchar(36) [pk]
+  name varchar(100) [not null]
+  email varchar(100) [unique, not null]
+  password_hash varchar(255) [not null]
+  phone varchar(20)
+  age int
+  gender varchar(20)
+  blood_group varchar(10)
+  city varchar(100) [default: 'Khulna']
+  emergency_contact varchar(20)
+  allergies json
+  chronic_conditions json
+  created_at datetime
+}
+
+Table doctors {
+  id varchar(50) [pk]
+  name varchar(100) [not null]
+  degrees varchar(200) [not null]
+  specialty varchar(100) [not null]
+  designation varchar(200) [not null]
+  hospital varchar(200) [not null]
+  bmdc_reg_no varchar(50) [unique, not null]
+  experience_years int [not null]
+  chamber_address text [not null]
+  area varchar(100) [not null]
+  consultation_fee int [not null]
+  visiting_hours varchar(100) [not null]
+  visiting_days varchar(100) [not null]
+  phone varchar(30) [not null]
+  serial_phone varchar(30) [not null]
+  latitude float [not null]
+  longitude float [not null]
+  rating float [default: 4.8]
+  verified boolean [default: true]
+}
+
+Table appointments {
+  id varchar(50) [pk]
+  user_id varchar(36) [ref: > users.id, not null]
+  doctor_id varchar(50) [ref: > doctors.id, not null]
+  doctor_name varchar(100) [not null]
+  specialty varchar(100) [not null]
+  hospital_or_chamber varchar(200) [not null]
+  appointment_date varchar(30) [not null]
+  serial_number int [not null]
+  estimated_time varchar(50) [not null]
+  patient_name varchar(100) [not null]
+  patient_phone varchar(30) [not null]
+  patient_age int [not null]
+  symptom_summary text
+  status varchar(30) [default: 'Confirmed']
+  created_at datetime
+}
+
+Table hospitals {
+  id varchar(50) [pk]
+  name varchar(150) [not null]
+  type varchar(50) [not null]
+  address text [not null]
+  area varchar(100) [not null]
+  emergency_number varchar(30) [not null]
+  reception_number varchar(30) [not null]
+  has_icu boolean [default: true]
+  has_emergency_ward boolean [default: true]
+  ambulance_available boolean [default: true]
+  total_beds int
+  latitude float [not null]
+  longitude float [not null]
+}
+
+Table ambulances {
+  id varchar(50) [pk]
+  name varchar(150) [not null]
+  type varchar(50) [not null]
+  base_location varchar(150) [not null]
+  coverage_area varchar(150) [not null]
+  phone varchar(30) [not null]
+  alternate_phone varchar(30)
+  available_24_7 boolean [default: true]
+  has_oxygen boolean [default: true]
+  has_ventilator boolean [default: false]
+  estimated_response_time varchar(50) [not null]
+}
+
+Table medicines {
+  id varchar(50) [pk]
+  brand_name varchar(100) [not null]
+  generic_name varchar(100) [not null]
+  therapeutic_class varchar(150) [not null]
+  manufacturer varchar(100) [not null]
+  dosage_form varchar(50) [not null]
+  strength varchar(50) [not null]
+  price_bdt float [not null]
+  indications json
+  side_effects json
+  precautions json
+  pregnancy_category varchar(10)
+  food_relation varchar(100)
+}
+
+Table drug_interactions {
+  id int [pk, increment]
+  drug1 varchar(100) [not null]
+  drug2 varchar(100) [not null]
+  severity varchar(20) [not null]
+  effect text [not null]
+  recommendation text [not null]
+}
+
+Table bmi_logs {
+  id int [pk, increment]
+  user_id varchar(36) [ref: > users.id, not null]
+  date varchar(30) [not null]
+  weight_kg float [not null]
+  height_cm float [not null]
+  bmi float [not null]
+  category varchar(50) [not null]
+  notes varchar(200)
+  created_at datetime
+}
+
+Table health_activities {
+  id varchar(50) [pk]
+  user_id varchar(36) [ref: > users.id, not null]
+  type varchar(50) [not null]
+  title varchar(150) [not null]
+  timestamp varchar(50) [not null]
+  summary text [not null]
+  tag varchar(50) [not null]
+  severity varchar(20) [not null]
+  created_at datetime
+}</code></pre><br/><hr class="divider"/><br/><h3>6.3 System Architecture Diagram</h3><p>The system architecture follows a decoupled, 3-tier client-server paradigm with dedicated machine learning service layers:</p><br/><div class="diagram-container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%" style="background:#ffffff; font-family:'Segoe UI', Inter, system-ui, sans-serif;">
+  <defs>
+    <linearGradient id="blueBar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="boxShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Top Banner -->
+  <rect x="25" y="20" width="1150" height="65" rx="10" fill="url(#blueBar)"/>
+  <text x="50" y="50" fill="#ffffff" font-size="20" font-weight="700">INITIAL SYSTEM ARCHITECTURE DIAGRAM – MEDNEX PLATFORM</text>
+  <text x="50" y="70" fill="#93c5fd" font-size="12">Course: CSE4104 | 4-Tier Topology: Client Frontend, FastAPI Server, Machine Learning Engine &amp; Persistence</text>
+
+  <!-- TIER 1: PRESENTATION TIER -->
+  <g transform="translate(25, 110)">
+    <rect width="1150" height="160" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="2" filter="url(#boxShadow)"/>
+    <rect x="20" y="15" width="280" height="26" rx="6" fill="#2563eb"/>
+    <text x="30" y="33" fill="#ffffff" font-size="12" font-weight="700">TIER 1: PRESENTATION LAYER (SPA)</text>
+
+    <!-- Cards inside Tier 1 -->
+    <g transform="translate(20, 55)">
+      <rect width="210" height="85" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#1e3a8a" font-size="12" font-weight="700">React 19 + TypeScript</text>
+      <text x="15" y="45" fill="#64748b" font-size="10">• Vite v8 Build Tooling</text>
+      <text x="15" y="62" fill="#64748b" font-size="10">• React Router v7 Navigation</text>
+    </g>
+
+    <g transform="translate(250, 55)">
+      <rect width="210" height="85" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#1e3a8a" font-size="12" font-weight="700">Tailwind CSS v4 &amp; Lucide</text>
+      <text x="15" y="45" fill="#64748b" font-size="10">• Mobile-First Header &amp; Nav</text>
+      <text x="15" y="62" fill="#64748b" font-size="10">• Responsive Drawer &amp; Cards</text>
+    </g>
+
+    <g transform="translate(480, 55)">
+      <rect width="210" height="85" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#1e3a8a" font-size="12" font-weight="700">Interactive Visual Map</text>
+      <text x="15" y="45" fill="#64748b" font-size="10">• SVG Anatomical Body Map</text>
+      <text x="15" y="62" fill="#64748b" font-size="10">• Multi-Region Selectors</text>
+    </g>
+
+    <g transform="translate(710, 55)">
+      <rect width="210" height="85" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#1e3a8a" font-size="12" font-weight="700">Recharts &amp; Web Audio</text>
+      <text x="15" y="45" fill="#64748b" font-size="10">• Longitudinal BMI Curves</text>
+      <text x="15" y="62" fill="#64748b" font-size="10">• 100-120 BPM CPR Metronome</text>
+    </g>
+
+    <g transform="translate(940, 55)">
+      <rect width="190" height="85" rx="8" fill="#ffffff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#1e3a8a" font-size="12" font-weight="700">State &amp; Cache Store</text>
+      <text x="15" y="45" fill="#64748b" font-size="10">• AuthContext &amp; User</text>
+      <text x="15" y="62" fill="#64748b" font-size="10">• HealthContext Timeline</text>
+    </g>
+  </g>
+
+  <!-- CONNECTION ARROWS 1 -> 2 -->
+  <line x1="600" y1="270" x2="600" y2="320" stroke="#2563eb" stroke-width="3"/>
+  <polygon points="595,315 600,325 605,315" fill="#2563eb"/>
+  <rect x="520" y="285" width="160" height="20" rx="4" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="600" y="299" text-anchor="middle" fill="#2563eb" font-size="10" font-weight="700">REST API / JSON / CORS</text>
+
+  <!-- TIER 2: APPLICATION & API TIER -->
+  <g transform="translate(25, 325)">
+    <rect width="1150" height="180" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" filter="url(#boxShadow)"/>
+    <rect x="20" y="15" width="310" height="26" rx="6" fill="#0f172a"/>
+    <text x="30" y="33" fill="#ffffff" font-size="12" font-weight="700">TIER 2: APPLICATION API LAYER (FASTAPI)</text>
+    
+    <!-- Endpoints Grid -->
+    <g transform="translate(20, 55)">
+      <rect width="170" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="12" y="24" fill="#0f172a" font-size="11" font-weight="700">Auth Router</text>
+      <text x="12" y="42" fill="#64748b" font-size="10">/api/auth/login</text>
+      <text x="12" y="58" fill="#64748b" font-size="10">/api/auth/signup</text>
+      <text x="12" y="74" fill="#64748b" font-size="10">/api/auth/profile</text>
+      <text x="12" y="90" fill="#10b981" font-size="9" font-weight="600">JWT / Password Hash</text>
+    </g>
+
+    <g transform="translate(205, 55)">
+      <rect width="170" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="12" y="24" fill="#0f172a" font-size="11" font-weight="700">Symptom Router</text>
+      <text x="12" y="42" fill="#64748b" font-size="10">/api/symptoms/triage</text>
+      <text x="12" y="58" fill="#64748b" font-size="10">Duration &amp; Pain Scale</text>
+      <text x="12" y="74" fill="#64748b" font-size="10">Specialty Mapping</text>
+      <text x="12" y="90" fill="#ef4444" font-size="9" font-weight="600">Red-Flag Interceptor</text>
+    </g>
+
+    <g transform="translate(390, 55)">
+      <rect width="170" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="12" y="24" fill="#0f172a" font-size="11" font-weight="700">Doctors &amp; Serials</text>
+      <text x="12" y="42" fill="#64748b" font-size="10">/api/doctors (BMDC)</text>
+      <text x="12" y="58" fill="#64748b" font-size="10">/api/appointments</text>
+      <text x="12" y="74" fill="#64748b" font-size="10">Serial Reservation</text>
+      <text x="12" y="90" fill="#2563eb" font-size="9" font-weight="600">Khulna Registry</text>
+    </g>
+
+    <g transform="translate(575, 55)">
+      <rect width="170" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="12" y="24" fill="#0f172a" font-size="11" font-weight="700">Emergency &amp; ER</text>
+      <text x="12" y="42" fill="#64748b" font-size="10">/api/ambulances</text>
+      <text x="12" y="58" fill="#64748b" font-size="10">/api/hospitals</text>
+      <text x="12" y="74" fill="#64748b" font-size="10">ICU / Oxygen Specs</text>
+      <text x="12" y="90" fill="#dc2626" font-size="9" font-weight="600">999 Hotline Direct</text>
+    </g>
+
+    <g transform="translate(760, 55)">
+      <rect width="170" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="12" y="24" fill="#0f172a" font-size="11" font-weight="700">Report &amp; OCR</text>
+      <text x="12" y="42" fill="#64748b" font-size="10">/api/reports/analyze</text>
+      <text x="12" y="58" fill="#64748b" font-size="10">Biomarker Regex</text>
+      <text x="12" y="74" fill="#64748b" font-size="10">Reference Ranges</text>
+      <text x="12" y="90" fill="#0d9488" font-size="9" font-weight="600">Question Checklist</text>
+    </g>
+
+    <g transform="translate(945, 55)">
+      <rect width="185" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="12" y="24" fill="#0f172a" font-size="11" font-weight="700">Pharma &amp; Fitness</text>
+      <text x="12" y="42" fill="#64748b" font-size="10">/api/medicines/search</text>
+      <text x="12" y="58" fill="#64748b" font-size="10">/api/medicines/interact</text>
+      <text x="12" y="74" fill="#64748b" font-size="10">/api/fitness/bmi-log</text>
+      <text x="12" y="90" fill="#f59e0b" font-size="9" font-weight="600">WHO Standards</text>
+    </g>
+  </g>
+
+  <!-- SPLIT CONNECTION ARROWS 2 -> 3 (LEFT) & 2 -> 4 (RIGHT) -->
+  <line x1="340" y1="505" x2="340" y2="560" stroke="#0d9488" stroke-width="2.5"/>
+  <polygon points="335,555 340,565 345,555" fill="#0d9488"/>
+  <text x="340" y="535" text-anchor="middle" fill="#0d9488" font-size="10" font-weight="700">Inference Requests</text>
+
+  <line x1="860" y1="505" x2="860" y2="560" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="855,555 860,565 865,555" fill="#2563eb"/>
+  <text x="860" y="535" text-anchor="middle" fill="#2563eb" font-size="10" font-weight="700">SQLAlchemy ORM Queries</text>
+
+  <!-- TIER 3 & 4 IN PARALLEL -->
+  <!-- TIER 3: AI & MACHINE LEARNING TIER (LEFT) -->
+  <g transform="translate(25, 570)">
+    <rect width="560" height="280" rx="12" fill="#f0fdfa" stroke="#99f6e4" stroke-width="2" filter="url(#boxShadow)"/>
+    <rect x="20" y="15" width="310" height="26" rx="6" fill="#0d9488"/>
+    <text x="30" y="33" fill="#ffffff" font-size="12" font-weight="700">TIER 3: AI / NLP &amp; CLINICAL RULES TIER</text>
+
+    <!-- ML Module 1 -->
+    <g transform="translate(20, 55)">
+      <rect width="520" height="46" rx="6" fill="#ffffff" stroke="#ccfbf1"/>
+      <text x="15" y="22" fill="#0f766e" font-size="11" font-weight="700">NLP Symptom Classifier (TF-IDF + Multinomial Naive Bayes)</text>
+      <text x="15" y="38" fill="#64748b" font-size="10">Classifies patient descriptions to clinical specialty categories (Accuracy &gt; 92%)</text>
+    </g>
+
+    <!-- ML Module 2 -->
+    <g transform="translate(20, 110)">
+      <rect width="520" height="46" rx="6" fill="#ffffff" stroke="#fee2e2"/>
+      <text x="15" y="22" fill="#b91c1c" font-size="11" font-weight="700">Clinical Red-Flag Regex Rule Interceptor</text>
+      <text x="15" y="38" fill="#64748b" font-size="10">Instantly detects cardiac, stroke, respiratory &amp; trauma emergencies &lt; 50 ms</text>
+    </g>
+
+    <!-- ML Module 3 -->
+    <g transform="translate(20, 165)">
+      <rect width="520" height="46" rx="6" fill="#ffffff" stroke="#ccfbf1"/>
+      <text x="15" y="22" fill="#0f766e" font-size="11" font-weight="700">Biomarker OCR Parser &amp; Reference Interval Evaluator</text>
+      <text x="15" y="38" fill="#64748b" font-size="10">Parses numerical parameters (CBC, Lipid, LFT) and tags Low/Elevated/Critical</text>
+    </g>
+
+    <!-- ML Module 4 -->
+    <g transform="translate(20, 220)">
+      <rect width="520" height="46" rx="6" fill="#ffffff" stroke="#ccfbf1"/>
+      <text x="15" y="22" fill="#0f766e" font-size="11" font-weight="700">Fuzzy Drug Matcher &amp; Pharmacological Interaction Matrix</text>
+      <text x="15" y="38" fill="#64748b" font-size="10">Fuzzy string distance on Bangladeshi drug packaging &amp; reciprocal contraindications</text>
+    </g>
+  </g>
+
+  <!-- TIER 4: PERSISTENCE TIER (RIGHT) -->
+  <g transform="translate(615, 570)">
+    <rect width="560" height="280" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2" filter="url(#boxShadow)"/>
+    <rect x="20" y="15" width="280" height="26" rx="6" fill="#2563eb"/>
+    <text x="30" y="33" fill="#ffffff" font-size="12" font-weight="700">TIER 4: DATA PERSISTENCE LAYER</text>
+
+    <!-- DB Module 1 -->
+    <g transform="translate(20, 55)">
+      <rect width="520" height="60" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="15" y="24" fill="#1e3a8a" font-size="12" font-weight="700">SQLite / PostgreSQL Relational Database (mednex.db)</text>
+      <text x="15" y="42" fill="#64748b" font-size="10">Persistent tables: users, doctors, hospitals, ambulances, appointments, medicines, bmi_logs</text>
+    </g>
+
+    <!-- DB Module 2 -->
+    <g transform="translate(20, 125)">
+      <rect width="520" height="65" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="15" y="24" fill="#1e3a8a" font-size="12" font-weight="700">Verified Khulna Clinical Seed Dataset</text>
+      <text x="15" y="42" fill="#64748b" font-size="10">• Real BMDC Doctors (KMCH, Gazi Medical, Sheikh Abu Naser Specialized)</text>
+      <text x="15" y="56" fill="#64748b" font-size="10">• 24/7 Verified Ambulance Fleet Contacts &amp; Bangladesh Pharmaceutical Catalog</text>
+    </g>
+
+    <!-- DB Module 3 -->
+    <g transform="translate(20, 200)">
+      <rect width="520" height="65" rx="6" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="15" y="24" fill="#1e3a8a" font-size="12" font-weight="700">SQLAlchemy 2.0 ORM &amp; Pydantic Serializers</text>
+      <text x="15" y="42" fill="#64748b" font-size="10">• Object relational mapping with cascaded relationships &amp; foreign key integrity</text>
+      <text x="15" y="56" fill="#64748b" font-size="10">• Automated schema migration support</text>
+    </g>
+  </g>
+
+</svg>
+</div><br/><hr class="divider"/><br/><h2 class="section-title">7. PROJECT GITHUB & SUBMISSION STANDARDS</h2><br/><h3>7.1 Official File Naming Conventions</h3><p>As instructed in the course submission guidelines, all deliverable files must strictly adhere to the course and team identifier formatting:</p><br/><div class="table-wrapper"><table><tr><td>Deliverable Item</td><td>Required File Naming Format (Example: Section 7A, Team 01)</td><td>Description</td></tr><tr><td>**SRS Document**</td><td>`CSE4104-7A-T01_SRS.pdf`</td><td>Comprehensive formal Software Requirements Specification</td></tr><tr><td>**Use Case Diagram**</td><td>`CSE4104-7A-T01_UseCaseDiagram.pdf`</td><td>Standalone high-resolution export of the UML Use Case Diagram</td></tr><tr><td>**ER Diagram**</td><td>`CSE4104-7A-T01_ERDiagram.pdf`</td><td>Standalone high-resolution export of the Entity-Relationship Diagram</td></tr><tr><td>**Architecture Diagram**</td><td>`CSE4104-7A-T01_ArchitectureDiagram.pdf`</td><td>Standalone high-resolution export of the System Architecture Diagram</td></tr></table></div><br/><p>*Note: Replace <code>7A-T01</code> with your official course section and team number (e.g., <code>7B-T03</code>).*</p><br/><h3>7.2 Instructions to Export Diagrams and Documents to PDF</h3><p>1. <strong>SRS Document (PDF):</strong></p><p>   - In VS Code, install the <code>Markdown PDF</code> or <code>Markdown Preview Enhanced</code> extension.</p><p>   - Open <code>SRS.md</code>, right-click and choose <strong>"Markdown PDF: Export (pdf)"</strong>.</p><p>   - Alternatively, open <code>SRS.md</code> in any modern browser (or GitHub rendered view) and select <strong>File -> Print -> Save as PDF</strong> with headers and footers enabled.</p><p>2. <strong>Diagrams (PDF):</strong></p><p>   - <strong>Draw.io / Diagrams.net:</strong> Navigate to [app.diagrams.net](https://app.diagrams.net), import the Mermaid syntax via <strong>Arrange -> Insert -> Advanced -> Mermaid</strong>, adjust visual styling, and choose <strong>File -> Export as -> PDF</strong>.</p><p>   - <strong>DBDiagram.io:</strong> Navigate to [dbdiagram.io](https://dbdiagram.io), paste the code block from Section 6.2, and click <strong>Export -> Export to PDF</strong>.</p><br/><h3>7.3 Repository Organization & README Standards</h3><p>Teams must maintain an active GitHub repository with regular commits from all collaborators. The repository <code>README.md</code> must clearly document:</p><p>1. <strong>Project Title & Mission:</strong> MedNex – AI-Powered Healthcare Assistance Platform.</p><p>2. <strong>Team Member Information:</strong> Student Names, IDs, Academic Email, and Section.</p><p>3. <strong>Core Objectives & 7 Feature Modules.</strong></p><p>4. <strong>Complete Technology Stack:</strong> React 19, TypeScript, Vite, Tailwind CSS v4, FastAPI, SQLAlchemy, scikit-learn.</p><p>5. <strong>Step-by-step Setup & Execution Instructions:</strong> Backend initialization (<code>python backend/run.py</code>) and Frontend initialization (<code>npm run dev</code>).</p><p>6. <strong>Repository Structure Tree.</strong></p><br/><br/>
+</body>
+</html>
