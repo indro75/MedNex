@@ -62,9 +62,14 @@ MedNex is structured as a modern decoupled multi-tier architecture composed of:
 d:\Projects\med\
 ├── DOCUMENTATION.md                 # Full System Documentation (This file)
 ├── README.md                        # Project Overview & Quickstart Guide
-├── mednex.db                        # SQLite Database with verified Khulna data
+├── TEAM_WORK_DISTRIBUTION.md        # 4-member ownership split (this layout follows it)
 │
-├── backend\                         # FastAPI Application & ML Engine
+├── ai\                              # Member 4 — AI Engineer (ML & Clinical Processing)
+│   ├── symptom_classifier.py        # TF-IDF + MultinomialNB NLP classifier & Red-Flag engine
+│   ├── report_parser.py             # Laboratory biomarker parser & reference interval evaluator
+│   └── medicine_matcher.py          # Fuzzy string matcher for pharmaceutical packages
+│
+├── backend\                         # Member 2 — Backend (FastAPI Application)
 │   ├── run.py                       # Server runner script (uvicorn entrypoint)
 │   └── app\
 │       ├── __init__.py
@@ -73,11 +78,6 @@ d:\Projects\med\
 │       ├── models.py                # Database ORM models (SQLAlchemy)
 │       ├── schemas.py               # Pydantic request & response validation schemas
 │       ├── seed.py                  # Database initial seeder with Khulna medical records
-│       │
-│       ├── ml\                      # Machine Learning & Clinical Processing
-│       │   ├── symptom_classifier.py# TF-IDF + MultinomialNB NLP classifier & Red-Flag engine
-│       │   ├── report_parser.py     # Laboratory biomarker parser & reference interval evaluator
-│       │   └── medicine_matcher.py  # Fuzzy string matcher for pharmaceutical packages
 │       │
 │       └── routers\                 # REST API Router Endpoints
 │           ├── auth.py              # Authentication, login, signup, health profile
@@ -90,7 +90,12 @@ d:\Projects\med\
 │           ├── reports.py           # Laboratory report analysis endpoint
 │           └── fitness.py           # BMI logging, BMR calculation, activity timeline
 │
-└── frontend\                        # React 19 Client Application
+├── database\                        # Member 3 — Database Engineer
+│   ├── mednex.db                    # SQLite development database (verified Khulna sample data)
+│   ├── schema.sql                   # Generated SQLite DDL (9 tables + indexes)
+│   └── generate_schema.py           # Regenerates schema.sql from backend/app/models.py
+│
+└── frontend\                        # Member 1 — Frontend (React 19 Client Application)
     ├── index.html                   # HTML entrypoint with Plus Jakarta Sans & Inter fonts
     ├── package.json                 # Dependencies & build scripts
     ├── tsconfig.json                # TypeScript root configuration
@@ -157,7 +162,7 @@ d:\Projects\med\
 ## 4. Machine Learning & Clinical NLP Engine
 
 ### 4.1. Module 1: NLP Symptom Classification & Specialty Triage
-- **Implementation File:** `backend/app/ml/symptom_classifier.py`
+- **Implementation File:** `ai/symptom_classifier.py`
 - **Methodology:** Supervised Natural Language Processing utilizing a `TfidfVectorizer` (unigrams and bigrams, English stop words removed) paired with a `MultinomialNB` (Multinomial Naive Bayes) classifier.
 - **Classification Categories:**
   - *Cardiology*
@@ -187,7 +192,7 @@ Before running the statistical NLP classifier, input text is evaluated against a
 *Response Behavior:* If any red flag is triggered, conversational flows are bypassed, emergency status is set to `true`, confidence is set to `0.96`, and instructions immediately direct the patient to call **999** or proceed directly to **Khulna Medical College Hospital Emergency Ward**.
 
 ### 4.3. Module 2: Medical Report Parser & Biomarker Extraction
-- **Implementation File:** `backend/app/ml/report_parser.py`
+- **Implementation File:** `ai/report_parser.py`
 - **Capability:** Extracts clinical laboratory metrics from unstructured medical reports (e.g., CBC, Lipid Panels, Liver Function, Renal Function, Blood Glucose).
 - **Extracted Biomarkers & Reference Ranges:**
   - *Hemoglobin (Hb):* 13.0 – 17.0 g/dL (Evaluates Anemia / Polycythemia)
@@ -206,7 +211,7 @@ Before running the statistical NLP classifier, input text is evaluated against a
 - **Output:** Categorizes every identified value as `Normal`, `Low`, `High`, or `Critical`. Generates an overall clinical summary and a customized list of questions for the patient to ask their physician.
 
 ### 4.4. Module 3: Medicine Package OCR & Fuzzy Matcher
-- **Implementation File:** `backend/app/ml/medicine_matcher.py`
+- **Implementation File:** `ai/medicine_matcher.py`
 - **Functionality:** Employs string pattern matching and `difflib.SequenceMatcher` to reconcile noisy OCR text or user typos with the verified pharmaceutical database.
 - **Matching Levels:**
   - *Exact / Substring Match (Score ≥ 0.95):* Exact match found.
@@ -567,7 +572,7 @@ cd mednex
    ```bash
    uvicorn app.main:app --host 0.0.0.0 --port $PORT
    ```
-5. Ensure `mednex.db` is writable or mount a persistent disk for SQLite.
+5. Ensure the SQLite database file (`database/mednex.db` by default) is writable or mount a persistent disk for SQLite.
 
 ### Option 2: Docker Containerization
 

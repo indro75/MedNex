@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import Medicine, DrugInteraction
 from ..schemas import MedicineOut, InteractionCheckRequest, DrugInteractionResult, MedicineOCRRequest, MedicineOCRResponse
-from ..ml.medicine_matcher import MedicineMatcherML
+from ai.medicine_matcher import MedicineMatcherML
 
 router = APIRouter(prefix="/api/medicines", tags=["Medicines"])
 

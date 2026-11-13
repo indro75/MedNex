@@ -20,6 +20,19 @@
 
 *(Please replace placeholders with your team members' actual names and IDs).*
 
+### Repository folder ↔ member ownership
+
+The repository is divided into four main folders, one per member, following [TEAM_WORK_DISTRIBUTION.md](./TEAM_WORK_DISTRIBUTION.md):
+
+| Folder | Member | Ownership |
+|---|---|---|
+| [`frontend/`](./frontend/) | Member 1 | Frontend — React client, UI/UX |
+| [`backend/`](./backend/) | Member 2 | Backend — REST APIs, auth, server |
+| [`database/`](./database/) | Member 3 | Database — schema, seed data, dev SQLite |
+| [`ai/`](./ai/) | Member 4 | AI engineering — ML/NLP engine, safety |
+
+Each folder has its own README listing that member's responsibilities. The shared handoff doc is [TEAM_WORK_DISTRIBUTION.md](./TEAM_WORK_DISTRIBUTION.md); ERD and full specs are in [SRS.md](./SRS.md) and [DOCUMENTATION.md](./DOCUMENTATION.md).
+
 ---
 
 ## 🌟 Overview & Mission
@@ -129,7 +142,7 @@ npm run dev -- --host
 
 ```
 d:\Projects\med\
-├── frontend/
+├── frontend/                    # Member 1 — Frontend (details: frontend/README.md)
 │   ├── public/
 │   ├── src/
 │   │   ├── types/               # TypeScript interfaces (Doctor, Hospital, Ambulance, Reports, etc.)
@@ -169,6 +182,25 @@ d:\Projects\med\
 │   ├── package.json
 │   ├── tsconfig.json
 │   └── vite.config.ts
+├── backend/                     # Member 2 — Backend (details: backend/README.md)
+│   ├── run.py                   # FastAPI entrypoint (uvicorn, port 8000)
+│   └── app/
+│       ├── main.py              # App setup, CORS, router registry, startup seeding
+│       ├── database.py          # SQLAlchemy engine; default DB: database/mednex.db
+│       ├── models.py            # ORM models (shared contract with Member 3)
+│       ├── schemas.py           # Pydantic request/response validation
+│       ├── seed.py              # Seeds verified Khulna sample data
+│       └── routers/             # auth, doctors, hospitals, ambulances, appointments,
+│                                # medicines, symptoms, reports, fitness
+├── database/                    # Member 3 — Database (details: database/README.md)
+│   ├── mednex.db                # Development SQLite database (Khulna sample data)
+│   ├── schema.sql               # Generated SQLite DDL (9 tables + indexes)
+│   └── generate_schema.py       # Regenerates schema.sql from backend/app/models.py
+├── ai/                          # Member 4 — AI engineering (details: ai/README.md)
+│   ├── symptom_classifier.py    # TF-IDF + Naive Bayes triage & red-flag engine
+│   ├── report_parser.py         # Lab biomarker extraction & plain-language analysis
+│   └── medicine_matcher.py      # Fuzzy brand/generic medicine matching
+├── TEAM_WORK_DISTRIBUTION.md    # 4-member ownership split & 8-week plan
 └── README.md
 ```
 

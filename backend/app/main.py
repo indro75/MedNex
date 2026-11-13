@@ -8,6 +8,15 @@ Provides unified REST APIs for:
 - AI Medicine Identification & Drug-Drug Interaction Engine
 - User Health History, Appointments & BMI Progress Tracking
 """
+import sys
+from pathlib import Path
+
+# Make the repository root importable so the backend can use the top-level
+# `ai` package (Member 4's AI services) and vice versa.
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base

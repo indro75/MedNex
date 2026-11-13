@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import Doctor, HealthActivity
 from ..schemas import SymptomAnalysisRequest, SymptomAnalysisResponse
-from ..ml.symptom_classifier import classifier
+from ai.symptom_classifier import classifier
 
 router = APIRouter(prefix="/api/symptoms", tags=["Symptom Checker"])
 

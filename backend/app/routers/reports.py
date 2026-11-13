@@ -3,7 +3,7 @@ Medical Report Analyzer & Biomarker Extraction Router
 """
 from fastapi import APIRouter
 from ..schemas import ReportAnalysisRequest, ReportAnalysisResponse
-from ..ml.report_parser import ReportParserML
+from ai.report_parser import ReportParserML
 
 router = APIRouter(prefix="/api/reports", tags=["Report Analyzer"])
 
